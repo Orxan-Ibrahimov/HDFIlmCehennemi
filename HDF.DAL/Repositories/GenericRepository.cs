@@ -10,13 +10,10 @@ namespace HDF.DAL.Repositories
 {
     public class GenericRepository<T> : IGenericDAL<T> where T : class
     {
-        readonly HDFContext _context;
-        public GenericRepository(HDFContext context ) 
-        { 
-            _context = context;
-        }
+        
         public void Delete(T t)
         {
+            using var _context = new HDFContext();
             _context.Set<T>().Remove(t);
             _context.SaveChanges();
 
@@ -24,22 +21,26 @@ namespace HDF.DAL.Repositories
 
         public T GetById(int id)
         {
-           return _context.Set<T>().Find(id);
+            using var _context = new HDFContext();
+            return _context.Set<T>().Find(id);
         }
 
         public List<T> GetList()
         {
+            using var _context = new HDFContext();
             return _context.Set<T>().ToList();
         }
 
         public void Insert(T t)
         {
+            using var _context = new HDFContext();
             _context.Set<T>().Add(t);
             _context.SaveChanges();
         }
 
         public void Update(T t)
         {
+            using var _context = new HDFContext();
             _context.Set<T>().Update(t);
             _context.SaveChanges();
         }
