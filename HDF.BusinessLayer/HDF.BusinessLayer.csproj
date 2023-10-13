@@ -22,4 +22,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HDF.DAL\HDF.DAL.csproj" />
+    <ProjectReference Include="..\HDF.DtoLayer\HDF.DtoLayer.csproj" />
+    <ProjectReference Include="..\HDF.EntityLayer\HDF.EntityLayer.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,9 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HDF.BusinessLayer\HDF.BusinessLayer.csproj" />
+    <ProjectReference Include="..\HDF.DAL\HDF.DAL.csproj" />
+    <ProjectReference Include="..\HDF.EntityLayer\HDF.EntityLayer.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HDF.EntityLayer\HDF.EntityLayer.csproj" />
+  </ItemGroup>
+
 </Project>
