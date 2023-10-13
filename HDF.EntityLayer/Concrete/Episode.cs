@@ -11,7 +11,7 @@ namespace HDF.EntityLayer.Concrete
     {
         public string Name { get; set; }       
         public string EpisodeImage { get; set; }        
-        public int SerieId { get; set; }
+        public int? MovieId { get; set; }
         public Movie Movie { get; set; }
         public List<Comment> Comments { get; set; }
     }

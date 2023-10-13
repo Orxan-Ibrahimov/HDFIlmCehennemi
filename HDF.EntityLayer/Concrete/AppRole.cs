@@ -1,5 +1,4 @@
-﻿using HDF.EntityLayer.Concrete.Base;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -10,5 +10,6 @@ namespace HDF.EntityLayer.Concrete
     public class FilmOrSerie : BaseEntity
     {
         public string Kind { get; set; }
+        public List<Movie> Movies { get; set; }
     }
 }

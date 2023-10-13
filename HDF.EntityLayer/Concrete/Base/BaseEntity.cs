@@ -8,6 +8,6 @@ namespace HDF.EntityLayer.Concrete.Base
 {
     public class BaseEntity
     {
-        public int ID { get; set; }
+        public int? Id { get; set; }
     }
 }
