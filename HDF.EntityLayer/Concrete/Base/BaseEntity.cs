@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete.Base
 {
-    internal class BaseEntity
+    public class BaseEntity
     {
         public int ID { get; set; }
     }

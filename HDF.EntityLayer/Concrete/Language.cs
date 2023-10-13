@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    internal class Language : BaseEntity
+    public class Language : BaseEntity
     {
         public string LanguageKind { get; set; }
         public List<MovieLanguage> MovieLanguages { get; set; }

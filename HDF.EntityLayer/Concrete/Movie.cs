@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    internal class Movie : BaseEntity
+    public class Movie : BaseEntity
     {
         public string Name { get; set; }
-        public string Country { get; set; }
         public DateTime ReleaseDate { get; set; }
         public string FilmImage { get; set; }
         public string Annotation { get; set; }
         public decimal IMDBPoint { get; set; }
         public int MoviePoint { get; set; }
+        public int CountryInt { get; set; }
+        public Country Country { get; set; }
         public FilmOrSerie Kind { get; set; }
         public List<Comment> Comments { get; set; }
         public List<MovieLanguage> MovieLanguages { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    internal class MovieCast
+    public class MovieCast
     {
         public int CastId { get; set; }
         public Cast Cast { get; set; }

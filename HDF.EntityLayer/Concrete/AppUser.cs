@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    internal class AppUser : IdentityUser<int>
+    public class AppUser : IdentityUser<int>
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string District { get; set; }
+        public string City { get; set; }
         public string Avatar { get; set; }
         public List<Movie> Followings { get; set; }
         public List<Movie> Watchings { get; set; }
-        public List<Comment> Comments { get; set; }
-        public string Avatar { get; set; }
-        public string Avatar { get; set; }
-        public string Avatar { get; set; }
-        public string Avatar { get; set; }
+        public List<Comment> Comments { get; set; }       
     }
 }

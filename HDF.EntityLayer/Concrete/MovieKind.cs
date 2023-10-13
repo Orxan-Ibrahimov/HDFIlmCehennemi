@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    internal class MovieKind : BaseEntity
+    public class MovieKind : BaseEntity
     {
         public int KindId { get; set; }
         public Kind Kind { get; set; }

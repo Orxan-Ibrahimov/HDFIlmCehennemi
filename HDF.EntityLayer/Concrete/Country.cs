@@ -1,5 +1,4 @@
 ﻿using HDF.EntityLayer.Concrete.Base;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    public class AppRole : IdentityRole<int>
+    public class Country : BaseEntity
     {
+        public string Name { get; set; }
+        public List<Movie> Movies { get; set; }
     }
 }

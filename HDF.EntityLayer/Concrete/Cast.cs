@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    internal class Cast : BaseEntity
+    public class Cast : BaseEntity
     {
         public string Name { get; set; }
         public string Surname { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    internal class MovieCategory : BaseEntity
+    public class MovieCategory : BaseEntity
     {
         public int CategoryId { get; set; }
         public Category Category { get; set; }

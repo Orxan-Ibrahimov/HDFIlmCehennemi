@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    internal class Comment: BaseEntity
+    public class Comment: BaseEntity
     {
         public string Message { get; set; }
         public int UserId { get; set; }
