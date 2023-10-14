@@ -14,7 +14,7 @@ namespace HDF.DAL.Repositories
         public void Delete(T t)
         {
             using var _context = new HDFContext();
-            _context.Set<T>().Remove(t);
+            _context.Set<T>().Remove(t);            
             _context.SaveChanges();
 
         }

@@ -1,0 +1,22 @@
+﻿@model Country
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+<div class="col-sm-12 col-xl-6 offset-xl-3">
+    <div class="bg-secondary rounded h-100 p-4">
+        <h1 class="mb-4 text-info">Country - <span class="text-white">@Model.Name</span></h1>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-transparent">Id: <span class="text-white">@Model.Id</span></li>
+                    <li class="list-group-item bg-transparent">Country: <span class="text-white">@Model.Name</span></li>
+                    <li class="list-group-item bg-transparent">Country: <span class="text-white">@Model.ShortName</span></li>
+                    <li class="list-group-item bg-transparent">Country: <img src="~/img/@Model.Image" class="rounded-circle flex-shrink-0" style="width: 40px; height: 40px;" /></li>
+                </ul> 
+                <a asp-action="Index" class="btn btn-info m-2"><i class="fa fa-arrow-left"></i></a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary m-2">Remove</a>
+    </div>
+</div>
+    </div>
+</div>
