@@ -1,7 +1,20 @@
+using HDF.BusinessLayer.Abstract;
+using HDF.BusinessLayer.Concrete;
+using HDF.DAL.Abstract;
+using HDF.DAL.Context;
+using HDF.DAL.EntityFrameWork;
+using HDF.EntityLayer.Concrete;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<HDFContext>();
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<HDFContext>();
+
+//
+builder.Services.AddScoped<ICountryDal, EFCountryDAL>();
+builder.Services.AddScoped<ICountryService, CountryManager>();
 
 var app = builder.Build();
 

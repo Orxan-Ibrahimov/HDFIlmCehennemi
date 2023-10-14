@@ -10,6 +10,8 @@ namespace HDF.EntityLayer.Concrete
     public class Country : BaseEntity
     {
         public string Name { get; set; }
+        public string ShortName { get; set; }
+        public string Image { get; set; }
         public List<Movie> Movies { get; set; }
     }
 }

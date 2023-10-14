@@ -12,7 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//builder.Services.AddDbContext<HDFContext>(opt => opt.UseSqlServer("Data Source = DESKTOP-AIBH7MI\\SQLEXPRESS;Initial Catalog=HDF;Integrated Security = sspi;"));
 builder.Services.AddDbContext<HDFContext>();
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<HDFContext>();
 
