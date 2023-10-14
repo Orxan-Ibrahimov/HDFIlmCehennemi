@@ -1,4 +1,5 @@
 ﻿using HDF.BusinessLayer.Abstract;
+using HDF.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,15 +39,19 @@ namespace HDF.PresentationLayer.Backend.Controllers
         // POST: CountryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Country country)
         {
             try
             {
+                if (country == null || !ModelState.IsValid)
+                    return View(country);
+
+                _countryService.Insert(country);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return BadRequest();
             }
         }
 

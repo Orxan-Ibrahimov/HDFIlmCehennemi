@@ -13,10 +13,11 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Country</th>
+                            <th scope="col">Short Description</th>
                             <th scope="col">Flag</th>
                             <th scope="col">Operations</th>
                             <th scope="col">
-                                <button type="button" class="btn btn-lg btn-lg-square btn-outline-success m-2"><i class="fa fa-plus"></i></button>
+                                <a asp-action="Create" class="btn btn-lg btn-lg-square btn-outline-success m-2"><i class="fa fa-plus"></i></a>
                             </th>                           
                         </tr>
                     </thead>
@@ -26,6 +27,7 @@
                             <tr>
                                 <th scope="row">@country.Id</th>
                                 <td>@country.Name</td>
+                                <td>@country.ShortName</td>
                                 <td>
                                     <img class="rounded-circle flex-shrink-0" src="img/tr.png" alt="" style="width: 40px; height: 40px;">
                                 </td>
