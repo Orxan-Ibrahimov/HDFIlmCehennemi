@@ -12,7 +12,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HDFContext>();
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<HDFContext>();
 
-//
+// Cast 
+builder.Services.AddScoped<ICastDAL, EFCastDAL>();
+builder.Services.AddScoped<ICastService, CastManager>();
+
+//Country
 builder.Services.AddScoped<ICountryDal, EFCountryDAL>();
 builder.Services.AddScoped<ICountryService, CountryManager>();
 

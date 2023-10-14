@@ -29,9 +29,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
         public ActionResult Details(int id)
         {
             Country country = _countryService.GetById(id);
-
             if(country == null) return NotFound();
-
 
             return View(country);
         }

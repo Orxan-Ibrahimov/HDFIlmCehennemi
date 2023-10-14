@@ -1,13 +1,13 @@
-﻿@model Country
+﻿@model Cast
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-sm-12 col-xl-6 offset-xl-3">
             <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">Create A Country</h6>
+                <h6 class="mb-4">Create A Cast</h6>
                 <form method="post">
                     <div class="mb-3">
                         <div asp-validation-summary="ModelOnly"></div>
@@ -16,9 +16,9 @@
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label asp-for="ShortName" class="form-label"> Short Name</label>
-                        <input asp-for="ShortName" class="form-control rounded-pill" />
-                        <span asp-validation-for="ShortName" class="text-danger"></span>
+                        <label asp-for="Surname" class="form-label">Surname</label>
+                        <input asp-for="Surname" class="form-control rounded-pill" />
+                        <span asp-validation-for="Surname" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Image" class="form-label"> Image </label>
