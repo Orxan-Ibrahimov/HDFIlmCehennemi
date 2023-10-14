@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HDF.BusinessLayer.Abstract
 {
-    internal interface ICountryService : IGenericService<Country>
+    public interface ICountryService : IGenericService<Country>
     {
     }
 }

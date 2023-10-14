@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HDF.DAL.Abstract
 {
-    public interface ICountryDAL : IGenericDAL<Country>
+    public interface ICountryDal : IGenericDAL<Country>
     {
     }
 }

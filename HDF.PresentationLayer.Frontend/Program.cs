@@ -1,7 +1,25 @@
+using HDF.BusinessLayer.Abstract;
+using HDF.BusinessLayer.Concrete;
+using HDF.DAL.Abstract;
+using HDF.DAL.Context;
+using HDF.DAL.EntityFrameWork;
+using HDF.DAL.Repositories;
+using HDF.EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//builder.Services.AddDbContext<HDFContext>(opt => opt.UseSqlServer("Data Source = DESKTOP-AIBH7MI\\SQLEXPRESS;Initial Catalog=HDF;Integrated Security = sspi;"));
+builder.Services.AddDbContext<HDFContext>();
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<HDFContext>();
+
+//
+builder.Services.AddScoped<ICountryDal, EFCountryDAL>();
+builder.Services.AddScoped<ICountryService, CountryManager>();
+
 
 var app = builder.Build();
 
@@ -18,6 +36,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

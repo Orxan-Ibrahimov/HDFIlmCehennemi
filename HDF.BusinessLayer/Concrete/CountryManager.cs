@@ -11,9 +11,9 @@ namespace HDF.BusinessLayer.Concrete
 {
     public class CountryManager : ICountryService
     {
-        readonly ICountryDAL _countryDAL;
+        readonly ICountryDal _countryDAL;
 
-        public CountryManager(ICountryDAL countryDAL)
+        public CountryManager(ICountryDal countryDAL)
         {
             _countryDAL = countryDAL;
         }
