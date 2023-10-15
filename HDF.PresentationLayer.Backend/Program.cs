@@ -28,6 +28,9 @@ builder.Services.AddScoped<ICategoryService, CategoryManager>();
 builder.Services.AddScoped<IKindDAL, EFKindDAL>();
 builder.Services.AddScoped<IKindService, KindManager>();
 
+//Language
+builder.Services.AddScoped<ILanguageDAL, EFLanguageDAL>();
+builder.Services.AddScoped<ILanguageService, LanguageManager>();
 
 var app = builder.Build();
 
