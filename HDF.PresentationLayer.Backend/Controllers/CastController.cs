@@ -49,7 +49,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
             {
                 if (cast == null) return NotFound();
 
-                if (cast == null || !ModelState.IsValid)
+                if (!ModelState.IsValid)
                     return View(cast);
 
                 _castService.Insert(cast);
@@ -78,6 +78,8 @@ namespace HDF.PresentationLayer.Backend.Controllers
             try
             {
                 if (id != cast.Id) return NotFound();
+
+                if (!ModelState.IsValid) return View(cast);
                 _castService.Update(cast);
                 return RedirectToAction(nameof(Index));
             }

@@ -47,8 +47,9 @@ namespace HDF.PresentationLayer.Backend.Controllers
         {
             try
             {
-                if (country == null || !ModelState.IsValid)
-                    return View(country);
+                if (country == null) return NotFound();
+
+                if (!ModelState.IsValid) return View(country);
 
                 _countryService.Insert(country);
                 return RedirectToAction(nameof(Index));
@@ -76,8 +77,9 @@ namespace HDF.PresentationLayer.Backend.Controllers
 
             try
             {
-                if (country.Id != id || country == null)
-                    return NotFound();
+                if (country.Id != id) return BadRequest();
+                    
+                if(!ModelState.IsValid) return View(country);
 
                 _countryService.Update(country);
                 return RedirectToAction(nameof(Index));

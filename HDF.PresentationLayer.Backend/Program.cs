@@ -20,6 +20,11 @@ builder.Services.AddScoped<ICastService, CastManager>();
 builder.Services.AddScoped<ICountryDal, EFCountryDAL>();
 builder.Services.AddScoped<ICountryService, CountryManager>();
 
+//Category
+builder.Services.AddScoped<ICategoryDAL, EFCategoryDAL>();
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
