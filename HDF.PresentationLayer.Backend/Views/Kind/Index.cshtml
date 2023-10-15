@@ -1,0 +1,41 @@
+﻿@model List<Kind>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h1 class="display-3 text-info mb-4">Kinds</h1>
+                <table class="table table-dark align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Operations</th>
+                            <th scope="col">
+                                <a asp-action="Create" class="btn btn-lg btn-lg-square btn-outline-success m-2"><i class="fa fa-plus"></i></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var kind in Model)
+                        {
+                            <tr>
+                                <th scope="row">@kind.Id</th>
+                                <td>@kind.Name</td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@kind.Id" class="btn btn-lg btn-lg-square btn-outline-info m-2"><i class="fa fa-info"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@kind.Id" class="btn btn-lg btn-lg-square btn-outline-warning m-2"><i class="fa fa-pen"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@kind.Id" class="btn btn-lg btn-lg-square btn-outline-danger m-2"><i class="fa fa-trash"></i></a>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

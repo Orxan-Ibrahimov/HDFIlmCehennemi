@@ -14,12 +14,12 @@ namespace HDF.EntityLayer.Concrete
     public class Country : BaseEntity
     {
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Required]
-        public string ShortName { get; set; }
+        public string? ShortName { get; set; }
         [Required]
-        public string Image { get; set; }
+        public string? Image { get; set; }
         [ValidateNever]
-        public List<Movie> Movies { get; set; }
+        public List<Movie>? Movies { get; set; }
     }
 }

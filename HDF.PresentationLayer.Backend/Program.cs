@@ -24,6 +24,10 @@ builder.Services.AddScoped<ICountryService, CountryManager>();
 builder.Services.AddScoped<ICategoryDAL, EFCategoryDAL>();
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
 
+//Kind
+builder.Services.AddScoped<IKindDAL, EFKindDAL>();
+builder.Services.AddScoped<IKindService, KindManager>();
+
 
 var app = builder.Build();
 

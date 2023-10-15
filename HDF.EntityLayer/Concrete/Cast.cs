@@ -12,12 +12,12 @@ namespace HDF.EntityLayer.Concrete
     public class Cast : BaseEntity
     {
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Required]
-        public string Surname { get; set; }
+        public string? Surname { get; set; }
         [Required]
-        public string Image { get; set; }
+        public string? Image { get; set; }
         [ValidateNever]
-        public List<MovieCast> MovieCasts { get; set; }
+        public List<MovieCast>? MovieCasts { get; set; }
     }
 }
