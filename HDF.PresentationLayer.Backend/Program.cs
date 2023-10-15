@@ -32,6 +32,10 @@ builder.Services.AddScoped<IKindService, KindManager>();
 builder.Services.AddScoped<ILanguageDAL, EFLanguageDAL>();
 builder.Services.AddScoped<ILanguageService, LanguageManager>();
 
+//FilmOrSerie
+builder.Services.AddScoped<IFilmOrSerieDAL, EFFilmOrSerieDAL>();
+builder.Services.AddScoped<IFilmOrSerieService, FilmOrSerieManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
