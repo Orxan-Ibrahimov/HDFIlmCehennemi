@@ -64,8 +64,16 @@
                             }                           
                         </select>                       
                     </div>
-
-                   
+                    @* Movie Kinds *@
+                    <div class="form-floating mb-3">
+                        <select class="form-select pan-form-style" id="kinds" aria-label="Floating label select example">
+                            <option value="-1" selected>Choose</option>
+                            @foreach (var kind in Model.Kinds)
+                            {
+                                <option value="@kind.Id">@kind.Name</option>
+                            }
+                        </select>
+                    </div>
 
                     <div class="form-floating mb-3">
                         <select class="form-select pan-form-style" id="languages" aria-label="Floating label select example">
@@ -75,14 +83,7 @@
                                 <option value="@language.Id">@language.LanguageKind</option>
                             }
                         </select>
-                    </div>
-
-                  @*   <div class="mb-3">
-                        <label asp-for="ChosenCategory"></label>
-                        <select asp-for="ChosenCategory" asp-items="@Model.CategoryList" class="form-control">
-                        </select>
-                        <span asp-validation-for="ChosenCategory"></span>
-                    </div> *@
+                    </div>               
 
                     <button type="submit" class="btn btn-primary">Sign in</button>
                 </form>

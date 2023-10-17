@@ -15,18 +15,19 @@ namespace HDF.PresentationLayer.Backend.Controllers
         private readonly IMovieService _movieService;
         private readonly ICategoryService _categoryService;
         private readonly ICountryService _countryService;
-        private readonly HDFContext _context;
         private readonly IFilmOrSerieService _filmOrSerieService;
         private readonly ILanguageService _languageService;
+        private readonly IKindService _kindService;
 
         public MovieController(IMovieService movieService, ICategoryService categoryService,
-           ICountryService countryService, IFilmOrSerieService filmOrSerieService, ILanguageService languageService)
+           ICountryService countryService, IFilmOrSerieService filmOrSerieService, ILanguageService languageService, IKindService kindService)
         {
             _movieService = movieService;
             _categoryService = categoryService;
             _countryService = countryService;
             _filmOrSerieService = filmOrSerieService;
             _languageService = languageService;
+            _kindService = kindService;
         }
 
         // GET: MovieController
@@ -50,12 +51,14 @@ namespace HDF.PresentationLayer.Backend.Controllers
         {
             MovieVM movieVM = new MovieVM()
             {
-                Categories = _categoryService.GetList().ToList(),
+                Categories = _categoryService.GetList(),
                 FilmOrSerieList = new List<SelectListItem>(),
-                FilmOrSeries = _filmOrSerieService.GetList().ToList(),
+                FilmOrSeries = _filmOrSerieService.GetList(),
+                KindList = new List<SelectListItem>(),
+                Kinds = _kindService.GetList(),
                 LanguageList = new List<SelectListItem>(),
                 Languages = _languageService.GetList(),
-                Countries = _countryService.GetList().ToList(),
+                Countries = _countryService.GetList(),
                 CountryList = new List<SelectListItem>(),
                 Movies = _movieService.GetList()
             };
@@ -82,6 +85,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(MovieVM movieVM)
+        
         {
             try
             {
@@ -90,6 +94,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
                 // Create m:n Table Instance
                 movieVM.Movie.MovieCategories = new List<MovieCategory>();
                 movieVM.Movie.MovieLanguages = new List<MovieLanguage>();
+                movieVM.Movie.MovieKinds = new List<MovieKind>();
 
                 // Fill m:n Tables
                 foreach (int category in movieVM._categories)
@@ -113,6 +118,17 @@ namespace HDF.PresentationLayer.Backend.Controllers
                     };
                     movieVM.Movie.MovieLanguages.Add(movieLanguage);
                 }
+                foreach (int kindId in movieVM._kinds)
+                {
+                    if (kindId < 0) continue;
+                    MovieKind movieKind = new MovieKind()
+                    {
+                        KindId = kindId,
+                        MovieId = movieVM.Movie.Id
+                    };
+                    movieVM.Movie.MovieKinds.Add(movieKind);
+                }
+
 
                 _movieService.Insert(movieVM.Movie);               
                 return RedirectToAction(nameof(Index));

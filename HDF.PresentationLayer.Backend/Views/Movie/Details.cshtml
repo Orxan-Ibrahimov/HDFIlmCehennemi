@@ -30,6 +30,13 @@
                             <span class="badge bg-warning">@movieLanguage.Language.LanguageKind</span>
                         }
                     </li>
+                    <li class="list-group-item bg-transparent">
+                        Language:
+                        @foreach (var movieKind in Model.MovieKinds)
+                        {
+                            <span class="badge bg-dark">@movieKind.Kind.Name</span>
+                        }
+                    </li>
                 </ul>
                 <a asp-action="Index" class="btn btn-info m-2"><i class="fa fa-arrow-left"></i></a>
                 <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary m-2">Remove</a>

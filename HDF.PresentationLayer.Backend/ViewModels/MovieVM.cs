@@ -20,6 +20,10 @@ namespace HDF.PresentationLayer.Backend.ViewModels
         [ValidateNever]       
         public List<SelectListItem> CountryList { get; set; }
         [ValidateNever]
+        public List<Kind> Kinds { get; set; }
+        [ValidateNever]
+        public List<SelectListItem> KindList { get; set; }
+        [ValidateNever]
         public List<Language> Languages { get; set; }
         [ValidateNever]
         public List<SelectListItem> LanguageList { get; set; }
@@ -27,5 +31,6 @@ namespace HDF.PresentationLayer.Backend.ViewModels
         public List<Movie> Movies { get; set; }
         public int[] _categories { get; set; }
         public int[] _languages { get; set; }
+        public int[] _kinds { get; set; }
     }
 }

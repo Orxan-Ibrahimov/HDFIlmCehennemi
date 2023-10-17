@@ -209,6 +209,7 @@
 
     let movieCount = 0;
     let languageCount = 0;
+    let kindCount = 0;
 
     function CreateSpecialElement(list, count,element) {
         console.log(element);
@@ -236,6 +237,10 @@
     });
     $(".form-floating #languages").change(function (e) {
        languageCount = CreateSpecialElement("_languages", languageCount, this);
+    });
+
+    $(".form-floating #kinds").change(function (e) {
+        kindCount = CreateSpecialElement("_kinds", kindCount, this);
     });
     
 })(jQuery);
