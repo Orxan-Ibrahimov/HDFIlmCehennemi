@@ -18,11 +18,11 @@ namespace HDF.PresentationLayer.Backend.Controllers
         // GET: CountryController
         public ActionResult Index()
         {
-           var country = _countryService.GetList();
+           List<Country> countries = _countryService.GetList();
 
-            if (country == null) return NotFound();
+            if (countries == null) return NotFound();
 
-            return View(country);
+            return View(countries);
         }
 
         // GET: CountryController/Details/5

@@ -9,7 +9,7 @@ namespace HDF.EntityLayer.Concrete
 {
     public class Kind : BaseEntity
     {
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public List<MovieKind>? MovieKinds { get; set; }
     }
 }

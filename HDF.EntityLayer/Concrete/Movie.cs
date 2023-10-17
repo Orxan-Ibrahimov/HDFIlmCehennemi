@@ -1,7 +1,10 @@
 ﻿using HDF.EntityLayer.Concrete.Base;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -17,18 +20,20 @@ namespace HDF.EntityLayer.Concrete
         public string FilmImage { get; set; }
         public string Annotation { get; set; }
         public decimal? IMDBPoint { get; set; }
-        public int? MoviePoint { get; set; }
+        public int? MoviePoint { get; set; }      
         public int? CountryId { get; set; }
         [ForeignKey("CountryId")]
+        [ValidateNever]
         public Country Country { get; set; }        
         public int? FilmOrSerieId { get; set; }
         [ForeignKey("FilmOrSerieId")]
+        [ValidateNever]
         public FilmOrSerie FilmOrSerie { get; set; }
-        public List<MovieKind> MovieKinds { get; set; }
-        public List<Comment> Comments { get; set; }
-        public List<MovieLanguage> MovieLanguages { get; set; }
-        public List<MovieCast> MovieCasts { get; set; }
-        public List<MovieCategory> MovieCategories { get; set; }
-        public List<Episode> Episodes { get; set; }
+        public List<MovieKind>? MovieKinds { get; set; }
+        public List<Comment>? Comments { get; set; }
+        public List<MovieLanguage>? MovieLanguages { get; set; }
+        public List<MovieCast>? MovieCasts { get; set; }
+        public List<MovieCategory>? MovieCategories { get; set; }
+        public List<Episode>? Episodes { get; set; }
     }
 }

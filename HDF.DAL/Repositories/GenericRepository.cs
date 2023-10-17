@@ -1,5 +1,6 @@
 ﻿using HDF.DAL.Abstract;
 using HDF.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace HDF.DAL.Repositories
             using var _context = new HDFContext();
             _context.Set<T>().Remove(t);            
             _context.SaveChanges();
+            
 
         }
 

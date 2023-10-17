@@ -9,7 +9,7 @@ namespace HDF.EntityLayer.Concrete
 {
     public class Language : BaseEntity
     {
-        public string? LanguageKind { get; set; }
+        public string LanguageKind { get; set; }
         public List<MovieLanguage>? MovieLanguages { get; set; }
     }
 }

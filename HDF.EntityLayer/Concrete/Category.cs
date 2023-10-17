@@ -13,8 +13,7 @@ namespace HDF.EntityLayer.Concrete
     public class Category : BaseEntity
     {
         [Required]
-        public string? Name { get; set; }
-        [ValidateNever]
+        public string Name { get; set; }
         public List<MovieCategory>? MovieCategories { get; set; }
     }
 }

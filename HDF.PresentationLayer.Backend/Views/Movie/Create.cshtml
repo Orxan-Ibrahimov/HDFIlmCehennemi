@@ -1,0 +1,72 @@
+﻿@model MovieVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6 offset-xl-3">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Create A Movie</h6>
+                <form method="post">
+                    <div class="mb-3">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <label asp-for="Movie.Name" class="form-label">Name</label>
+                        <input asp-for="Movie.Name" class="form-control rounded-pill" />
+                        <span asp-validation-for="Movie.Name" class="text-danger"></span>
+                    </div>                   
+                    <div class="mb-3">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <label asp-for="Movie.MoviePoint" class="form-label">Movie Point</label>
+                        <input asp-for="Movie.MoviePoint" class="form-control rounded-pill" />
+                        <span asp-validation-for="Movie.MoviePoint" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Movie.IMDBPoint" class="form-label"> IMDb Point</label>
+                        <input asp-for="Movie.IMDBPoint" class="form-control rounded-pill" />
+                        <span asp-validation-for="Movie.IMDBPoint" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Movie.FilmImage" class="form-label">FilmImage</label>
+                        <input asp-for="Movie.FilmImage" class="form-control rounded-pill" />
+                        <span asp-validation-for="Movie.FilmImage" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Movie.Annotation" class="form-label">Annotation</label>
+                        <textarea asp-for="Movie.Annotation" class="form-control rounded-pill"> </textarea>
+                        <span asp-validation-for="Movie.Annotation" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Movie.CountryId"></label>
+                        <select asp-for="Movie.CountryId" asp-items="@Model.CountryList" class="form-control">
+                        </select>
+                        <span asp-validation-for="Movie.CountryId"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Movie.FilmOrSerieId"></label>
+                        <select asp-for="Movie.FilmOrSerieId" asp-items="@Model.FilmOrSerieList" class="form-control">
+                        </select>
+                        <span asp-validation-for="Movie.FilmOrSerieId"></span>
+                    </div>
+                    <div class="form-floating">
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">                           
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }                           
+                        </select>                       
+                    </div>
+
+                  @*   <div class="mb-3">
+                        <label asp-for="ChosenCategory"></label>
+                        <select asp-for="ChosenCategory" asp-items="@Model.CategoryList" class="form-control">
+                        </select>
+                        <span asp-validation-for="ChosenCategory"></span>
+                    </div> *@
+
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>    

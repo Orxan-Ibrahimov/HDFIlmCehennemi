@@ -18,11 +18,11 @@ namespace HDF.PresentationLayer.Backend.Controllers
         // GET: CountryController
         public ActionResult Index()
         {
-            var cast = _castService.GetList();
+            List<Cast> casts = _castService.GetList();
 
-            if (cast == null) return NotFound();
+            if (casts == null) return NotFound();
 
-            return View(cast);
+            return View(casts);
         }
 
         // GET: CastController/Details/5
