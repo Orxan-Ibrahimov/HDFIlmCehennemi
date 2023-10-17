@@ -17,10 +17,14 @@ namespace HDF.PresentationLayer.Backend.Controllers
         private readonly ICountryService _countryService;
         private readonly IFilmOrSerieService _filmOrSerieService;
         private readonly ILanguageService _languageService;
+        private readonly IMovieKindService _movieKindService;
+        private readonly IMovieLanguageService _movieLanguageService;
+        private readonly IMovieCategoryService _movieCategoryService;
         private readonly IKindService _kindService;
 
         public MovieController(IMovieService movieService, ICategoryService categoryService,
-           ICountryService countryService, IFilmOrSerieService filmOrSerieService, ILanguageService languageService, IKindService kindService)
+           ICountryService countryService, IFilmOrSerieService filmOrSerieService, ILanguageService languageService, IKindService kindService,
+           IMovieKindService movieKindService, IMovieLanguageService movieLanguageService, IMovieCategoryService movieCategoryService)
         {
             _movieService = movieService;
             _categoryService = categoryService;
@@ -28,6 +32,9 @@ namespace HDF.PresentationLayer.Backend.Controllers
             _filmOrSerieService = filmOrSerieService;
             _languageService = languageService;
             _kindService = kindService;
+            _movieKindService = movieKindService;
+            _movieLanguageService = movieLanguageService;
+            _movieCategoryService = movieCategoryService;
         }
 
         // GET: MovieController
@@ -163,22 +170,40 @@ namespace HDF.PresentationLayer.Backend.Controllers
         // GET: MovieController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
 
-        // POST: MovieController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+            Movie movie = _movieService.GetById(id);
+            if (movie == null) return NotFound();
+
+            _movieService.Delete(movie);
+
+            if (movie.MovieKinds != null || movie.MovieKinds.Count() > 0)
             {
-                return RedirectToAction(nameof(Index));
+                foreach (var movieKind in movie.MovieKinds)
+                {
+                    _movieKindService.Delete(movieKind);
+                }
+                movie.MovieKinds.RemoveRange(0, movie.MovieKinds.Count());
             }
-            catch
+            if (movie.MovieLanguages != null || movie.MovieLanguages.Count() > 0)
+            {               
+                foreach (var movieLanguage in movie.MovieLanguages)
+                {
+                    _movieLanguageService.Delete(movieLanguage);
+                }
+                movie.MovieLanguages.RemoveRange(0, movie.MovieLanguages.Count());
+            }
+            if (movie.MovieCategories != null || movie.MovieCategories.Count() > 0)
             {
-                return View();
+                foreach (var movieCategory in movie.MovieCategories)
+                {
+                    _movieCategoryService.Delete(movieCategory);
+                }
+                movie.MovieCategories.RemoveRange(0, movie.MovieCategories.Count());
             }
+
+           
+            return RedirectToAction(nameof(Index));
         }
+       
     }
 }

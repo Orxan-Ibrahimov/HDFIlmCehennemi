@@ -40,6 +40,18 @@ builder.Services.AddScoped<IFilmOrSerieService, FilmOrSerieManager>();
 builder.Services.AddScoped<IMovieDAL, EFMovieDAL>();
 builder.Services.AddScoped<IMovieService, MovieManager>();
 
+//MovieKind
+builder.Services.AddScoped<IMovieKindDAL, EFMovieKindDAL>();
+builder.Services.AddScoped<IMovieKindService, MovieKindManager>();
+
+//MovieCategory
+builder.Services.AddScoped<IMovieCategoryDAL, EFMovieCategoryDAL>();
+builder.Services.AddScoped<IMovieCategoryService, MovieCategoryManager>();
+
+//MovieLanguage
+builder.Services.AddScoped<IMovieLanguageDAL, EFMovieLanguageDAL>();
+builder.Services.AddScoped<IMovieLanguageService, MovieLanguageManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

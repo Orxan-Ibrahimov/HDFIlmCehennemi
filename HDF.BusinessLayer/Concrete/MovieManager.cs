@@ -20,7 +20,7 @@ namespace HDF.BusinessLayer.Concrete
         }
 
         public void Delete(Movie t)
-        {
+        {         
             _movieDAL.Delete(t);
         }
 
