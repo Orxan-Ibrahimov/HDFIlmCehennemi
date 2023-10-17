@@ -16,21 +16,16 @@ namespace HDF.DAL.Repositories
         {
             using var _context = new HDFContext();
             _context.Set<T>().Remove(t);            
-            _context.SaveChanges();
-            
+            _context.SaveChanges();          
 
-        }
+        }     
 
-        public T GetById(int id)
+        public DbSet<T> GetList()
         {
-            using var _context = new HDFContext();
-            return _context.Set<T>().Find(id);
-        }
+            var _context = new HDFContext();
+            var table = _context.Set<T>();
+            return table;
 
-        public List<T> GetList()
-        {
-            using var _context = new HDFContext();
-            return _context.Set<T>().ToList();
         }
 
         public void Insert(T t)

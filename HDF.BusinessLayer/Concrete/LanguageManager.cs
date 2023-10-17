@@ -26,12 +26,12 @@ namespace HDF.BusinessLayer.Concrete
 
         public Language GetById(int id)
         {
-            return _languageDAL.GetById(id);
+            return _languageDAL.GetList().Include(l => l.MovieLanguages).ThenInclude(ml => ml.Movie).FirstOrDefault(l => l.Id == id);
         }
 
         public List<Language> GetList()
         {
-            return _languageDAL.GetList();
+            return _languageDAL.GetList().Include(l => l.MovieLanguages).ThenInclude(ml => ml.Movie).ToList();
         }
 
         public void Insert(Language t)

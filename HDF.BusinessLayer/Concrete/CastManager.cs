@@ -26,12 +26,12 @@ namespace HDF.BusinessLayer.Concrete
 
         public Cast GetById(int id)
         {
-            return _castDAL.GetById(id);
+            return _castDAL.GetList().Include(c => c.MovieCasts).ThenInclude(mc => mc.Movie).FirstOrDefault(c => c.Id == id);
         }
 
         public List<Cast> GetList()
         {
-           return _castDAL.GetList();
+            return _castDAL.GetList().Include(c => c.MovieCasts).ThenInclude(mc => mc.Movie).ToList();
         }
 
         public void Insert(Cast t)

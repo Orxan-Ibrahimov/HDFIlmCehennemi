@@ -14,7 +14,16 @@
     z-index: 99;
 }
 
-
+/* Form */
+.pan-form-style {
+    background-color: #000!important;
+    color: #EB1616!important;
+    border-radius:1rem!important;
+}
+    .pan-form-style::selection {
+        background-color: #EB1616;
+        color:#000;
+    }
 /*** Spinner ***/
 #spinner {
     opacity: 0;

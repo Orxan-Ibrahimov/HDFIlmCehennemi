@@ -12,7 +12,6 @@ namespace HDF.DAL.Abstract
         void Insert(T t);
         void Update(T t);
         void Delete(T t);
-        T GetById(int id);
-        List<T> GetList();
+        DbSet<T> GetList();
     }
 }

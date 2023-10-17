@@ -26,12 +26,12 @@ namespace HDF.BusinessLayer.Concrete
 
         public Kind GetById(int id)
         {
-            return _kindDAL.GetById(id);
+            return _kindDAL.GetList().Include(k => k.MovieKinds).ThenInclude(mk => mk.Movie).FirstOrDefault(k => k.Id == id);
         }
 
         public List<Kind> GetList()
         {
-            return _kindDAL.GetList();
+            return _kindDAL.GetList().Include(k => k.MovieKinds).ThenInclude(mk => mk.Movie).ToList();
         }
 
         public void Insert(Kind t)
