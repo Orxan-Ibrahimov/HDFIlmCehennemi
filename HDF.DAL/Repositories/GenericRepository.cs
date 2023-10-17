@@ -23,8 +23,7 @@ namespace HDF.DAL.Repositories
         public DbSet<T> GetList()
         {
             var _context = new HDFContext();
-            var table = _context.Set<T>();
-            return table;
+            return _context.Set<T>();
 
         }
 

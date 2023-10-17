@@ -17,14 +17,16 @@ namespace HDF.PresentationLayer.Backend.Controllers
         private readonly ICountryService _countryService;
         private readonly HDFContext _context;
         private readonly IFilmOrSerieService _filmOrSerieService;
+        private readonly ILanguageService _languageService;
 
         public MovieController(IMovieService movieService, ICategoryService categoryService,
-           ICountryService countryService, IFilmOrSerieService filmOrSerieService)
+           ICountryService countryService, IFilmOrSerieService filmOrSerieService, ILanguageService languageService)
         {
             _movieService = movieService;
             _categoryService = categoryService;
             _countryService = countryService;
             _filmOrSerieService = filmOrSerieService;
+            _languageService = languageService;
         }
 
         // GET: MovieController
@@ -51,6 +53,8 @@ namespace HDF.PresentationLayer.Backend.Controllers
                 Categories = _categoryService.GetList().ToList(),
                 FilmOrSerieList = new List<SelectListItem>(),
                 FilmOrSeries = _filmOrSerieService.GetList().ToList(),
+                LanguageList = new List<SelectListItem>(),
+                Languages = _languageService.GetList(),
                 Countries = _countryService.GetList().ToList(),
                 CountryList = new List<SelectListItem>(),
                 Movies = _movieService.GetList()
@@ -81,18 +85,35 @@ namespace HDF.PresentationLayer.Backend.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return View(movieVM);
+                if (!ModelState.IsValid) return RedirectToAction(nameof(Create));
+
+                // Create m:n Table Instance
                 movieVM.Movie.MovieCategories = new List<MovieCategory>();
-                foreach (int category in movieVM.categories)
+                movieVM.Movie.MovieLanguages = new List<MovieLanguage>();
+
+                // Fill m:n Tables
+                foreach (int category in movieVM._categories)
                 {
+                    if (category < 0) continue;
                     MovieCategory movieCategory = new MovieCategory()
                     {
                         CategoryId = category,
                         MovieId = movieVM.Movie.Id
-                        //MovieId = _movieService.GetList().Count() + 1
                     };
                     movieVM.Movie.MovieCategories.Add(movieCategory);
             }
+               
+                foreach (int languageId in movieVM._languages)
+                {
+                    if (languageId < 0) continue;
+                    MovieLanguage movieLanguage = new MovieLanguage()
+                    {
+                        LanguageId = languageId,
+                        MovieId = movieVM.Movie.Id
+                    };
+                    movieVM.Movie.MovieLanguages.Add(movieLanguage);
+                }
+
                 _movieService.Insert(movieVM.Movie);               
                 return RedirectToAction(nameof(Index));
             }

@@ -26,7 +26,7 @@ namespace HDF.BusinessLayer.Concrete
 
         public Language GetById(int id)
         {
-            return _languageDAL.GetList().Include(l => l.MovieLanguages).ThenInclude(ml => ml.Movie).FirstOrDefault(l => l.Id == id);
+            return GetList().FirstOrDefault(l => l.Id == id);
         }
 
         public List<Language> GetList()

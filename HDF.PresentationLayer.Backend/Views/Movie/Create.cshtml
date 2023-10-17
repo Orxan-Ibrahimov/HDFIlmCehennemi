@@ -18,18 +18,23 @@
                     <div class="mb-3">
                         <div asp-validation-summary="ModelOnly"></div>
                         <label asp-for="Movie.MoviePoint" class="form-label">Movie Point</label>
-                        <input asp-for="Movie.MoviePoint" class="form-control pan-form-style rounded-pill" />
+                        <input asp-for="Movie.MoviePoint" min="0" max="10" class="form-control pan-form-style rounded-pill" />
                         <span asp-validation-for="Movie.MoviePoint" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Movie.IMDBPoint" class="form-label"> IMDb Point</label>
-                        <input asp-for="Movie.IMDBPoint" class="form-control pan-form-style rounded-pill" />
+                        <input asp-for="Movie.IMDBPoint" min="0" max="10" class="form-control pan-form-style rounded-pill" />
                         <span asp-validation-for="Movie.IMDBPoint" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Movie.FilmImage" class="form-label">FilmImage</label>
                         <input asp-for="Movie.FilmImage" class="form-control pan-form-style rounded-pill" />
                         <span asp-validation-for="Movie.FilmImage" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Movie.ReleaseDate" class="form-label">Release Date</label>
+                        <input type="date" asp-for="Movie.ReleaseDate" class="form-control pan-form-style rounded-pill" />
+                        <span asp-validation-for="Movie.ReleaseDate" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Movie.Annotation" class="form-label">Annotation</label>
@@ -39,22 +44,37 @@
                     <div class="mb-3">
                         <label asp-for="Movie.CountryId"></label>
                         <select asp-for="Movie.CountryId" asp-items="@Model.CountryList" class="form-control pan-form-style">
+                            <option selected>Choose</option>
                         </select>
                         <span asp-validation-for="Movie.CountryId"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Movie.FilmOrSerieId"></label>
                         <select asp-for="Movie.FilmOrSerieId" asp-items="@Model.FilmOrSerieList" class="form-control pan-form-style">
+                            <option selected>Choose</option>
                         </select>
                         <span asp-validation-for="Movie.FilmOrSerieId"></span>
                     </div>
-                    <div class="form-floating">
-                        <select class="form-select pan-form-style" id="floatingSelect" aria-label="Floating label select example">
+                    <div class="form-floating mb-3">
+                        <select class="form-select pan-form-style" id="categories" aria-label="Floating label select example">
+                            <option value="-1" selected>Choose</option>
                             @foreach (var category in Model.Categories)
                             {
                                 <option value="@category.Id">@category.Name</option>
                             }                           
                         </select>                       
+                    </div>
+
+                   
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select pan-form-style" id="languages" aria-label="Floating label select example">
+                            <option value="-1" selected>Choose</option>
+                            @foreach (var language in Model.Languages)
+                            {
+                                <option value="@language.Id">@language.LanguageKind</option>
+                            }
+                        </select>
                     </div>
 
                   @*   <div class="mb-3">

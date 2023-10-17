@@ -13,13 +13,19 @@ namespace HDF.PresentationLayer.Backend.ViewModels
         public List<SelectListItem> FilmOrSerieList { get; set; }
         [ValidateNever]
         public List<FilmOrSerie> FilmOrSeries { get; set; }
+        [ValidateNever]
         public List<Category> Categories { get; set; }
         [ValidateNever]
         public List<Country> Countries { get; set; }
         [ValidateNever]       
         public List<SelectListItem> CountryList { get; set; }
         [ValidateNever]
+        public List<Language> Languages { get; set; }
+        [ValidateNever]
+        public List<SelectListItem> LanguageList { get; set; }
+        [ValidateNever]
         public List<Movie> Movies { get; set; }
-        public int[] categories { get; set; }
+        public int[] _categories { get; set; }
+        public int[] _languages { get; set; }
     }
 }

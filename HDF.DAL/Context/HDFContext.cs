@@ -36,6 +36,10 @@ namespace HDF.DAL.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Movie>().
+                 Property(m => m.Annotation).HasColumnType("Text");
+
             builder.Entity<Comment>().
                 HasOne(c => c.Movie)
                 .WithMany(m => m.Comments)

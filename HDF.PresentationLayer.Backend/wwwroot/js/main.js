@@ -207,22 +207,35 @@
         }
     });
 
-    let count = 0;
-    $(".form-floating select").change(function (e) {
-        let alert = document.createElement("a");
-        var selectedValue = $(this).val(); 
-        var selectedText = this.options[this.selectedIndex].text;
-        this.options[this.selectedIndex].setAttribute("disabled", "true");
-        alert.classList.add("alert", "alert-info", "d-inline-block", "p-2");
-        alert.textContent = selectedText;
-        $(this).after(alert);
+    let movieCount = 0;
+    let languageCount = 0;
 
-        let input = document.createElement("input");
-        input.classList.add("d-none");
-        input.setAttribute("name", `categories[${count}]`);
-        $(input).val(selectedValue);
-        $(this).after(input);
-        count++;
+    function CreateSpecialElement(list, count,element) {
+        console.log(element);
+        var selectedValue = $(element).val();
+        var selectedText = element.options[element.selectedIndex].text;
+        if (selectedValue >= 0) {
+            let alert = document.createElement("a");
+            element.options[element.selectedIndex].setAttribute("disabled", "true");
+            alert.classList.add("alert", "alert-info", "d-inline-block", "my-2", "p-2");
+            alert.textContent = selectedText;
+            $(element).after(alert);
+
+            let input = document.createElement("input");
+            input.classList.add("d-none");
+            input.setAttribute("name", `${list}[${count}]`);
+            $(input).val(selectedValue);
+            $(element).after(input);
+            count++;           
+        }
+        return count;       
+        
+    }
+    $(".form-floating #categories").change(function (e) {
+       movieCount = CreateSpecialElement("_categories", movieCount, this);
+    });
+    $(".form-floating #languages").change(function (e) {
+       languageCount = CreateSpecialElement("_languages", languageCount, this);
     });
     
 })(jQuery);

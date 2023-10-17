@@ -15,7 +15,7 @@ namespace HDF.EntityLayer.Concrete
     public class Movie : BaseEntity
     {
         public string Name { get; set; }
-        [Column(TypeName = "date")]
+        //[Column(TypeName = "date")]
         public DateTime ReleaseDate { get; set; }
         public string FilmImage { get; set; }
         public string Annotation { get; set; }
