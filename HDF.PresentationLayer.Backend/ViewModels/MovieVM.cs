@@ -8,11 +8,7 @@ namespace HDF.PresentationLayer.Backend.ViewModels
     public class MovieVM
     {
         
-        public Movie Movie { get; set; }
-        [ValidateNever]
-        public List<SelectListItem> FilmOrSerieList { get; set; }
-        [ValidateNever]
-        public List<FilmOrSerie> FilmOrSeries { get; set; }
+        public Movie Movie { get; set; }       
         [ValidateNever]
         public List<Category> Categories { get; set; }
         [ValidateNever]

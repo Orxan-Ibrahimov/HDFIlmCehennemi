@@ -32,6 +32,15 @@
                         <span asp-validation-for="Movie.FilmImage" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
+                        <label asp-for="Movie.IsSeries"></label>
+                        <select asp-for="Movie.IsSeries" class="form-control pan-form-style">
+                            <option selected>Choose</option>
+                            <option value="true">Evet</option>
+                            <option value="false">Hayır</option>
+                        </select>
+                        <span asp-validation-for="Movie.IsSeries"></span>
+                    </div>
+                    <div class="mb-3">
                         <label asp-for="Movie.ReleaseDate" class="form-label">Release Date</label>
                         <input type="date" asp-for="Movie.ReleaseDate" class="form-control pan-form-style rounded-pill" />
                         <span asp-validation-for="Movie.ReleaseDate" class="text-danger"></span>
@@ -47,14 +56,7 @@
                             <option selected>Choose</option>
                         </select>
                         <span asp-validation-for="Movie.CountryId"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Movie.FilmOrSerieId"></label>
-                        <select asp-for="Movie.FilmOrSerieId" asp-items="@Model.FilmOrSerieList" class="form-control pan-form-style">
-                            <option selected>Choose</option>
-                        </select>
-                        <span asp-validation-for="Movie.FilmOrSerieId"></span>
-                    </div>
+                    </div>                   
                     <div class="form-floating mb-3">
                         <select class="form-select pan-form-style" id="categories" aria-label="Floating label select example">
                             <option value="-1" selected>Choose</option>

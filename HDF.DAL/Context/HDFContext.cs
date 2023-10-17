@@ -22,7 +22,6 @@ namespace HDF.DAL.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cast> Casts { get; set; }
         public DbSet<Language> Languages { get; set; }
-        public DbSet<FilmOrSerie> FilmOrSeries { get; set; }
         public DbSet<Kind> Kinds { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Episode> Episodes { get; set; }
@@ -39,6 +38,9 @@ namespace HDF.DAL.Context
 
             builder.Entity<Movie>().
                  Property(m => m.Annotation).HasColumnType("Text");
+
+            builder.Entity<Movie>().
+                Property(m => m.IsActive).HasDefaultValue(true);
 
             builder.Entity<Comment>().
                 HasOne(c => c.Movie)
@@ -69,14 +71,7 @@ namespace HDF.DAL.Context
              HasOne(m => m.Country)
              .WithMany(c => c.Movies)
              .HasForeignKey(m => m.CountryId)
-             .OnDelete(DeleteBehavior.ClientSetNull);
-
-            builder.Entity<Movie>().
-             HasOne(m => m.FilmOrSerie)
-             .WithMany(c => c.Movies)
-             .HasForeignKey(m => m.FilmOrSerieId)
-             .OnDelete(DeleteBehavior.ClientSetNull);
-
+             .OnDelete(DeleteBehavior.ClientSetNull);         
 
             builder.Entity<MovieCast>().
              HasOne(mc => mc.Movie)

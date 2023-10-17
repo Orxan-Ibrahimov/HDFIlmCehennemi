@@ -99,19 +99,6 @@ namespace HDF.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FilmOrSeries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Kind = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FilmOrSeries", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Kinds",
                 columns: table => new
                 {
@@ -250,13 +237,15 @@ namespace HDF.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FilmImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Annotation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Annotation = table.Column<string>(type: "Text", nullable: false),
                     IMDBPoint = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     MoviePoint = table.Column<int>(type: "int", nullable: true),
                     CountryId = table.Column<int>(type: "int", nullable: false),
-                    FilmOrSerieId = table.Column<int>(type: "int", nullable: false),
+                    FilmOrSerieId = table.Column<int>(type: "int", nullable: true),
+                    IsSeries = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     AppUserId = table.Column<int>(type: "int", nullable: true),
                     AppUserId1 = table.Column<int>(type: "int", nullable: true)
                 },
@@ -277,11 +266,6 @@ namespace HDF.DAL.Migrations
                         name: "FK_Movies_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Movies_FilmOrSeries_FilmOrSerieId",
-                        column: x => x.FilmOrSerieId,
-                        principalTable: "FilmOrSeries",
                         principalColumn: "Id");
                 });
 
@@ -311,8 +295,8 @@ namespace HDF.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CastId = table.Column<int>(type: "int", nullable: false),
-                    MovieId = table.Column<int>(type: "int", nullable: false)
+                    CastId = table.Column<int>(type: "int", nullable: true),
+                    MovieId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -335,8 +319,8 @@ namespace HDF.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    MovieId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
+                    MovieId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -359,8 +343,8 @@ namespace HDF.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    KindId = table.Column<int>(type: "int", nullable: false),
-                    MovieId = table.Column<int>(type: "int", nullable: false)
+                    KindId = table.Column<int>(type: "int", nullable: true),
+                    MovieId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -383,8 +367,8 @@ namespace HDF.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageId = table.Column<int>(type: "int", nullable: false),
-                    MovieId = table.Column<int>(type: "int", nullable: false)
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    MovieId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -545,11 +529,6 @@ namespace HDF.DAL.Migrations
                 name: "IX_Movies_CountryId",
                 table: "Movies",
                 column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Movies_FilmOrSerieId",
-                table: "Movies",
-                column: "FilmOrSerieId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -610,9 +589,6 @@ namespace HDF.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Countries");
-
-            migrationBuilder.DropTable(
-                name: "FilmOrSeries");
         }
     }
 }

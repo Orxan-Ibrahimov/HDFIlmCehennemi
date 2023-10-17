@@ -20,15 +20,13 @@ namespace HDF.EntityLayer.Concrete
         public string FilmImage { get; set; }
         public string Annotation { get; set; }
         public decimal? IMDBPoint { get; set; }
-        public int? MoviePoint { get; set; }      
+        public decimal? MoviePoint { get; set; }      
         public int? CountryId { get; set; }
         [ForeignKey("CountryId")]
         [ValidateNever]
         public Country Country { get; set; }        
-        public int? FilmOrSerieId { get; set; }
-        [ForeignKey("FilmOrSerieId")]
-        [ValidateNever]
-        public FilmOrSerie FilmOrSerie { get; set; }
+        public bool IsSeries { get; set; }
+        public bool IsActive { get; set; }
         public List<MovieKind>? MovieKinds { get; set; }
         public List<Comment>? Comments { get; set; }
         public List<MovieLanguage>? MovieLanguages { get; set; }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HDF.DAL.Migrations
 {
     [DbContext(typeof(HDFContext))]
-    [Migration("20231014175532_mig_1")]
-    partial class mig_1
+    [Migration("20231017193025_mig_2")]
+    partial class mig_2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -271,23 +271,6 @@ namespace HDF.DAL.Migrations
                     b.ToTable("Episodes");
                 });
 
-            modelBuilder.Entity("HDF.EntityLayer.Concrete.FilmOrSerie", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
-
-                    b.Property<string>("Kind")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FilmOrSeries");
-                });
-
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Kind", b =>
                 {
                     b.Property<int?>("Id")
@@ -332,7 +315,7 @@ namespace HDF.DAL.Migrations
 
                     b.Property<string>("Annotation")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("Text");
 
                     b.Property<int?>("AppUserId")
                         .HasColumnType("int");
@@ -348,22 +331,26 @@ namespace HDF.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FilmOrSerieId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<decimal?>("IMDBPoint")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("MoviePoint")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("IsSeries")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("MoviePoint")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -372,8 +359,6 @@ namespace HDF.DAL.Migrations
                     b.HasIndex("AppUserId1");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("FilmOrSerieId");
 
                     b.ToTable("Movies");
                 });
@@ -387,11 +372,9 @@ namespace HDF.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<int?>("CastId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("MovieId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -412,11 +395,9 @@ namespace HDF.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<int?>("CategoryId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("MovieId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -437,11 +418,9 @@ namespace HDF.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<int?>("KindId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("MovieId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -462,11 +441,9 @@ namespace HDF.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<int?>("LanguageId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("MovieId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -630,27 +607,18 @@ namespace HDF.DAL.Migrations
                         .HasForeignKey("CountryId")
                         .IsRequired();
 
-                    b.HasOne("HDF.EntityLayer.Concrete.FilmOrSerie", "FilmOrSerie")
-                        .WithMany("Movies")
-                        .HasForeignKey("FilmOrSerieId")
-                        .IsRequired();
-
                     b.Navigation("Country");
-
-                    b.Navigation("FilmOrSerie");
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.MovieCast", b =>
                 {
                     b.HasOne("HDF.EntityLayer.Concrete.Cast", "Cast")
                         .WithMany("MovieCasts")
-                        .HasForeignKey("CastId")
-                        .IsRequired();
+                        .HasForeignKey("CastId");
 
                     b.HasOne("HDF.EntityLayer.Concrete.Movie", "Movie")
                         .WithMany("MovieCasts")
-                        .HasForeignKey("MovieId")
-                        .IsRequired();
+                        .HasForeignKey("MovieId");
 
                     b.Navigation("Cast");
 
@@ -661,13 +629,11 @@ namespace HDF.DAL.Migrations
                 {
                     b.HasOne("HDF.EntityLayer.Concrete.Category", "Category")
                         .WithMany("MovieCategories")
-                        .HasForeignKey("CategoryId")
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("HDF.EntityLayer.Concrete.Movie", "Movie")
                         .WithMany("MovieCategories")
-                        .HasForeignKey("MovieId")
-                        .IsRequired();
+                        .HasForeignKey("MovieId");
 
                     b.Navigation("Category");
 
@@ -678,13 +644,11 @@ namespace HDF.DAL.Migrations
                 {
                     b.HasOne("HDF.EntityLayer.Concrete.Kind", "Kind")
                         .WithMany("MovieKinds")
-                        .HasForeignKey("KindId")
-                        .IsRequired();
+                        .HasForeignKey("KindId");
 
                     b.HasOne("HDF.EntityLayer.Concrete.Movie", "Movie")
                         .WithMany("MovieKinds")
-                        .HasForeignKey("MovieId")
-                        .IsRequired();
+                        .HasForeignKey("MovieId");
 
                     b.Navigation("Kind");
 
@@ -695,13 +659,11 @@ namespace HDF.DAL.Migrations
                 {
                     b.HasOne("HDF.EntityLayer.Concrete.Language", "Language")
                         .WithMany("MovieLanguages")
-                        .HasForeignKey("LanguageId")
-                        .IsRequired();
+                        .HasForeignKey("LanguageId");
 
                     b.HasOne("HDF.EntityLayer.Concrete.Movie", "Movie")
                         .WithMany("MovieLanguages")
-                        .HasForeignKey("MovieId")
-                        .IsRequired();
+                        .HasForeignKey("MovieId");
 
                     b.Navigation("Language");
 
@@ -786,11 +748,6 @@ namespace HDF.DAL.Migrations
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Episode", b =>
                 {
                     b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("HDF.EntityLayer.Concrete.FilmOrSerie", b =>
-                {
-                    b.Navigation("Movies");
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Kind", b =>

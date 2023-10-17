@@ -24,7 +24,7 @@
                                 <h5 class="text-info text-center">IMDb</h5>
                             </th>
                             <th scope="col">
-                                <h5 class="text-info text-center">Film or Serie?</h5>
+                                <h5 class="text-info text-center">Active?</h5>
                             </th>
                             <th scope="col">
                                 <h5 class="text-info text-center">Country</h5>
@@ -44,30 +44,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var movies in Model)
+                        @foreach (var movie in Model)
                         {
                             <tr>
-                                <th scope="row">@movies.Id</th>
-                                <td class="text-center">@movies.Name</td>
-                                <td class="text-center">@movies.MoviePoint</td>
-                                <td class="text-center">@movies.IMDBPoint</td>
-                                <td class="text-center">@movies.FilmOrSerie.Kind</td>
-                                <td class="text-center">@movies.Country.Name</td>                               
-                                    @if (movies.Annotation.Length > 20)
+                                <th scope="row">@movie.Id</th>
+                                <td class="text-center">@movie.Name</td>
+                                <td class="text-center">@movie.MoviePoint</td>
+                                <td class="text-center">@movie.IMDBPoint</td>
+                                <td class="text-center">
+                                    @if (movie.IsActive)
                                     {
-                                    <td>@movies.Annotation.Substring(20)</td>
+                                        <span class="text-success"><i class="fa fa-circle-check"></i></span>
                                     }
                                     else
                                     {
-                                    <td class="text-center">@movies.Annotation</td>
+                                        <span class="text-danger"><i class="fa fa-circle-xmark"></i></span>
+                                    }
+                                </td>
+                                <td class="text-center">@movie.Country.Name</td>
+                                @if (movie.Annotation.Length > 20)
+                                    {
+                                    <td>@movie.Annotation.Substring(0,20)</td>
+                                    }
+                                    else
+                                    {
+                                    <td class="text-center">@movie.Annotation</td>
                                     }                                 
                                 <td class="text-center">
-                                    <img class="rounded-circle flex-shrink-0" src="~/img/@movies.FilmImage" alt="movie" style="width: 40px; height: 40px;" />
+                                    <img class="rounded-circle flex-shrink-0" src="~/img/@movie.FilmImage" alt="movie" style="width: 40px; height: 40px;" />
                                 </td>
                                 <td class="text-center">
-                                    <a asp-action="Details" asp-route-id="@movies.Id" class="btn btn-lg btn-lg-square btn-outline-info m-2"><i class="fa fa-info"></i></a>
-                                    <a asp-action="Edit" asp-route-id="@movies.Id" class="btn btn-lg btn-lg-square btn-outline-warning m-2"><i class="fa fa-pen"></i></a>
-                                    <a asp-action="Delete" asp-route-id="@movies.Id" class="btn btn-lg btn-lg-square btn-outline-danger m-2"><i class="fa fa-trash"></i></a>
+                                    <a asp-action="Details" asp-route-id="@movie.Id" class="btn btn-lg btn-lg-square btn-outline-info m-2"><i class="fa fa-info"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@movie.Id" class="btn btn-lg btn-lg-square btn-outline-warning m-2"><i class="fa fa-pen"></i></a>
+                                    <a asp-action="DeleteOrActive" asp-route-id="@movie.Id" class="btn btn-lg btn-lg-square @(movie.IsActive?"btn-outline-danger":"btn-outline-success") m-2"><i class="fa fa-@(movie.IsActive?"trash":"check")"></i></a>
                                 </td>
                                 <td></td>
                             </tr>

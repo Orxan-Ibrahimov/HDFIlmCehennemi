@@ -15,7 +15,6 @@ namespace HDF.PresentationLayer.Backend.Controllers
         private readonly IMovieService _movieService;
         private readonly ICategoryService _categoryService;
         private readonly ICountryService _countryService;
-        private readonly IFilmOrSerieService _filmOrSerieService;
         private readonly ILanguageService _languageService;
         private readonly IMovieKindService _movieKindService;
         private readonly IMovieLanguageService _movieLanguageService;
@@ -23,13 +22,12 @@ namespace HDF.PresentationLayer.Backend.Controllers
         private readonly IKindService _kindService;
 
         public MovieController(IMovieService movieService, ICategoryService categoryService,
-           ICountryService countryService, IFilmOrSerieService filmOrSerieService, ILanguageService languageService, IKindService kindService,
+           ICountryService countryService, ILanguageService languageService, IKindService kindService,
            IMovieKindService movieKindService, IMovieLanguageService movieLanguageService, IMovieCategoryService movieCategoryService)
         {
             _movieService = movieService;
             _categoryService = categoryService;
             _countryService = countryService;
-            _filmOrSerieService = filmOrSerieService;
             _languageService = languageService;
             _kindService = kindService;
             _movieKindService = movieKindService;
@@ -59,8 +57,6 @@ namespace HDF.PresentationLayer.Backend.Controllers
             MovieVM movieVM = new MovieVM()
             {
                 Categories = _categoryService.GetList(),
-                FilmOrSerieList = new List<SelectListItem>(),
-                FilmOrSeries = _filmOrSerieService.GetList(),
                 KindList = new List<SelectListItem>(),
                 Kinds = _kindService.GetList(),
                 LanguageList = new List<SelectListItem>(),
@@ -68,15 +64,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
                 Countries = _countryService.GetList(),
                 CountryList = new List<SelectListItem>(),
                 Movies = _movieService.GetList()
-            };
-
-            foreach (var filmOrSerie in movieVM.FilmOrSeries)
-            {
-                movieVM.FilmOrSerieList.AddRange(new List<SelectListItem>
-                {
-                    new SelectListItem(){Value = filmOrSerie.Id.ToString(), Text = filmOrSerie.Kind}
-                });
-            }
+            };          
 
             foreach (var country in movieVM.Countries)
             {
@@ -168,40 +156,16 @@ namespace HDF.PresentationLayer.Backend.Controllers
         }
 
         // GET: MovieController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteOrActive(int id)
         {
 
             Movie movie = _movieService.GetById(id);
             if (movie == null) return NotFound();
 
-            _movieService.Delete(movie);
+            if(movie.IsActive) movie.IsActive = false;
+            else movie.IsActive = true;
+            _movieService.Update(movie);
 
-            if (movie.MovieKinds != null || movie.MovieKinds.Count() > 0)
-            {
-                foreach (var movieKind in movie.MovieKinds)
-                {
-                    _movieKindService.Delete(movieKind);
-                }
-                movie.MovieKinds.RemoveRange(0, movie.MovieKinds.Count());
-            }
-            if (movie.MovieLanguages != null || movie.MovieLanguages.Count() > 0)
-            {               
-                foreach (var movieLanguage in movie.MovieLanguages)
-                {
-                    _movieLanguageService.Delete(movieLanguage);
-                }
-                movie.MovieLanguages.RemoveRange(0, movie.MovieLanguages.Count());
-            }
-            if (movie.MovieCategories != null || movie.MovieCategories.Count() > 0)
-            {
-                foreach (var movieCategory in movie.MovieCategories)
-                {
-                    _movieCategoryService.Delete(movieCategory);
-                }
-                movie.MovieCategories.RemoveRange(0, movie.MovieCategories.Count());
-            }
-
-           
             return RedirectToAction(nameof(Index));
         }
        

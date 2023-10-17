@@ -32,10 +32,6 @@ builder.Services.AddScoped<IKindService, KindManager>();
 builder.Services.AddScoped<ILanguageDAL, EFLanguageDAL>();
 builder.Services.AddScoped<ILanguageService, LanguageManager>();
 
-//FilmOrSerie
-builder.Services.AddScoped<IFilmOrSerieDAL, EFFilmOrSerieDAL>();
-builder.Services.AddScoped<IFilmOrSerieService, FilmOrSerieManager>();
-
 //Movie
 builder.Services.AddScoped<IMovieDAL, EFMovieDAL>();
 builder.Services.AddScoped<IMovieService, MovieManager>();
