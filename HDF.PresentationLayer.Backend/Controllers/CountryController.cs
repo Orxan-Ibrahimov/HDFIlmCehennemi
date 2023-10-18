@@ -99,7 +99,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
                 if (!country.Photo.ContentType.Contains("image")) return View(country);
                 if (country.Photo.Length / 1024 > 1000) return View(country);
                 string environment = _env.WebRootPath;
-                country.Image = Methods.RenderImage(country.Photo, country.ShortName, "countries", environment,oldCountry.Image);
+                country.Image = Methods.UpdateImage(country.Photo, country.ShortName, "countries", environment,oldCountry.Image);
 
                 if (string.IsNullOrEmpty(country.Image))
                 {

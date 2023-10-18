@@ -1,5 +1,6 @@
 ﻿using HDF.BusinessLayer.Abstract;
 using HDF.EntityLayer.Concrete;
+using HDF.Utilities.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
@@ -9,10 +10,12 @@ namespace HDF.PresentationLayer.Backend.Controllers
     public class CastController : Controller
     {
         private readonly ICastService _castService;
+        private readonly IWebHostEnvironment _env;
 
-        public CastController(ICastService castService)
+        public CastController(ICastService castService, IWebHostEnvironment env)
         {
             _castService = castService;
+            _env = env;
         }
 
         // GET: CountryController
@@ -52,6 +55,17 @@ namespace HDF.PresentationLayer.Backend.Controllers
                 if (!ModelState.IsValid)
                     return View(cast);
 
+                if (!cast.Photo.ContentType.Contains("image")) return View(cast);
+                if (cast.Photo.Length / 1024 > 1000) return View(cast);
+                string environment = _env.WebRootPath;
+                cast.Image = Methods.RenderImage(cast.Photo, cast.Name, "casts", environment);
+
+                if (string.IsNullOrEmpty(cast.Image))
+                {
+                    ModelState.AddModelError("Image", "Image was incorrect");
+                    return View(cast);
+                }
+
                 _castService.Insert(cast);
                 return RedirectToAction(nameof(Index));
             }
@@ -80,6 +94,19 @@ namespace HDF.PresentationLayer.Backend.Controllers
                 if (id != cast.Id) return NotFound();
 
                 if (!ModelState.IsValid) return View(cast);
+
+                Cast oldCast = _castService.GetById(id);
+                if (!cast.Photo.ContentType.Contains("image")) return View(cast);
+                if (cast.Photo.Length / 1024 > 1000) return View(cast);
+                string environment = _env.WebRootPath;
+                cast.Image = Methods.UpdateImage(cast.Photo, cast.Name, "casts", environment, oldCast.Image);
+
+                if (string.IsNullOrEmpty(cast.Image))
+                {
+                    ModelState.AddModelError("Image", "Image was incorrect");
+                    return View(cast);
+                }
+
                 _castService.Update(cast);
                 return RedirectToAction(nameof(Index));
             }
@@ -94,7 +121,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
         {
             Cast cast = _castService.GetById(id);
             if (cast == null) return NotFound();
-
+            Methods.DeleteImage("casts",_env.WebRootPath,cast.Image);
             _castService.Delete(cast);
             return RedirectToAction(nameof(Index));
         }

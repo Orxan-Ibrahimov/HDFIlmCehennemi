@@ -33,11 +33,9 @@ namespace HDF.Utilities.Helpers
             FileInfo oldFile = new FileInfo(oldFilename);
             if (File.Exists(oldFilename)) oldFile.Delete();
         }
-        public static string RenderImage(IFormFile photo, string name, string directory, string environment, string oldFilename)
+        public static string UpdateImage(IFormFile photo, string name, string directory, string environment, string oldFilename)
         {
-            oldFilename = Path.Combine(environment, "assets", "img", directory, oldFilename);
-            FileInfo oldFile = new FileInfo(oldFilename);
-            if (File.Exists(oldFilename)) oldFile.Delete();
+            DeleteImage(directory,environment,oldFilename);
             return RenderImage(photo, name, directory, environment);
         }
     }

@@ -12,7 +12,7 @@
                     <li class="list-group-item bg-transparent">Id: <span class="text-white">@Model.Id</span></li>
                     <li class="list-group-item bg-transparent">Name: <span class="text-white">@Model.Name</span></li>
                     <li class="list-group-item bg-transparent">Surname: <span class="text-white">@Model.Surname</span></li>
-                    <li class="list-group-item bg-transparent">Image: <img src="~/img/@Model.Image" class="rounded-circle flex-shrink-0" style="width: 40px; height: 40px;" /></li>
+                    <li class="list-group-item bg-transparent">Image: <img src="~/assets/img/casts/@Model.Image" class="rounded-circle flex-shrink-0" style="width: 40px; height: 40px;" /></li>
                 </ul>
                 <a asp-action="Index" class="btn btn-info m-2"><i class="fa fa-arrow-left"></i></a>
                 <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary m-2">Remove</a>
