@@ -22,9 +22,8 @@ namespace HDF.EntityLayer.Concrete
         public decimal? IMDBPoint { get; set; }
         public decimal? MoviePoint { get; set; }      
         public int? CountryId { get; set; }
-        [ForeignKey("CountryId")]
         [ValidateNever]
-        public Country Country { get; set; }        
+        public Country? Country { get; set; }        
         public bool IsSeries { get; set; }
         public bool IsActive { get; set; }
         public List<MovieKind>? MovieKinds { get; set; }

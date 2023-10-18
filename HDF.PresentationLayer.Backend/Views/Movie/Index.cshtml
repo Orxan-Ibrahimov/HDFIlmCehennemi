@@ -61,7 +61,7 @@
                                         <span class="text-danger"><i class="fa fa-circle-xmark"></i></span>
                                     }
                                 </td>
-                                <td class="text-center">@movie.Country.Name</td>
+                                <td class="text-center">@movie.Country?.Name</td>
                                 @if (movie.Annotation.Length > 20)
                                     {
                                     <td>@movie.Annotation.Substring(0,20)</td>

@@ -9,7 +9,7 @@ namespace HDF.Utilities.Helpers
 {
     public static class Methods
     {
-         public static string RenderImmage(IFormFile photo, string name, string directory, string environment)
+         public static string RenderImage(IFormFile photo, string name, string directory, string environment)
         {
             string ext = Path.GetExtension(photo.FileName);
             string filename = name.ToLower() + ext;
@@ -25,6 +25,20 @@ namespace HDF.Utilities.Helpers
                 photo.CopyTo(fileStream);
             }
             return filename;
+        }
+
+        public static void DeleteImage(string directory, string environment, string oldFilename)
+        {
+            oldFilename = Path.Combine(environment, "assets", "img", directory, oldFilename);
+            FileInfo oldFile = new FileInfo(oldFilename);
+            if (File.Exists(oldFilename)) oldFile.Delete();
+        }
+        public static string RenderImage(IFormFile photo, string name, string directory, string environment, string oldFilename)
+        {
+            oldFilename = Path.Combine(environment, "assets", "img", directory, oldFilename);
+            FileInfo oldFile = new FileInfo(oldFilename);
+            if (File.Exists(oldFilename)) oldFile.Delete();
+            return RenderImage(photo, name, directory, environment);
         }
     }
 }
