@@ -1,5 +1,8 @@
 ﻿using HDF.DAL.Abstract;
 using HDF.DAL.Context;
+using HDF.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,7 +14,6 @@ namespace HDF.DAL.Repositories
 {
     public class GenericRepository<T> : IGenericDAL<T> where T : class
     {
-        
         public void Delete(T t)
         {
             using var _context = new HDFContext();
@@ -40,5 +42,6 @@ namespace HDF.DAL.Repositories
             _context.Set<T>().Update(t);
             _context.SaveChanges();
         }
+       
     }
 }

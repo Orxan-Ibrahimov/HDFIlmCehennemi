@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.EntityLayer", "HDF.EntityLayer\HDF.EntityLayer.csproj", "{E6415483-5462-4A8C-A0EC-3B962B8BE45D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.EntityLayer", "HDF.EntityLayer\HDF.EntityLayer.csproj", "{E6415483-5462-4A8C-A0EC-3B962B8BE45D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.DAL", "HDF.DAL\HDF.DAL.csproj", "{1E19BF43-E29C-4A2F-A437-AB2379369563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.DAL", "HDF.DAL\HDF.DAL.csproj", "{1E19BF43-E29C-4A2F-A437-AB2379369563}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.DtoLayer", "HDF.DtoLayer\HDF.DtoLayer.csproj", "{78B15E66-8E78-4FDA-9DE7-6D9E20D902E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.DtoLayer", "HDF.DtoLayer\HDF.DtoLayer.csproj", "{78B15E66-8E78-4FDA-9DE7-6D9E20D902E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.BusinessLayer", "HDF.BusinessLayer\HDF.BusinessLayer.csproj", "{2BFB6D66-6487-4C15-BBCE-D2EDEEA94334}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.BusinessLayer", "HDF.BusinessLayer\HDF.BusinessLayer.csproj", "{2BFB6D66-6487-4C15-BBCE-D2EDEEA94334}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.PresentationLayer.Frontend", "HDF.PresentationLayer.Frontend\HDF.PresentationLayer.Frontend.csproj", "{6597A428-0AA1-4BF1-98C2-ACDA5C46085B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.PresentationLayer.Frontend", "HDF.PresentationLayer.Frontend\HDF.PresentationLayer.Frontend.csproj", "{6597A428-0AA1-4BF1-98C2-ACDA5C46085B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.PresentationLayer.Backend", "HDF.PresentationLayer.Backend\HDF.PresentationLayer.Backend.csproj", "{3B7CE4C1-3550-4E20-BD65-B3142FCA271C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.PresentationLayer.Backend", "HDF.PresentationLayer.Backend\HDF.PresentationLayer.Backend.csproj", "{3B7CE4C1-3550-4E20-BD65-B3142FCA271C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.Utilities", "HDF.Utilities\HDF.Utilities.csproj", "{C11BB03A-AA46-4590-9485-31E5D4079E02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{3B7CE4C1-3550-4E20-BD65-B3142FCA271C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B7CE4C1-3550-4E20-BD65-B3142FCA271C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B7CE4C1-3550-4E20-BD65-B3142FCA271C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

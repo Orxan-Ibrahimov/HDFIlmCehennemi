@@ -162,7 +162,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Casts");
+                    b.ToTable("Casts", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Category", b =>
@@ -179,7 +179,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Comment", b =>
@@ -214,7 +214,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Country", b =>
@@ -239,7 +239,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Episode", b =>
@@ -266,7 +266,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("Episodes");
+                    b.ToTable("Episodes", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Kind", b =>
@@ -283,7 +283,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kinds");
+                    b.ToTable("Kinds", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Language", b =>
@@ -300,7 +300,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
+                    b.ToTable("Languages", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.Movie", b =>
@@ -358,7 +358,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Movies");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.MovieCast", b =>
@@ -381,7 +381,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MovieCasts");
+                    b.ToTable("MovieCasts", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.MovieCategory", b =>
@@ -404,7 +404,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MovieCategories");
+                    b.ToTable("MovieCategories", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.MovieKind", b =>
@@ -427,7 +427,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MovieKinds");
+                    b.ToTable("MovieKinds", (string)null);
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.MovieLanguage", b =>
@@ -450,7 +450,7 @@ namespace HDF.DAL.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MovieLanguages");
+                    b.ToTable("MovieLanguages", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

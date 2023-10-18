@@ -1,18 +1,22 @@
 ﻿using HDF.BusinessLayer.Abstract;
 using HDF.EntityLayer.Concrete;
+using HDF.Utilities.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
+using System.Runtime.CompilerServices;
 
 namespace HDF.PresentationLayer.Backend.Controllers
 {
     public class CountryController : Controller
     {
         private readonly ICountryService _countryService;
+        private readonly IWebHostEnvironment _env;
 
-        public CountryController(ICountryService countryService)
+        public CountryController(ICountryService countryService, IWebHostEnvironment env)
         {
             _countryService = countryService;
+            _env = env;
         }
 
         // GET: CountryController
@@ -51,6 +55,17 @@ namespace HDF.PresentationLayer.Backend.Controllers
 
                 if (!ModelState.IsValid) return View(country);
 
+                if(!country.Photo.ContentType.Contains("image")) return View(country);
+                if (country.Photo.Length / 1024 > 1000) return View(country);
+                string environment = _env.WebRootPath;
+                country.Image = Methods.RenderImmage(country.Photo, country.ShortName, "countries", environment);
+
+               if (string.IsNullOrEmpty(country.Image))
+                {
+                    ModelState.AddModelError("Image", "Image was incorrect");
+                    return View(country);
+                }
+              
                 _countryService.Insert(country);
                 return RedirectToAction(nameof(Index));
             }

@@ -1,4 +1,5 @@
 ﻿using HDF.EntityLayer.Concrete.Base;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
@@ -17,8 +18,10 @@ namespace HDF.EntityLayer.Concrete
         public string Name { get; set; }
         [Required]
         public string ShortName { get; set; }
-        [Required]
+        [ValidateNever]
         public string Image { get; set; }
+        [Required, NotMapped]
+        public IFormFile Photo { get; set; }
         [ValidateNever]
         public List<Movie>? Movies { get; set; }
     }

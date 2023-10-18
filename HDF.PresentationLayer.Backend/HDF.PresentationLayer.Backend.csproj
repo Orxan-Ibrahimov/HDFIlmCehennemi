@@ -14,6 +14,7 @@
     <ProjectReference Include="..\HDF.BusinessLayer\HDF.BusinessLayer.csproj" />
     <ProjectReference Include="..\HDF.DAL\HDF.DAL.csproj" />
     <ProjectReference Include="..\HDF.EntityLayer\HDF.EntityLayer.csproj" />
+    <ProjectReference Include="..\HDF.Utilities\HDF.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
