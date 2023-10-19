@@ -1,15 +1,15 @@
 (function ($) {
     "use strict";
 
-    // Spinner
-    var spinner = function () {
-        setTimeout(function () {
-            if ($('#spinner').length > 0) {
-                $('#spinner').removeClass('show');
-            }
-        }, 1);
-    };
-    spinner();
+    //// Spinner
+    //var spinner = function () {
+    //    setTimeout(function () {
+    //        if ($('#spinner').length > 0) {
+    //            $('#spinner').removeClass('show');
+    //        }
+    //    }, 1);
+    //};
+    //spinner();
     
     
     // Back to top button
@@ -211,14 +211,21 @@
     let languageCount = 0;
     let kindCount = 0;
 
+    $(".options .alert").click(function (e) {
+        e.preventDefault();
+        let element = $(this.parentElement).children(".form-select")[0].options[$(this).prev().val()];       
+        $(element).removeAttr("disabled");        
+        $(this).prev().remove();
+        $(this).remove();
+    });
     function CreateSpecialElement(list, count,element) {
-        console.log(element);
         var selectedValue = $(element).val();
         var selectedText = element.options[element.selectedIndex].text;
         if (selectedValue >= 0) {
             let alert = document.createElement("a");
             element.options[element.selectedIndex].setAttribute("disabled", "true");
-            alert.classList.add("alert", "alert-info", "d-inline-block", "my-2", "p-2");
+            alert.classList.add("alert", "alert-info", "d-inline-block", "m-2", "p-2");
+            alert.setAttribute("href", `#`);
             alert.textContent = selectedText;
             $(element).after(alert);
 
@@ -227,7 +234,14 @@
             input.setAttribute("name", `${list}[${count}]`);
             $(input).val(selectedValue);
             $(element).after(input);
-            count++;           
+            count++;   
+
+            $(alert).click(function (e) {
+                e.preventDefault();                
+                $(alert).remove();
+                $(input).remove();
+                element.options[element.selectedIndex].removeAttribute("disabled");
+            });
         }
         return count;       
         

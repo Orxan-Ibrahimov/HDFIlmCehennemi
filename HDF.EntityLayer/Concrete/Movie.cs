@@ -1,4 +1,5 @@
 ﻿using HDF.EntityLayer.Concrete.Base;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -17,7 +18,10 @@ namespace HDF.EntityLayer.Concrete
         public string Name { get; set; }
         //[Column(TypeName = "date")]
         public DateTime ReleaseDate { get; set; }
+        [ValidateNever]
         public string FilmImage { get; set; }
+        [Required,NotMapped]
+        public IFormFile FilmPhoto { get; set; }
         public string Annotation { get; set; }
         public decimal? IMDBPoint { get; set; }
         public decimal? MoviePoint { get; set; }      

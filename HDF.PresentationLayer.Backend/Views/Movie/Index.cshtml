@@ -48,7 +48,7 @@
                         {
                             <tr>
                                 <th scope="row">@movie.Id</th>
-                                <td class="text-center">@movie.Name</td>
+                                <td class="text-center">@((movie.Name.Length > 20) ? (@movie.Name.Substring(0, 20) + "...") : @movie.Name)</td>
                                 <td class="text-center">@movie.MoviePoint</td>
                                 <td class="text-center">@movie.IMDBPoint</td>
                                 <td class="text-center">
@@ -62,16 +62,10 @@
                                     }
                                 </td>
                                 <td class="text-center">@movie.Country?.Name</td>
-                                @if (movie.Annotation.Length > 20)
-                                    {
-                                    <td>@movie.Annotation.Substring(0,20)</td>
-                                    }
-                                    else
-                                    {
-                                    <td class="text-center">@movie.Annotation</td>
-                                    }                                 
+                                <td class="text-center">@((movie.Annotation.Length > 20) ? (@movie.Annotation.Substring(0, 20) + "...") : @movie.Annotation)</td>
+                                                              
                                 <td class="text-center">
-                                    <img class="rounded-circle flex-shrink-0" src="~/img/@movie.FilmImage" alt="movie" style="width: 40px; height: 40px;" />
+                                    <img class="rounded-circle flex-shrink-0" src="~/assets/img/movies/@movie.FilmImage" alt="movie" style="width: 40px; height: 40px;" />
                                 </td>
                                 <td class="text-center">
                                     <a asp-action="Details" asp-route-id="@movie.Id" class="btn btn-lg btn-lg-square btn-outline-info m-2"><i class="fa fa-info"></i></a>

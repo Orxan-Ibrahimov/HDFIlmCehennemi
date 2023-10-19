@@ -1,20 +1,20 @@
 ﻿@model MovieVM
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-sm-12 col-xl-6 offset-xl-3">
             <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">Create A Movie</h6>
+                <h6 class="mb-4">Edit The Movie</h6>
                 <form enctype="multipart/form-data" method="post">
                     <div class="mb-3">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <label asp-for="Movie.Name" class="form-label">Name</label>
                         <input asp-for="Movie.Name" class="form-control pan-form-style rounded-pill" required />
                         <span asp-validation-for="Movie.Name" class="text-danger"></span>
-                    </div>                   
+                    </div>
                     <div class="mb-3">
                         <div asp-validation-summary="ModelOnly"></div>
                         <label asp-for="Movie.MoviePoint" class="form-label">Movie Point</label>
@@ -23,12 +23,15 @@
                     </div>
                     <div class="mb-3">
                         <label asp-for="Movie.IMDBPoint" class="form-label"> IMDb Point</label>
-                        <input asp-for="Movie.IMDBPoint" min="0" max="10" class="form-control pan-form-style rounded-pill" required/>
+                        <input asp-for="Movie.IMDBPoint" min="0" max="10" class="form-control pan-form-style rounded-pill" required />
                         <span asp-validation-for="Movie.IMDBPoint" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label asp-for="Movie.FilmPhoto" class="form-label">Film Image</label>
-                        <input asp-for="Movie.FilmPhoto" accept="image/*" class="form-control pan-form-style rounded-pill" required />
+                        <label asp-for="Movie.FilmPhoto" class="form-label">
+                            <p>Film Image</p>
+                            <img src="~/assets/img/movies/@Model.Movie.FilmImage" width="40" height="40"/>
+                        </label>
+                        <input asp-for="Movie.FilmPhoto" accept="image/*" class="form-control pan-form-style rounded-pill d-none" />
                         <span asp-validation-for="Movie.FilmPhoto" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
@@ -57,49 +60,64 @@
                         </select>
                         <span asp-validation-for="Movie.CountryId"></span>
                     </div>
-                   
+
                     <div class="mb-3">
                         <label for="categories" class="form-label">Categories</label>
-                        <div class="form-floating mb-3">
+                        <div class="form-floating options mb-3">
                             <select class="form-select pan-form-style" id="categories" aria-label="Floating label select example">
                                 <option value="-1" selected>Choose</option>
                                 @foreach (var category in Model.Categories)
                                 {
-                                    <option value="@category.Id">@category.Name</option>
+                                    <option value="@category.Id" disabled="@(Model.Movie.MovieCategories.Exists(mc => mc.CategoryId == category.Id)?true:false)">@category.Name</option>
                                 }
                             </select>
+                            @for (int i = 0; i < Model.Movie?.MovieCategories?.Count(); i++)
+                            {
+                                <input class="d-none" name="_categories[@i]" value="@Model.Movie.MovieCategories[i].CategoryId" />
+                                <a href="#" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieCategories[i]?.Category?.Name</a>
+                            }
                         </div>
                     </div>
-
+                    
                     @* Movie Kinds *@
                     <div class="mb-3">
                         <label for="kinds" class="form-label">Kinds</label>
-                        <div class="form-floating mb-3">
+                        <div class="form-floating options mb-3">
                             <select class="form-select pan-form-style" id="kinds" aria-label="Floating label select example">
                                 <option value="-1" selected>Choose</option>
                                 @foreach (var kind in Model.Kinds)
                                 {
-                                    <option value="@kind.Id">@kind.Name</option>
+                                    <option value="@kind.Id" disabled="@(Model.Movie.MovieKinds.Exists(mk => mk.KindId == kind.Id)?true:false)">@kind.Name </option>
                                 }
                             </select>
+                            @for (int i = 0; i < Model.Movie?.MovieKinds?.Count(); i++)
+                            {
+                                <input class="d-none" name="_kinds[@i]" value="@Model.Movie.MovieKinds[i].KindId" />
+                                <a href="" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieKinds[i]?.Kind?.Name</a>
+                            }
                         </div>
                     </div>
-                   
+
                     <div class="mb-3">
                         <label for="languages" class="form-label">Languages</label>
-                        <div class="form-floating mb-3">
+                        <div class="form-floating options mb-3">
                             <select class="form-select pan-form-style" id="languages" aria-label="Floating label select example">
                                 <option value="-1" selected>Choose</option>
                                 @foreach (var language in Model.Languages)
                                 {
-                                    <option value="@language.Id">@language.LanguageKind</option>
+                                    <option value="@language.Id" disabled="@(Model.Movie.MovieLanguages.Exists(ml => ml.LanguageId == language.Id)?true:false)">@language.LanguageKind</option>
                                 }
                             </select>
+                            @for (int i = 0; i < Model.Movie?.MovieLanguages?.Count(); i++)
+                            {
+                                <input class="d-none" name="_languages[@i]" value="@Model.Movie.MovieLanguages[i].LanguageId" />
+                                <a href="" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieLanguages[i]?.Language?.LanguageKind</a>
+                            }
                         </div>
                     </div>
-                                
 
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+
+                    <button type="submit" class="btn btn-primary" asp-route-Image="@Model.Image">Sign in</button>
                 </form>
             </div>
         </div>

@@ -2,10 +2,13 @@
 using HDF.DAL.Context;
 using HDF.EntityLayer.Concrete;
 using HDF.PresentationLayer.Backend.ViewModels;
+using HDF.Utilities.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
+using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Microsoft.EntityFrameworkCore;
 
 namespace HDF.PresentationLayer.Backend.Controllers
@@ -16,23 +19,19 @@ namespace HDF.PresentationLayer.Backend.Controllers
         private readonly ICategoryService _categoryService;
         private readonly ICountryService _countryService;
         private readonly ILanguageService _languageService;
-        private readonly IMovieKindService _movieKindService;
-        private readonly IMovieLanguageService _movieLanguageService;
-        private readonly IMovieCategoryService _movieCategoryService;
         private readonly IKindService _kindService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public MovieController(IMovieService movieService, ICategoryService categoryService,
            ICountryService countryService, ILanguageService languageService, IKindService kindService,
-           IMovieKindService movieKindService, IMovieLanguageService movieLanguageService, IMovieCategoryService movieCategoryService)
+           IWebHostEnvironment webHostEnvironment)
         {
             _movieService = movieService;
             _categoryService = categoryService;
             _countryService = countryService;
             _languageService = languageService;
-            _kindService = kindService;
-            _movieKindService = movieKindService;
-            _movieLanguageService = movieLanguageService;
-            _movieCategoryService = movieCategoryService;
+            _kindService = kindService;           
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: MovieController
@@ -84,7 +83,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return RedirectToAction(nameof(Create));
+                if (!ModelState.IsValid) return RedirectToAction(nameof(Create));               
 
                 // Create m:n Table Instance
                 movieVM.Movie.MovieCategories = new List<MovieCategory>();
@@ -124,6 +123,15 @@ namespace HDF.PresentationLayer.Backend.Controllers
                     movieVM.Movie.MovieKinds.Add(movieKind);
                 }
 
+                // Movie Image Created
+                if (!movieVM.Movie.FilmPhoto.ContentType.Contains("image")) return View(movieVM);
+                if (movieVM.Movie.FilmPhoto.Length / 1024 > 1000) return View(movieVM);
+                movieVM.Movie.FilmImage = Methods.RenderImage(movieVM.Movie.FilmPhoto, movieVM.Movie.Name.Replace(" ", "-"), "movies", _webHostEnvironment.WebRootPath);
+                if (string.IsNullOrEmpty(movieVM.Movie.FilmImage))
+                {
+                    ModelState.AddModelError("Image", "Image was incorrect");
+                    return View(movieVM);
+                }
 
                 _movieService.Insert(movieVM.Movie);               
                 return RedirectToAction(nameof(Index));
@@ -137,16 +145,89 @@ namespace HDF.PresentationLayer.Backend.Controllers
         // GET: MovieController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            MovieVM movieVM = new MovieVM()
+            {
+                Categories = _categoryService.GetList(),
+                Kinds = _kindService.GetList(),
+                Languages = _languageService.GetList(),
+                Countries = _countryService.GetList(),
+                CountryList = new List<SelectListItem>(),
+                Movie = _movieService.GetById(id),
+                Movies = _movieService.GetList()             
+            };
+
+            if (movieVM.Movie == null) return NotFound();
+            movieVM.Image = movieVM.Movie.FilmImage;
+
+            foreach (var country in movieVM.Countries)
+            {
+                movieVM.CountryList.AddRange(new List<SelectListItem>
+                {
+                    new SelectListItem(){Value = country.Id.ToString(), Text = country.Name}
+                });
+            }                  
+            return View(movieVM);
         }
 
         // POST: MovieController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, MovieVM movieVM)
         {
             try
             {
+                //if user don't choose image program enter here
+                if (movieVM.Movie.FilmPhoto == null)
+                {
+                    movieVM.Movie.FilmImage = movieVM.Image;
+                    ModelState["Movie.FilmPhoto"].ValidationState = ModelValidationState.Valid;
+                }
+                else
+                    movieVM.Movie.FilmImage = Methods.UpdateImage(movieVM.Movie.FilmPhoto, movieVM.Movie.Name.Replace(" ", "-"), "movies", _webHostEnvironment.WebRootPath, movieVM.Image);
+
+                if (!ModelState.IsValid) return View(movieVM);
+
+                // Create m:n Table Instance
+                movieVM.Movie.MovieCategories = new List<MovieCategory>();
+                movieVM.Movie.MovieLanguages = new List<MovieLanguage>();
+                movieVM.Movie.MovieKinds = new List<MovieKind>();
+
+                // Fill m:n Tables
+                foreach (int category in movieVM._categories)
+                {
+                    if (category < 0) continue;
+                    MovieCategory movieCategory = new MovieCategory()
+                    {
+                        CategoryId = category,
+                        MovieId = movieVM.Movie.Id
+                    };
+                    movieVM.Movie.MovieCategories.Add(movieCategory);
+                }
+
+                foreach (int languageId in movieVM._languages)
+                {
+                    if (languageId < 0) continue;
+                    MovieLanguage movieLanguage = new MovieLanguage()
+                    {
+                        LanguageId = languageId,
+                        MovieId = movieVM.Movie.Id
+                    };
+                    movieVM.Movie.MovieLanguages.Add(movieLanguage);
+                }
+                foreach (int kindId in movieVM._kinds)
+                {
+                    if (kindId < 0) continue;
+                    MovieKind movieKind = new MovieKind()
+                    {
+                        KindId = kindId,
+                        MovieId = movieVM.Movie.Id
+                    };
+                    movieVM.Movie.MovieKinds.Add(movieKind);
+                }
+
+               
+               
+               
                 return RedirectToAction(nameof(Index));
             }
             catch
