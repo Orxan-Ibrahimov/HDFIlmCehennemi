@@ -7,7 +7,7 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-6 offset-xl-3">
             <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">Edit The Movie</h6>
+                <h6 class="mb-4" id="movie" data="@Model.Movie.Id">Edit The Movie</h6>
                 <form enctype="multipart/form-data" method="post">
                     <div class="mb-3">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -64,16 +64,21 @@
                     <div class="mb-3">
                         <label for="categories" class="form-label">Categories</label>
                         <div class="form-floating options mb-3">
-                            <select class="form-select pan-form-style" id="categories" aria-label="Floating label select example">
+                            <select class="form-select pan-form-style" id="category" data="@Model.Movie.Id" aria-label="Floating label select example">
                                 <option value="-1" selected>Choose</option>
                                 @foreach (var category in Model.Categories)
                                 {
                                     <option value="@category.Id" disabled="@(Model.Movie.MovieCategories.Exists(mc => mc.CategoryId == category.Id)?true:false)">@category.Name</option>
                                 }
                             </select>
-                            @for (int i = 0; i < Model.Movie?.MovieCategories?.Count(); i++)
+                           @*  @for (int i = 0; i < Model.Movie?.MovieCategories?.Count(); i++)
                             {
                                 <input class="d-none" name="_categories[@i]" value="@Model.Movie.MovieCategories[i].CategoryId" />
+                                <a href="#" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieCategories[i]?.Category?.Name</a>
+                            } *@
+                            @for (int i = 0; i < Model.Movie?.MovieCategories?.Count(); i++)
+                            {
+                                <input class="d-none" data-list="category" value="@Model.Movie.MovieCategories[i].CategoryId" />
                                 <a href="#" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieCategories[i]?.Category?.Name</a>
                             }
                         </div>
@@ -83,7 +88,7 @@
                     <div class="mb-3">
                         <label for="kinds" class="form-label">Kinds</label>
                         <div class="form-floating options mb-3">
-                            <select class="form-select pan-form-style" id="kinds" aria-label="Floating label select example">
+                            <select class="form-select pan-form-style" id="kind" aria-label="Floating label select example">
                                 <option value="-1" selected>Choose</option>
                                 @foreach (var kind in Model.Kinds)
                                 {
@@ -92,7 +97,7 @@
                             </select>
                             @for (int i = 0; i < Model.Movie?.MovieKinds?.Count(); i++)
                             {
-                                <input class="d-none" name="_kinds[@i]" value="@Model.Movie.MovieKinds[i].KindId" />
+                                <input class="d-none" data-list="kind" value="@Model.Movie.MovieKinds[i].KindId" />
                                 <a href="" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieKinds[i]?.Kind?.Name</a>
                             }
                         </div>
@@ -101,7 +106,7 @@
                     <div class="mb-3">
                         <label for="languages" class="form-label">Languages</label>
                         <div class="form-floating options mb-3">
-                            <select class="form-select pan-form-style" id="languages" aria-label="Floating label select example">
+                            <select class="form-select pan-form-style" id="language" aria-label="Floating label select example">
                                 <option value="-1" selected>Choose</option>
                                 @foreach (var language in Model.Languages)
                                 {
@@ -110,14 +115,14 @@
                             </select>
                             @for (int i = 0; i < Model.Movie?.MovieLanguages?.Count(); i++)
                             {
-                                <input class="d-none" name="_languages[@i]" value="@Model.Movie.MovieLanguages[i].LanguageId" />
-                                <a href="" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieLanguages[i]?.Language?.LanguageKind</a>
+                                <input class="d-none" data-list="language" value="@Model.Movie.MovieLanguages[i].LanguageId" />
+                                <a href="" class="alert alert-info d-inline-block m-2 p-2" data="@Model.Movie.Id">@Model.Movie?.MovieLanguages[i]?.Language?.LanguageKind</a>
                             }
                         </div>
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary" asp-route-Image="@Model.Image">Sign in</button>
+                    <button type="submit" class="btn btn-primary" asp-route-Id="@Model.Movie.Id" asp-route-Image="@Model.Image">Sign in</button>
                 </form>
             </div>
         </div>

@@ -20,18 +20,25 @@ namespace HDF.PresentationLayer.Backend.Controllers
         private readonly ICountryService _countryService;
         private readonly ILanguageService _languageService;
         private readonly IKindService _kindService;
+        private readonly IMovieKindService _movieKindService;
+        private readonly IMovieLanguageService _movieLanguageService;
+        private readonly IMovieCategoryService _movieCategoryService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public MovieController(IMovieService movieService, ICategoryService categoryService,
            ICountryService countryService, ILanguageService languageService, IKindService kindService,
-           IWebHostEnvironment webHostEnvironment)
+           IWebHostEnvironment webHostEnvironment, IMovieLanguageService movieLanguageService,
+           IMovieCategoryService movieCategoryService, IMovieKindService movieKindService)
         {
             _movieService = movieService;
             _categoryService = categoryService;
             _countryService = countryService;
             _languageService = languageService;
-            _kindService = kindService;           
+            _kindService = kindService;
             _webHostEnvironment = webHostEnvironment;
+            _movieLanguageService = movieLanguageService;
+            _movieCategoryService = movieCategoryService;
+            _movieKindService = movieKindService;
         }
 
         // GET: MovieController
@@ -83,45 +90,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return RedirectToAction(nameof(Create));               
-
-                // Create m:n Table Instance
-                movieVM.Movie.MovieCategories = new List<MovieCategory>();
-                movieVM.Movie.MovieLanguages = new List<MovieLanguage>();
-                movieVM.Movie.MovieKinds = new List<MovieKind>();
-
-                // Fill m:n Tables
-                foreach (int category in movieVM._categories)
-                {
-                    if (category < 0) continue;
-                    MovieCategory movieCategory = new MovieCategory()
-                    {
-                        CategoryId = category,
-                        MovieId = movieVM.Movie.Id
-                    };
-                    movieVM.Movie.MovieCategories.Add(movieCategory);
-            }
-               
-                foreach (int languageId in movieVM._languages)
-                {
-                    if (languageId < 0) continue;
-                    MovieLanguage movieLanguage = new MovieLanguage()
-                    {
-                        LanguageId = languageId,
-                        MovieId = movieVM.Movie.Id
-                    };
-                    movieVM.Movie.MovieLanguages.Add(movieLanguage);
-                }
-                foreach (int kindId in movieVM._kinds)
-                {
-                    if (kindId < 0) continue;
-                    MovieKind movieKind = new MovieKind()
-                    {
-                        KindId = kindId,
-                        MovieId = movieVM.Movie.Id
-                    };
-                    movieVM.Movie.MovieKinds.Add(movieKind);
-                }
+                if (!ModelState.IsValid) return RedirectToAction(nameof(Create));            
 
                 // Movie Image Created
                 if (!movieVM.Movie.FilmPhoto.ContentType.Contains("image")) return View(movieVM);
@@ -176,6 +145,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
         {
             try
             {
+
                 //if user don't choose image program enter here
                 if (movieVM.Movie.FilmPhoto == null)
                 {
@@ -186,48 +156,9 @@ namespace HDF.PresentationLayer.Backend.Controllers
                     movieVM.Movie.FilmImage = Methods.UpdateImage(movieVM.Movie.FilmPhoto, movieVM.Movie.Name.Replace(" ", "-"), "movies", _webHostEnvironment.WebRootPath, movieVM.Image);
 
                 if (!ModelState.IsValid) return View(movieVM);
-
-                // Create m:n Table Instance
-                movieVM.Movie.MovieCategories = new List<MovieCategory>();
-                movieVM.Movie.MovieLanguages = new List<MovieLanguage>();
-                movieVM.Movie.MovieKinds = new List<MovieKind>();
-
-                // Fill m:n Tables
-                foreach (int category in movieVM._categories)
-                {
-                    if (category < 0) continue;
-                    MovieCategory movieCategory = new MovieCategory()
-                    {
-                        CategoryId = category,
-                        MovieId = movieVM.Movie.Id
-                    };
-                    movieVM.Movie.MovieCategories.Add(movieCategory);
-                }
-
-                foreach (int languageId in movieVM._languages)
-                {
-                    if (languageId < 0) continue;
-                    MovieLanguage movieLanguage = new MovieLanguage()
-                    {
-                        LanguageId = languageId,
-                        MovieId = movieVM.Movie.Id
-                    };
-                    movieVM.Movie.MovieLanguages.Add(movieLanguage);
-                }
-                foreach (int kindId in movieVM._kinds)
-                {
-                    if (kindId < 0) continue;
-                    MovieKind movieKind = new MovieKind()
-                    {
-                        KindId = kindId,
-                        MovieId = movieVM.Movie.Id
-                    };
-                    movieVM.Movie.MovieKinds.Add(movieKind);
-                }
-
-               
-               
-               
+                movieVM.Movie.Id = id;
+                
+                _movieService.Update(movieVM.Movie);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -249,6 +180,69 @@ namespace HDF.PresentationLayer.Backend.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-       
+
+        public void AddSub(int first, int second, string list)
+        {           
+            if (first > 0 && second > 0) 
+            {
+                
+                if (list == "category")
+                {
+                    MovieCategory movieCategory = new MovieCategory
+                    {
+                        CategoryId = second,
+                        MovieId = first,
+                    };
+
+                    _movieCategoryService.Insert(movieCategory);
+                }
+                if (list == "kind")
+                {
+                    MovieKind movieKind = new MovieKind
+                    {
+                        KindId = second,
+                        MovieId = first,
+                    };
+                    _movieKindService.Insert(movieKind);
+                }
+                if (list == "language")
+                {
+                    MovieLanguage movieLanguage = new MovieLanguage
+                    {
+                        LanguageId = second,
+                        MovieId = first
+                    };
+                    _movieLanguageService.Insert(movieLanguage);
+                }
+            }          
+
+            
+        }
+        public void RemoveSub(int first, int second,string list)
+        {
+
+            if(list == "category")
+            {
+                MovieCategory movieCategory = _movieCategoryService.GetList()
+                    .First(mc => (mc.MovieId == first && mc.CategoryId == second));
+                if (movieCategory == null) return;
+                _movieCategoryService.Delete(movieCategory);
+            }
+            if (list == "kind")
+            {
+                MovieKind movieKind = _movieKindService.GetList().
+                    First(mk => (mk.MovieId == first && mk.KindId == second));
+                if (movieKind == null) return;
+                _movieKindService.Delete(movieKind);
+            }
+            if (list == "language")
+            {
+                MovieLanguage movieLanguage = _movieLanguageService.GetList().
+                    First( ml => (ml.MovieId == first && ml.LanguageId == second));
+                if (movieLanguage == null) return;
+                _movieLanguageService.Delete(movieLanguage);
+            }
+
+        }
     }
 }

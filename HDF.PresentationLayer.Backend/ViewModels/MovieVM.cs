@@ -25,9 +25,6 @@ namespace HDF.PresentationLayer.Backend.ViewModels
         public List<SelectListItem> LanguageList { get; set; }
         public string Image { get; set; }
         [ValidateNever]
-        public List<Movie> Movies { get; set; }
-        public int[] _categories { get; set; }
-        public int[] _languages { get; set; }
-        public int[] _kinds { get; set; }
+        public List<Movie> Movies { get; set; }       
     }
 }
