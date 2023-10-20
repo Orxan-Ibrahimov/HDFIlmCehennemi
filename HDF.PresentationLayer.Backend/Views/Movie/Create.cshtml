@@ -16,7 +16,6 @@
                         <span asp-validation-for="Movie.Name" class="text-danger"></span>
                     </div>                   
                     <div class="mb-3">
-                        <div asp-validation-summary="ModelOnly"></div>
                         <label asp-for="Movie.MoviePoint" class="form-label">Movie Point</label>
                         <input asp-for="Movie.MoviePoint" min="0" max="10" class="form-control pan-form-style rounded-pill" required />
                         <span asp-validation-for="Movie.MoviePoint" class="text-danger"></span>

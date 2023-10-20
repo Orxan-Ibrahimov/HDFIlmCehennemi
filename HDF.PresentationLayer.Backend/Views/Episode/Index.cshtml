@@ -1,0 +1,50 @@
+﻿@model List<Episode>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h1 class="display-3 text-info mb-4">Episodes</h1>
+                <table class="table table-dark align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th class="text-center" scope="col">Episode Number</th>
+                            <th class="text-center" scope="col">Episode Name</th>
+                            <th class="text-center" scope="col">Serie Name</th>
+                            <th class="text-center" scope="col">Image</th>
+                            <th class="text-center" scope="col">Operations</th>
+                            <th class="text-center" scope="col">
+                                <a asp-action="Create" class="btn btn-lg btn-lg-square btn-outline-success m-2"><i class="fa fa-plus"></i></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var episode in Model)
+                        {
+                            <tr>
+                                <th scope="row">@episode.Id</th>
+                                <td class="text-center">@episode.EpisodeNumber</td>
+                                <td class="text-center">@episode.Name</td>
+                                <td class="text-center">@episode.Movie.Name</td>
+                                
+                                <td class="text-center">
+                                    <img class="rounded-circle flex-shrink-0" src="~/assets/img/episodes/@episode.EpisodeImage" alt="episode" style="width: 40px; height: 40px;" />
+                                </td>
+                                <td class="text-center">
+                                    <a asp-action="Details" asp-route-id="@episode.Id" class="btn btn-lg btn-lg-square btn-outline-info m-2"><i class="fa fa-info"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@episode.Id" class="btn btn-lg btn-lg-square btn-outline-warning m-2"><i class="fa fa-pen"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@episode.Id" class="btn btn-lg btn-lg-square btn-outline-danger m-2"><i class="fa fa-trash"></i></a>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

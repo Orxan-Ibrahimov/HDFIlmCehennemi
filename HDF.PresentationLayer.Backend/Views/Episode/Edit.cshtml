@@ -1,0 +1,47 @@
+﻿@model EpisodeVM
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6 offset-xl-3">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Edit The Episode</h6>
+
+                <form enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3 bg-transparent text-center">
+                        <label asp-for="Episode.EpisodePhoto" class="form-label">
+                            <p>Film Image</p>
+                            <img src="~/assets/img/episodes/@Model.Episode.EpisodeImage" width="200" height="200" />
+                        </label>
+                        <input asp-for="Episode.EpisodePhoto" accept="image/*" class="form-control pan-form-style rounded-pill d-none" />
+                        <span asp-validation-for="Episode.EpisodePhoto" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Episode.Name" class="form-label">Name</label>
+                        <input asp-for="Episode.Name" class="form-control pan-form-style rounded-pill" required />
+                        <span asp-validation-for="Episode.Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Episode.EpisodeNumber" class="form-label">Episode Number</label>
+                        <input asp-for="Episode.EpisodeNumber" min="0" max="10" class="form-control pan-form-style rounded-pill" required />
+                        <span asp-validation-for="Episode.EpisodeNumber" class="text-danger"></span>
+                    </div>                
+                   
+                    
+                    <div class="mb-3">
+                        <label asp-for="Episode.MovieId">Country</label>
+                        <select asp-for="Episode.MovieId" asp-items="@Model.MovieList" class="form-control pan-form-style" required>
+                            <option selected>Choose</option>
+                        </select>
+                        <span asp-validation-for="Episode.MovieId"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" asp-route-Id="@Model.Episode.Id" asp-route-EpisodeImage="@Model.EpisodeImage">Sign in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>    
