@@ -8,15 +8,23 @@
         <div class="col-sm-12 col-xl-6 offset-xl-3">
             <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4" id="movie" data="@Model.Movie.Id">Edit The Movie</h6>
+
                 <form enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3 bg-transparent text-center">
+                        <label asp-for="Movie.FilmPhoto" class="form-label">
+                            <p>Film Image</p>
+                            <img src="~/assets/img/movies/@Model.Movie.FilmImage" width="200" height="200" />
+                        </label>
+                        <input asp-for="Movie.FilmPhoto" accept="image/*" class="form-control pan-form-style rounded-pill d-none" />
+                        <span asp-validation-for="Movie.FilmPhoto" class="text-danger"></span>
+                    </div>
                     <div class="mb-3">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <label asp-for="Movie.Name" class="form-label">Name</label>
                         <input asp-for="Movie.Name" class="form-control pan-form-style rounded-pill" required />
                         <span asp-validation-for="Movie.Name" class="text-danger"></span>
-                    </div>
+                    </div>                   
                     <div class="mb-3">
-                        <div asp-validation-summary="ModelOnly"></div>
                         <label asp-for="Movie.MoviePoint" class="form-label">Movie Point</label>
                         <input asp-for="Movie.MoviePoint" min="0" max="10" class="form-control pan-form-style rounded-pill" required />
                         <span asp-validation-for="Movie.MoviePoint" class="text-danger"></span>
@@ -25,15 +33,7 @@
                         <label asp-for="Movie.IMDBPoint" class="form-label"> IMDb Point</label>
                         <input asp-for="Movie.IMDBPoint" min="0" max="10" class="form-control pan-form-style rounded-pill" required />
                         <span asp-validation-for="Movie.IMDBPoint" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Movie.FilmPhoto" class="form-label">
-                            <p>Film Image</p>
-                            <img src="~/assets/img/movies/@Model.Movie.FilmImage" width="40" height="40"/>
-                        </label>
-                        <input asp-for="Movie.FilmPhoto" accept="image/*" class="form-control pan-form-style rounded-pill d-none" />
-                        <span asp-validation-for="Movie.FilmPhoto" class="text-danger"></span>
-                    </div>
+                    </div>                   
                     <div class="mb-3">
                         <label asp-for="Movie.IsSeries"></label>
                         <select asp-for="Movie.IsSeries" class="form-control pan-form-style" required>
@@ -63,19 +63,14 @@
 
                     <div class="mb-3">
                         <label for="categories" class="form-label">Categories</label>
-                        <div class="form-floating options mb-3">
+                        <div class="form-floating d-flex flex-wrap options mb-3">
                             <select class="form-select pan-form-style" id="category" data="@Model.Movie.Id" aria-label="Floating label select example">
                                 <option value="-1" selected>Choose</option>
                                 @foreach (var category in Model.Categories)
                                 {
                                     <option value="@category.Id" disabled="@(Model.Movie.MovieCategories.Exists(mc => mc.CategoryId == category.Id)?true:false)">@category.Name</option>
                                 }
-                            </select>
-                           @*  @for (int i = 0; i < Model.Movie?.MovieCategories?.Count(); i++)
-                            {
-                                <input class="d-none" name="_categories[@i]" value="@Model.Movie.MovieCategories[i].CategoryId" />
-                                <a href="#" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieCategories[i]?.Category?.Name</a>
-                            } *@
+                            </select>                         
                             @for (int i = 0; i < Model.Movie?.MovieCategories?.Count(); i++)
                             {
                                 <input class="d-none" data-list="category" value="@Model.Movie.MovieCategories[i].CategoryId" />
@@ -87,7 +82,7 @@
                     @* Movie Kinds *@
                     <div class="mb-3">
                         <label for="kinds" class="form-label">Kinds</label>
-                        <div class="form-floating options mb-3">
+                        <div class="form-floating d-flex flex-wrap options mb-3">
                             <select class="form-select pan-form-style" id="kind" aria-label="Floating label select example">
                                 <option value="-1" selected>Choose</option>
                                 @foreach (var kind in Model.Kinds)
@@ -105,7 +100,7 @@
 
                     <div class="mb-3">
                         <label for="languages" class="form-label">Languages</label>
-                        <div class="form-floating options mb-3">
+                        <div class="form-floating d-flex flex-wrap options mb-3">
                             <select class="form-select pan-form-style" id="language" aria-label="Floating label select example">
                                 <option value="-1" selected>Choose</option>
                                 @foreach (var language in Model.Languages)

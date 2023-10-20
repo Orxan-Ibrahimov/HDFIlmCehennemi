@@ -252,15 +252,16 @@
         var selectedValue = $(element).val();
         var selectedText = element.options[element.selectedIndex].text;
         if (selectedValue >= 0) {
-            let alert = document.createElement("a");            element.options[element.selectedIndex].setAttribute("disabled", "true");
+            let alert = document.createElement("a");
+            element.options[element.selectedIndex].setAttribute("disabled", "true");
             alert.classList.add("alert", "alert-info", "d-inline-block", "m-2", "p-2");
             alert.setAttribute("href", `#`);
             alert.textContent = selectedText;
             $(element).after(alert);
 
             let input = document.createElement("input");
-            input.classList.add("d-none");
-            input.setAttribute("data-list", list);
+            input.classList.add("d-none");            
+            input.setAttribute("data-list", list);            
             input.setAttribute("value", selectedValue);
             $(input).val(selectedValue);
 
@@ -269,14 +270,12 @@
                 Remove(alert);
                 $(alert).remove();
                 $(input).remove();
-
                 element.options[element.selectedIndex].removeAttribute("disabled");
             });
 
-            //ll
             let id = selectedValue;
-            let movId = $("#movie").attr('data');           
-          
+            let movId = $("#movie").attr('data');
+
             $.ajax({
                 url: `/Movie/AddSub?first=${movId}&second=${id}&list=${list}`,
                 type: "Get",
@@ -284,23 +283,25 @@
                     /*$(this.parentElement).append(response);*/
                 }
             })
+           
             $(element).after(input);
             count++;   
-
-
         }
         return count;       
         
     }
+
     $(".form-floating #category").change(function (e) {
+        console.log("Hello");
        movieCount = CreateSpecialElement("category", movieCount, this);
     });
     $(".form-floating #language").change(function (e) {
-       languageCount = CreateSpecialElement("language", languageCount, this);
+        languageCount = CreateSpecialElement("language", languageCount, this);
     });
 
     $(".form-floating #kind").change(function (e) {
         kindCount = CreateSpecialElement("kind", kindCount, this);
-    });
+    });  
+  
     
 })(jQuery);

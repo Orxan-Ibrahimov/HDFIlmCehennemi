@@ -52,9 +52,18 @@ namespace HDF.PresentationLayer.Backend.Controllers
         // GET: MovieController/Details/5
         public ActionResult Details(int id)
         {
-            Movie movie = _movieService.GetById(id);    
-            if (movie == null) return NotFound();
-            return View(movie);
+            MovieVM movieVM = new MovieVM()
+            {
+                Categories = _categoryService.GetList(),
+                Kinds = _kindService.GetList(),
+                Languages = _languageService.GetList(),
+                Countries = _countryService.GetList(),
+                CountryList = new List<SelectListItem>(),
+                Movie = _movieService.GetById(id),
+                Movies = _movieService.GetList()
+            };
+            if (movieVM.Movie == null) return NotFound();
+            return View(movieVM);
         }
 
         // GET: MovieController/Create
@@ -85,13 +94,10 @@ namespace HDF.PresentationLayer.Backend.Controllers
         // POST: MovieController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(MovieVM movieVM)
-        
+        public ActionResult Create(MovieVM movieVM)        
         {
             try
-            {
-                if (!ModelState.IsValid) return RedirectToAction(nameof(Create));            
-
+            {                        
                 // Movie Image Created
                 if (!movieVM.Movie.FilmPhoto.ContentType.Contains("image")) return View(movieVM);
                 if (movieVM.Movie.FilmPhoto.Length / 1024 > 1000) return View(movieVM);
@@ -102,6 +108,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
                     return View(movieVM);
                 }
 
+                if (!ModelState.IsValid) return RedirectToAction(nameof(Create));              
                 _movieService.Insert(movieVM.Movie);               
                 return RedirectToAction(nameof(Index));
             }
@@ -156,9 +163,21 @@ namespace HDF.PresentationLayer.Backend.Controllers
                     movieVM.Movie.FilmImage = Methods.UpdateImage(movieVM.Movie.FilmPhoto, movieVM.Movie.Name.Replace(" ", "-"), "movies", _webHostEnvironment.WebRootPath, movieVM.Image);
 
                 if (!ModelState.IsValid) return View(movieVM);
-                movieVM.Movie.Id = id;
-                
-                _movieService.Update(movieVM.Movie);
+
+                Movie changedMovie = new Movie
+                {
+                    Annotation = movieVM.Movie.Annotation,
+                    CountryId = movieVM.Movie.CountryId,
+                    FilmImage = movieVM.Movie.FilmImage,
+                    Id = id,
+                    IsSeries = movieVM.Movie.IsSeries,
+                    IMDBPoint = movieVM.Movie.IMDBPoint,
+                    Name = movieVM.Movie.Name,
+                    ReleaseDate = movieVM.Movie.ReleaseDate,
+                    MoviePoint = movieVM.Movie.MoviePoint,
+                    IsActive = true
+                };                
+                _movieService.Update(changedMovie);
                 return RedirectToAction(nameof(Index));
             }
             catch

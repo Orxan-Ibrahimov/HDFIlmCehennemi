@@ -12,11 +12,11 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Country</th>
-                            <th scope="col">Short Description</th>
-                            <th scope="col">Flag</th>
-                            <th scope="col">Operations</th>
-                            <th scope="col">
+                            <th class="text-center" scope="col">Country</th>
+                            <th class="text-center" scope="col">Short Description</th>
+                            <th class="text-center" scope="col">Flag</th>
+                            <th class="text-center" scope="col">Operations</th>
+                            <th class="text-center" scope="col">
                                 <a asp-action="Create" class="btn btn-lg btn-lg-square btn-outline-success m-2"><i class="fa fa-plus"></i></a>
                             </th>                           
                         </tr>
@@ -26,12 +26,12 @@
                         {
                             <tr>
                                 <th scope="row">@country.Id</th>
-                                <td>@country.Name</td>
-                                <td>@country.ShortName</td>
-                                <td>
+                                <td class="text-center">@country.Name</td>
+                                <td class="text-center">@country.ShortName</td>
+                                <td class="text-center">
                                     <img class="rounded-circle flex-shrink-0" src="~/assets/img/countries/@country.Image" alt="" style="width: 40px; height: 40px;">
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <a asp-action="Details" asp-route-id="@country.Id" class="btn btn-lg btn-lg-square btn-outline-info m-2"><i class="fa fa-info"></i></a>
                                     <a asp-action="Edit" asp-route-id="@country.Id" class="btn btn-lg btn-lg-square btn-outline-warning m-2"><i class="fa fa-pen"></i></a>
                                     <a asp-action="Delete" asp-route-id="@country.Id" class="btn btn-lg btn-lg-square btn-outline-danger m-2"><i class="fa fa-trash"></i></a>

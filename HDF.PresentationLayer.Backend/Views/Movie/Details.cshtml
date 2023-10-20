@@ -1,4 +1,4 @@
-﻿@model Movie
+﻿@model MovieVM
 @{
     ViewData["Title"] = "Details";
 }
@@ -6,19 +6,19 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-6 offset-xl-3">
             <div class="bg-secondary rounded h-100 p-4">
-                <h1 class="mb-4 text-info">Movie - <span class="text-white">@Model.Name</span></h1>
+                <h1 class="mb-4 text-info" id="movie" data="@Model.Movie.Id" >Movie - <span class="text-white">@Model.Movie.Name</span></h1>
 
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item bg-transparent text-center"><img width="300" height="300" src="~/assets/img/movies/@Model.FilmImage" /></li>
-                    <li class="list-group-item bg-transparent">Id: <span class="text-white">@Model.Id</span></li>
-                    <li class="list-group-item bg-transparent">Name: <span class="text-white">@Model.Name</span></li>
-                    <li class="list-group-item bg-transparent">IMDb Point: <span class="text-white">@Model.IMDBPoint</span></li>
-                    <li class="list-group-item bg-transparent">Movie Point: <span class="text-white">@Model.MoviePoint</span></li>
-                    <li class="list-group-item bg-transparent">Release Date: <span class="text-white">@Model.ReleaseDate.Year</span></li>
-                    <li class="list-group-item bg-transparent">Country: <span class="text-white">@Model.Country.Name</span></li>
+                    <li class="list-group-item bg-transparent text-center"><img width="300" height="300" src="~/assets/img/movies/@Model.Movie.FilmImage" /></li>
+                    <li class="list-group-item bg-transparent">Id: <span class="text-white">@Model.Movie.Id</span></li>
+                    <li class="list-group-item bg-transparent">Name: <span class="text-white">@Model.Movie.Name</span></li>
+                    <li class="list-group-item bg-transparent">IMDb Point: <span class="text-white">@Model.Movie.IMDBPoint</span></li>
+                    <li class="list-group-item bg-transparent">Movie Point: <span class="text-white">@Model.Movie.MoviePoint</span></li>
+                    <li class="list-group-item bg-transparent">Release Date: <span class="text-white">@Model.Movie.ReleaseDate.Year</span></li>
+                    <li class="list-group-item bg-transparent">Country: <span class="text-white">@Model.Movie?.Country?.Name</span></li>
                     <li class="list-group-item bg-transparent">Active?:
-                        @if (Model.IsActive)
-                            {
+                        @if (Model.Movie.IsActive)
+                        {
                             <span class="text-success"><i class="fa fa-circle-check"></i></span>
                             }
                         else{
@@ -27,7 +27,7 @@
                             </li>
                     <li class="list-group-item bg-transparent">
                         Film or Serie?:
-                        @if (Model.IsSeries)
+                        @if (Model.Movie.IsSeries)
                         {
                             <span class="text-white">Dizi</span>
                         }
@@ -36,31 +36,70 @@
                             <span class="text-white">Film</span>
                         }
                     </li>
-                    <li class="list-group-item bg-transparent">Film's Annotation: <span class="text-white">@Model.Annotation</span></li>
-                    <li class="list-group-item bg-transparent">Category:  
-                        @foreach (var movieCategory in Model.MovieCategories)
-                        {
-                            <span class="badge bg-success">@movieCategory.Category.Name</span>
-                        }
+                    <li class="list-group-item bg-transparent">Film's Annotation: <span class="text-white">@Model.Movie.Annotation</span></li>
+                     @* Movie Categories *@
+                    <li class="list-group-item bg-transparent">
+                        <h3>Movie Categories: </h3>
+                        <div class="mb-3">
+                            <div class="form-floating d-flex flex-wrap options mb-3">
+                                <select class="form-select pan-form-style py-0" id="category" data="@Model.Movie.Id" aria-label="Floating label select example">
+                                    <option value="-1" selected>Choose</option>
+                                    @foreach (var category in Model.Categories)
+                                    {
+                                        <option value="@category.Id" disabled="@(Model.Movie.MovieCategories.Exists(mc => mc.CategoryId == category.Id)?true:false)">@category.Name</option>
+                                    }
+                                </select>
+                                @for (int i = 0; i < Model.Movie?.MovieCategories?.Count(); i++)
+                                {
+                                    <input class="d-none" data-list="category" value="@Model.Movie.MovieCategories[i].CategoryId" />
+                                    <a href="#" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieCategories[i]?.Category?.Name</a>
+                                }
+                            </div>
+                        </div>
                     </li>
                     <li class="list-group-item bg-transparent">
-                        Language:
-                        @foreach (var movieLanguage in Model.MovieLanguages)
-                        {
-                            <span class="badge bg-warning">@movieLanguage.Language.LanguageKind</span>
-                        }
+                        <h3>Languages: </h3>
+                        <div class="mb-3">
+                            <div class="form-floating d-flex flex-wrap options mb-3">
+                                <select class="form-select pan-form-style py-0" id="language" aria-label="Floating label select example">
+                                    <option value="-1" selected>Choose</option>
+                                    @foreach (var language in Model.Languages)
+                                    {
+                                        <option value="@language.Id" disabled="@(Model.Movie.MovieLanguages.Exists(ml => ml.LanguageId == language.Id)?true:false)">@language.LanguageKind</option>
+                                    }
+                                </select>
+                                @for (int i = 0; i < Model.Movie?.MovieLanguages?.Count(); i++)
+                                {
+                                    <input class="d-none" data-list="language" value="@Model.Movie.MovieLanguages[i].LanguageId" />
+                                    <a href="" class="alert alert-info d-inline-block m-2 p-2" data="@Model.Movie.Id">@Model.Movie?.MovieLanguages[i]?.Language?.LanguageKind</a>
+                                }
+                            </div>
+                        </div>
                     </li>
+                    @* Movie Kinds *@
                     <li class="list-group-item bg-transparent">
-                        Language:
-                        @foreach (var movieKind in Model.MovieKinds)
-                        {
-                            <span class="badge bg-dark">@movieKind.Kind.Name</span>
-                        }
+                        <h3>Movie Kinds: </h3>
+                        <div class="mb-3">
+                            <div class="form-floating d-flex flex-wrap options mb-3">
+                                <select class="form-select pan-form-style py-0" id="kind" aria-label="Floating label select example">
+                                    <option value="-1" selected>Choose</option>
+                                    @foreach (var kind in Model.Kinds)
+                                    {
+                                        <option value="@kind.Id" disabled="@(Model.Movie.MovieKinds.Exists(mk => mk.KindId == kind.Id)?true:false)">@kind.Name </option>
+                                    }
+                                </select>
+                                @for (int i = 0; i < Model.Movie?.MovieKinds?.Count(); i++)
+                                {
+                                    <input class="d-none" data-list="kind" value="@Model.Movie.MovieKinds[i].KindId" />
+                                    <a href="" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieKinds[i]?.Kind?.Name</a>
+                                }
+                            </div>
+                        </div>
                     </li>
                 </ul>
                 <a asp-action="Index" class="btn btn-info m-2"><i class="fa fa-arrow-left"></i></a>
-                <a asp-action="DeleteOrActive" asp-route-id="@Model.Id" class="btn btn-@(Model.IsActive?"danger":"success") m-2">
-                    @(Model.IsActive?"Remove":"Make Active")
+                <a asp-action="DeleteOrActive" asp-route-id="@Model.Movie.Id" class="btn btn-@(Model.Movie.IsActive?"danger":"success") m-2">
+                    @(Model.Movie.IsActive ? "Remove" : "Make Active")
                 </a>
             </div>
         </div>

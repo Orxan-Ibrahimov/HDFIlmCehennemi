@@ -56,49 +56,7 @@
                             <option selected>Choose</option>
                         </select>
                         <span asp-validation-for="Movie.CountryId"></span>
-                    </div>
-                   
-                    <div class="mb-3">
-                        <label for="categories" class="form-label">Categories</label>
-                        <div class="form-floating mb-3">
-                            <select class="form-select pan-form-style" id="categories" aria-label="Floating label select example">
-                                <option value="-1" selected>Choose</option>
-                                @foreach (var category in Model.Categories)
-                                {
-                                    <option value="@category.Id">@category.Name</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-
-                    @* Movie Kinds *@
-                    <div class="mb-3">
-                        <label for="kinds" class="form-label">Kinds</label>
-                        <div class="form-floating mb-3">
-                            <select class="form-select pan-form-style" id="kinds" aria-label="Floating label select example">
-                                <option value="-1" selected>Choose</option>
-                                @foreach (var kind in Model.Kinds)
-                                {
-                                    <option value="@kind.Id">@kind.Name</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                   
-                    <div class="mb-3">
-                        <label for="languages" class="form-label">Languages</label>
-                        <div class="form-floating mb-3">
-                            <select class="form-select pan-form-style" id="languages" aria-label="Floating label select example">
-                                <option value="-1" selected>Choose</option>
-                                @foreach (var language in Model.Languages)
-                                {
-                                    <option value="@language.Id">@language.LanguageKind</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                                
-
+                    </div>              
                     <button type="submit" class="btn btn-primary">Sign in</button>
                 </form>
             </div>
