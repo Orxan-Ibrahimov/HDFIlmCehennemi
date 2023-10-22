@@ -33,7 +33,8 @@ namespace HDF.BusinessLayer.Concrete
         {
             return _movieDAL.GetList().Include(m => m.Country).Include(m => m.MovieCategories)
                 .ThenInclude(mc => mc.Category).Include(m => m.MovieLanguages).ThenInclude(ml => ml.Language)
-                .Include(m => m.MovieKinds).ThenInclude(mk => mk.Kind).ToList();
+                .Include(m => m.MovieKinds).ThenInclude(mk => mk.Kind)
+                .Include(m=>m.MovieCasts).ThenInclude(mc => mc.Cast).ToList();
         }
 
         public void Insert(Movie t)

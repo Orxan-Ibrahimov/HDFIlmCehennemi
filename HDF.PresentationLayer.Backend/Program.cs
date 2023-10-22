@@ -44,6 +44,11 @@ builder.Services.AddScoped<IMovieKindService, MovieKindManager>();
 builder.Services.AddScoped<IMovieCategoryDAL, EFMovieCategoryDAL>();
 builder.Services.AddScoped<IMovieCategoryService, MovieCategoryManager>();
 
+//MovieCast
+builder.Services.AddScoped<IMovieCastDAL, EFMovieCastDAL>();
+builder.Services.AddScoped<IMovieCastService, MovieCastManager>();
+
+
 //MovieLanguage
 builder.Services.AddScoped<IMovieLanguageDAL, EFMovieLanguageDAL>();
 builder.Services.AddScoped<IMovieLanguageService, MovieLanguageManager>();

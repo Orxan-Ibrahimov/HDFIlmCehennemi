@@ -96,6 +96,26 @@
                             </div>
                         </div>
                     </li>
+                    @* MovieCast *@
+                    <li class="list-group-item bg-transparent">
+                        <h3>Casts: </h3>
+                        <div class="mb-3">
+                            <div class="form-floating d-flex flex-wrap options mb-3">
+                                <select class="form-select pan-form-style py-0" id="cast" aria-label="Floating label select example">
+                                    <option value="-1" selected>Choose</option>
+                                    @foreach (var cast in Model.Casts)
+                                    {
+                                        <option value="@cast.Id" disabled="@(Model.Movie.MovieCasts.Exists(mc => mc.CastId == cast.Id)?true:false)">@cast.Name @cast.Surname </option>
+                                    }
+                                </select>
+                                @for (int i = 0; i < Model.Movie?.MovieCasts?.Count(); i++)
+                                {
+                                    <input class="d-none" data-list="cast" value="@Model.Movie.MovieCasts[i].CastId" />
+                                    <a href="" class="alert alert-info d-inline-block m-2 p-2">@Model.Movie?.MovieCasts[i]?.Cast?.Name @Model.Movie?.MovieCasts[i]?.Cast?.Surname</a>
+                                }
+                            </div>
+                        </div>
+                    </li>
                 </ul>
                 <a asp-action="Index" class="btn btn-info m-2"><i class="fa fa-arrow-left"></i></a>
                 <a asp-action="DeleteOrActive" asp-route-id="@Model.Movie.Id" class="btn btn-@(Model.Movie.IsActive?"danger":"success") m-2">

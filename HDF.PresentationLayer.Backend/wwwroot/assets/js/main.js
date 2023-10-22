@@ -210,6 +210,7 @@
     let movieCount = 0;
     let languageCount = 0;
     let kindCount = 0;
+    let castCount = 0;
 
     $(".options .alert").click(function (e) {
         e.preventDefault();
@@ -302,6 +303,8 @@
     $(".form-floating #kind").change(function (e) {
         kindCount = CreateSpecialElement("kind", kindCount, this);
     });  
-  
+    $(".form-floating #cast").change(function (e) {
+        castCount = CreateSpecialElement("cast", castCount, this);
+    });    
     
 })(jQuery);

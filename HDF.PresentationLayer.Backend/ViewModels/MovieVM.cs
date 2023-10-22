@@ -18,11 +18,9 @@ namespace HDF.PresentationLayer.Backend.ViewModels
         [ValidateNever]
         public List<Kind> Kinds { get; set; }
         [ValidateNever]
-        public List<SelectListItem> KindList { get; set; }
+        public List<Cast> Casts { get; set; }
         [ValidateNever]
         public List<Language> Languages { get; set; }
-        [ValidateNever]
-        public List<SelectListItem> LanguageList { get; set; }
         [ValidateNever]
         public string Image { get; set; }
         [ValidateNever]

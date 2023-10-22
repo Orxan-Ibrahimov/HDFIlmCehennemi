@@ -18,17 +18,20 @@ namespace HDF.PresentationLayer.Backend.Controllers
         private readonly IMovieService _movieService;
         private readonly ICategoryService _categoryService;
         private readonly ICountryService _countryService;
+        private readonly ICastService _castService;
         private readonly ILanguageService _languageService;
         private readonly IKindService _kindService;
         private readonly IMovieKindService _movieKindService;
         private readonly IMovieLanguageService _movieLanguageService;
         private readonly IMovieCategoryService _movieCategoryService;
+        private readonly IMovieCastService _movieCastService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public MovieController(IMovieService movieService, ICategoryService categoryService,
            ICountryService countryService, ILanguageService languageService, IKindService kindService,
            IWebHostEnvironment webHostEnvironment, IMovieLanguageService movieLanguageService,
-           IMovieCategoryService movieCategoryService, IMovieKindService movieKindService)
+           IMovieCategoryService movieCategoryService, IMovieKindService movieKindService,
+           IMovieCastService movieCastService, ICastService castService)
         {
             _movieService = movieService;
             _categoryService = categoryService;
@@ -39,6 +42,8 @@ namespace HDF.PresentationLayer.Backend.Controllers
             _movieLanguageService = movieLanguageService;
             _movieCategoryService = movieCategoryService;
             _movieKindService = movieKindService;
+            _movieCastService = movieCastService;
+            _castService = castService;
         }
 
         // GET: MovieController
@@ -56,6 +61,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
             {
                 Categories = _categoryService.GetList(),
                 Kinds = _kindService.GetList(),
+                Casts = _castService.GetList(),
                 Languages = _languageService.GetList(),
                 Countries = _countryService.GetList(),
                 CountryList = new List<SelectListItem>(),
@@ -72,14 +78,12 @@ namespace HDF.PresentationLayer.Backend.Controllers
             MovieVM movieVM = new MovieVM()
             {
                 Categories = _categoryService.GetList(),
-                KindList = new List<SelectListItem>(),
                 Kinds = _kindService.GetList(),
-                LanguageList = new List<SelectListItem>(),
                 Languages = _languageService.GetList(),
                 Countries = _countryService.GetList(),
                 CountryList = new List<SelectListItem>(),
                 Movies = _movieService.GetList()
-            };          
+            };
 
             foreach (var country in movieVM.Countries)
             {
@@ -94,10 +98,10 @@ namespace HDF.PresentationLayer.Backend.Controllers
         // POST: MovieController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(MovieVM movieVM)        
+        public ActionResult Create(MovieVM movieVM)
         {
             try
-            {                        
+            {
                 // Movie Image Created
                 if (!movieVM.Movie.FilmPhoto.ContentType.Contains("image")) return View(movieVM);
                 if (movieVM.Movie.FilmPhoto.Length / 1024 > 1000) return View(movieVM);
@@ -108,8 +112,8 @@ namespace HDF.PresentationLayer.Backend.Controllers
                     return View(movieVM);
                 }
 
-                if (!ModelState.IsValid) return RedirectToAction(nameof(Create));              
-                _movieService.Insert(movieVM.Movie);               
+                if (!ModelState.IsValid) return RedirectToAction(nameof(Create));
+                _movieService.Insert(movieVM.Movie);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -129,7 +133,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
                 Countries = _countryService.GetList(),
                 CountryList = new List<SelectListItem>(),
                 Movie = _movieService.GetById(id),
-                Movies = _movieService.GetList()             
+                Movies = _movieService.GetList()
             };
 
             if (movieVM.Movie == null) return NotFound();
@@ -141,7 +145,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
                 {
                     new SelectListItem(){Value = country.Id.ToString(), Text = country.Name}
                 });
-            }                  
+            }
             return View(movieVM);
         }
 
@@ -176,7 +180,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
                     ReleaseDate = movieVM.Movie.ReleaseDate,
                     MoviePoint = movieVM.Movie.MoviePoint,
                     IsActive = true
-                };                
+                };
                 _movieService.Update(changedMovie);
                 return RedirectToAction(nameof(Index));
             }
@@ -193,7 +197,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
             Movie movie = _movieService.GetById(id);
             if (movie == null) return NotFound();
 
-            if(movie.IsActive) movie.IsActive = false;
+            if (movie.IsActive) movie.IsActive = false;
             else movie.IsActive = true;
             _movieService.Update(movie);
 
@@ -201,10 +205,10 @@ namespace HDF.PresentationLayer.Backend.Controllers
         }
 
         public void AddSub(int first, int second, string list)
-        {           
-            if (first > 0 && second > 0) 
+        {
+            if (first > 0 && second > 0)
             {
-                
+
                 if (list == "category")
                 {
                     MovieCategory movieCategory = new MovieCategory
@@ -215,7 +219,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
 
                     _movieCategoryService.Insert(movieCategory);
                 }
-                if (list == "kind")
+                else if (list == "kind")
                 {
                     MovieKind movieKind = new MovieKind
                     {
@@ -224,7 +228,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
                     };
                     _movieKindService.Insert(movieKind);
                 }
-                if (list == "language")
+                else if (list == "language")
                 {
                     MovieLanguage movieLanguage = new MovieLanguage
                     {
@@ -233,35 +237,52 @@ namespace HDF.PresentationLayer.Backend.Controllers
                     };
                     _movieLanguageService.Insert(movieLanguage);
                 }
-            }          
 
-            
-        }
-        public void RemoveSub(int first, int second,string list)
+                else if (list == "cast")
+                {
+                    MovieCast movieCast = new MovieCast
+                    {
+                        CastId = second,
+                        MovieId = first
+                    };
+                    _movieCastService.Insert(movieCast);
+                }
+                }
+
+
+            }
+
+        public void RemoveSub(int first, int second, string list)
         {
-
-            if(list == "category")
+            if (list == "category")
             {
                 MovieCategory movieCategory = _movieCategoryService.GetList()
                     .First(mc => (mc.MovieId == first && mc.CategoryId == second));
                 if (movieCategory == null) return;
                 _movieCategoryService.Delete(movieCategory);
             }
-            if (list == "kind")
+            else if (list == "kind")
             {
                 MovieKind movieKind = _movieKindService.GetList().
                     First(mk => (mk.MovieId == first && mk.KindId == second));
                 if (movieKind == null) return;
                 _movieKindService.Delete(movieKind);
             }
-            if (list == "language")
+            else if (list == "language")
             {
                 MovieLanguage movieLanguage = _movieLanguageService.GetList().
-                    First( ml => (ml.MovieId == first && ml.LanguageId == second));
+                    First(ml => (ml.MovieId == first && ml.LanguageId == second));
                 if (movieLanguage == null) return;
                 _movieLanguageService.Delete(movieLanguage);
             }
-
+            else if (list == "cast")
+            {
+                MovieCast movieCast = _movieCastService.GetList().
+                    First(mc => (mc.MovieId == first && mc.CastId == second));
+                if (movieCast == null) return;
+                _movieCastService.Delete(movieCast);
+            }
         }
+
+    }       
     }
-}
