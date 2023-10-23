@@ -31,6 +31,7 @@ namespace HDF.DAL.Context
         public DbSet<MovieCategory> MovieCategories { get; set; }
         public DbSet<MovieKind> MovieKinds { get; set; }
         public DbSet<MovieLanguage> MovieLanguages { get; set; }
+        public DbSet<Footer> Footer { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

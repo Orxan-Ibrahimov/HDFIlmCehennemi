@@ -54,7 +54,6 @@ builder.Services.AddScoped<IMovieCategoryService, MovieCategoryManager>();
 builder.Services.AddScoped<IMovieCastDAL, EFMovieCastDAL>();
 builder.Services.AddScoped<IMovieCastService, MovieCastManager>();
 
-
 //MovieLanguage
 builder.Services.AddScoped<IMovieLanguageDAL, EFMovieLanguageDAL>();
 builder.Services.AddScoped<IMovieLanguageService, MovieLanguageManager>();
@@ -62,6 +61,10 @@ builder.Services.AddScoped<IMovieLanguageService, MovieLanguageManager>();
 //MovieLanguage
 builder.Services.AddScoped<IEpisodeDAL, EFEpisodeDAL>();
 builder.Services.AddScoped<IEpisodeService, EpisodeManager>();
+
+//Footer
+builder.Services.AddScoped<IFooterDAL, EFFooterDAL>();
+builder.Services.AddScoped<IFooterService, FooterManager>();
 
 var app = builder.Build();
 
