@@ -4,6 +4,7 @@ using HDF.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HDF.DAL.Migrations
 {
     [DbContext(typeof(HDFContext))]
-    partial class HDFContextModelSnapshot : ModelSnapshot
+    [Migration("20231023115530_changeUsersTable")]
+    partial class changeUsersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,32 +52,6 @@ namespace HDF.DAL.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConcurrencyStamp = "8f3dde80-6acf-47bb-b1dd-d8e33e098dd9",
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ConcurrencyStamp = "0ef1fc97-7bb9-41de-b65d-40b93462c251",
-                            Name = "Supervisor"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ConcurrencyStamp = "318f09cf-cd22-4f17-b74f-b23f1a9d987e",
-                            Name = "Project Manager"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ConcurrencyStamp = "bffbfbff-42f1-4a7a-a281-c612c5935d4c",
-                            Name = "Worker"
-                        });
                 });
 
             modelBuilder.Entity("HDF.EntityLayer.Concrete.AppUser", b =>
@@ -90,6 +66,7 @@ namespace HDF.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Avatar")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")

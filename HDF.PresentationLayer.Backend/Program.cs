@@ -4,6 +4,7 @@ using HDF.DAL.Abstract;
 using HDF.DAL.Context;
 using HDF.DAL.EntityFrameWork;
 using HDF.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +13,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HDFContext>();
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<HDFContext>();
 
+// Role 
+builder.Services.AddScoped<IAppRoleDAL, EFAppRoleDAL>();
+builder.Services.AddScoped<IAppRoleService, AppRoleManager>();
+
 // Cast 
 builder.Services.AddScoped<ICastDAL, EFCastDAL>();
 builder.Services.AddScoped<ICastService, CastManager>();
+
 
 //Country
 builder.Services.AddScoped<ICountryDal, EFCountryDAL>();
@@ -76,6 +82,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=country}/{action=Index}/{id?}");
+    pattern: "{controller=account}/{action=login}/{id?}");
 
 app.Run();

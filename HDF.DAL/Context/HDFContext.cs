@@ -1,8 +1,10 @@
 ﻿using HDF.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -16,8 +18,7 @@ namespace HDF.DAL.Context
         {
             optionsBuilder.UseSqlServer("Data Source = DESKTOP-AIBH7MI\\SQLEXPRESS;Initial Catalog=HDF;Integrated Security = sspi;");
         }
-            
-
+        
         public DbSet<Country> Countries { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cast> Casts { get; set; }
@@ -121,6 +122,30 @@ namespace HDF.DAL.Context
              .HasForeignKey(m => m.MovieId)
              .OnDelete(DeleteBehavior.ClientSetNull);
 
+            builder.Entity<AppRole>()
+                .HasData(
+                new AppRole
+                {
+                    Id = 1,
+                    Name = "Admin",
+                    
+                },
+                new AppRole
+                {
+                    Id = 2,
+                    Name = "Supervisor",
+                },
+                new AppRole
+                {
+                    Id = 3,
+                    Name = "Project Manager",
+                },
+                new AppRole
+                {
+                    Id = 4,
+                    Name = "Worker",
+                }
+                );
         }
     }
 }
