@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HDF.Utilities\HDF.Utilities.csproj" />
+  </ItemGroup>
+
 </Project>

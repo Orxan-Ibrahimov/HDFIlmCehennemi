@@ -151,7 +151,7 @@
                                 Altyazılı
                             </a>
                             <a href="#">
-                                <img src="assets/images/icons/tr.png" alt="tr" /> Türkçe
+                                <img src="~/assets/images/icons/tr.png" alt="tr" /> Türkçe
                                 Dublaj
                             </a>
                         </div>
@@ -190,26 +190,12 @@
                         </div>
                     </div>
 
-                    <a href="#" class="col-6 movies-for-category">
-                        Japonya Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Kore Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Hint Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Türk Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category"> DC Yapımları </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Marvel Yapımları
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Amazon Yapımları
-                    </a>
-                    <a href="#" class="col-6 movies-for-category"> 1080p Film </a>
+                    @foreach (var specialCategory in Model.Categories.Where(c => c.Speciality == Speciality.Special))
+                    {
+                        <a href="#" class="col-6 movies-for-category">
+                            @specialCategory.Name
+                        </a>
+                    }                    
                 </div>
 
                 <div class="row my-4">
@@ -302,7 +288,7 @@
                                                         @movie.Annotation
                                                     </p>
                                                     <div class="genres">
-                                                        @foreach (var category in Model.Categories)
+                                                        @foreach (var category in Model.Categories.Where(c => c.Speciality == Speciality.Normal))
                                                         {
                                                             <span class="category">@category.Name</span>
                                                         }
@@ -481,7 +467,7 @@
                         </div>
                     </div>
 
-                   @foreach (var category in Model.Categories)
+                    @foreach (var category in Model.Categories.Where(c => c.Speciality == Speciality.Normal))
                     {
                         <a href="#" class="col-6 movies-for-category">
                             @category.Name
@@ -501,26 +487,12 @@
                         </div>
                     </div>
 
-                    <a href="#" class="col-6 movies-for-category">
-                        Japonya Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Kore Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Hint Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Türk Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category"> DC Yapımları </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Marvel Yapımları
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Amazon Yapımları
-                    </a>
-                    <a href="#" class="col-6 movies-for-category"> 1080p Film </a>
+                   @foreach (var specialCategory in Model.Categories.Where(c => c.Speciality == Speciality.Special))
+                    {
+                        <a href="#" class="col-6 movies-for-category">
+                            @specialCategory.Name
+                        </a>
+                    }                   
                 </div>
 
                 <div class="row my-4">

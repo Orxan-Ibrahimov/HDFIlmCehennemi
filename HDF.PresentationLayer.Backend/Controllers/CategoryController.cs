@@ -1,5 +1,6 @@
 ﻿using HDF.BusinessLayer.Abstract;
 using HDF.EntityLayer.Concrete;
+using HDF.Utilities.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,7 @@ namespace HDF.PresentationLayer.Backend.Controllers
 
         // GET: CategoryController/Create
         public ActionResult Create()
-        {
+        {            
             return View();
         }
 

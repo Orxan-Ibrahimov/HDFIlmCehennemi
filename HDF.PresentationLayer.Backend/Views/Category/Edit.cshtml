@@ -14,7 +14,17 @@
                         <label asp-for="Name" class="form-label">Name</label>
                         <input asp-for="Name" class="form-control rounded-pill" />
                         <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>                    
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Speciality"></label>
+                        <select asp-for="Speciality" class="form-control pan-form-style" required>
+                            <option selected>Choose</option>
+                            <option value="@Speciality.Normal">Normal</option>
+                            <option value="@Speciality.Special">Özel</option>
+                            <option value="@Speciality.Language">Dil</option>
+                        </select>
+                        <span asp-validation-for="Speciality"></span>
+                    </div>
                     <button type="submit" class="btn btn-primary">Sign in</button>
                 </form>
             </div>

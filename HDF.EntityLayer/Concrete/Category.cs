@@ -1,4 +1,5 @@
 ﻿using HDF.EntityLayer.Concrete.Base;
+using HDF.Utilities.Helpers;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace HDF.EntityLayer.Concrete
     {
         [Required]
         public string Name { get; set; }
+        public Speciality Speciality { get; set; }
         public List<MovieCategory>? MovieCategories { get; set; }
     }
 }

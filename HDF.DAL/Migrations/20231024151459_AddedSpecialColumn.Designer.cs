@@ -4,6 +4,7 @@ using HDF.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HDF.DAL.Migrations
 {
     [DbContext(typeof(HDFContext))]
-    partial class HDFContextModelSnapshot : ModelSnapshot
+    [Migration("20231024151459_AddedSpecialColumn")]
+    partial class AddedSpecialColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,25 +57,25 @@ namespace HDF.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "c80151de-4301-4a0b-ae35-5676d8730827",
+                            ConcurrencyStamp = "7528100d-749d-4e50-80a4-5cfe32629d54",
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "b0ef1708-b3c1-420b-858e-91d87bf68c61",
+                            ConcurrencyStamp = "ff1f5948-dbde-4110-bd97-90aa80e3b7a0",
                             Name = "Supervisor"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "de01d13a-1d7b-4246-9f2c-9bfb0df85e49",
+                            ConcurrencyStamp = "7d3541cd-59bb-452b-9e41-c59cb06516ed",
                             Name = "Project Manager"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "3e3bf5fb-ce86-4c62-871a-12216a8c279e",
+                            ConcurrencyStamp = "6e9c316d-6e16-492e-8bce-227e3cd06eab",
                             Name = "Worker"
                         });
                 });
@@ -190,12 +192,12 @@ namespace HDF.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
+                    b.Property<bool>("IsSpecial")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Speciality")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
