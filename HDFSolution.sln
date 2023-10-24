@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.DtoLayer", "HDF.DtoLaye
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.BusinessLayer", "HDF.BusinessLayer\HDF.BusinessLayer.csproj", "{2BFB6D66-6487-4C15-BBCE-D2EDEEA94334}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.PresentationLayer.Frontend", "HDF.PresentationLayer.Frontend\HDF.PresentationLayer.Frontend.csproj", "{6597A428-0AA1-4BF1-98C2-ACDA5C46085B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.PresentationLayer.Backend", "HDF.PresentationLayer.Backend\HDF.PresentationLayer.Backend.csproj", "{3B7CE4C1-3550-4E20-BD65-B3142FCA271C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.Utilities", "HDF.Utilities\HDF.Utilities.csproj", "{C11BB03A-AA46-4590-9485-31E5D4079E02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.Utilities", "HDF.Utilities\HDF.Utilities.csproj", "{C11BB03A-AA46-4590-9485-31E5D4079E02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.PresentationLayer.UI", "HDF.PresentationLayer.UI\HDF.PresentationLayer.UI.csproj", "{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +39,6 @@ Global
 		{2BFB6D66-6487-4C15-BBCE-D2EDEEA94334}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BFB6D66-6487-4C15-BBCE-D2EDEEA94334}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BFB6D66-6487-4C15-BBCE-D2EDEEA94334}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6597A428-0AA1-4BF1-98C2-ACDA5C46085B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6597A428-0AA1-4BF1-98C2-ACDA5C46085B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6597A428-0AA1-4BF1-98C2-ACDA5C46085B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6597A428-0AA1-4BF1-98C2-ACDA5C46085B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B7CE4C1-3550-4E20-BD65-B3142FCA271C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B7CE4C1-3550-4E20-BD65-B3142FCA271C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B7CE4C1-3550-4E20-BD65-B3142FCA271C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
