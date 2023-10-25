@@ -21,9 +21,9 @@ namespace HDF.EntityLayer.Concrete
         public IFormFile EpisodePhoto { get; set; }
         [Required]
         public int EpisodeNumber { get; set; }
-        public int? MovieId { get; set; }
+        public int? SeasonId { get; set; }
         [ValidateNever]
-        public Movie Movie { get; set; }
+        public Season Season { get; set; }
         public List<Comment>? Comments { get; set; }
     }
 }

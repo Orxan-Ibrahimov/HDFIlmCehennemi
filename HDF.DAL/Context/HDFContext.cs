@@ -26,6 +26,7 @@ namespace HDF.DAL.Context
         public DbSet<Kind> Kinds { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Episode> Episodes { get; set; }
+        public DbSet<Season> Seasons { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<MovieCast> MovieCasts { get; set; }
         public DbSet<MovieCategory> MovieCategories { get; set; }
@@ -64,10 +65,16 @@ namespace HDF.DAL.Context
               .OnDelete(DeleteBehavior.ClientSetNull); 
 
             builder.Entity<Episode>().
-              HasOne(e => e.Movie)
+              HasOne(e => e.Season)
               .WithMany(e => e.Episodes)
-              .HasForeignKey(c => c.MovieId)
+              .HasForeignKey(c => c.SeasonId)
               .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.Entity<Season>().
+             HasOne(e => e.Movie)
+             .WithMany(e => e.Seasons)
+             .HasForeignKey(c => c.MovieId)
+             .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.Entity<Movie>().
              HasOne(m => m.Country)

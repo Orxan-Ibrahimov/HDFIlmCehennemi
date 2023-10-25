@@ -8,9 +8,9 @@ namespace HDF.PresentationLayer.Backend.ViewModels
     {
         public Episode Episode { get; set; }
         [ValidateNever]
-        public List<Movie> Movies { get; set; }
+        public List<Season> Seasons { get; set; }
         [ValidateNever]
-        public List<SelectListItem> MovieList { get; set; }
+        public List<SelectListItem> SeasonList { get; set; }
         [ValidateNever]
         public string EpisodeImage { get; set; }
     }

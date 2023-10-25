@@ -26,11 +26,11 @@
                         <span asp-validation-for="Episode.EpisodePhoto" class="text-danger"></span>
                     </div>                 
                     <div class="mb-3">
-                        <label asp-for="Episode.MovieId">Movie</label>
-                        <select asp-for="Episode.MovieId" asp-items="@Model.MovieList" class="form-control pan-form-style" required>
+                        <label asp-for="Episode.SeasonId">Movie</label>
+                        <select asp-for="Episode.SeasonId" asp-items="@Model.SeasonList" class="form-control pan-form-style" required>
                             <option selected>Choose</option>
                         </select>
-                        <span asp-validation-for="Episode.MovieId"></span>
+                        <span asp-validation-for="Episode.SeasonId"></span>
                     </div>
                     <button type="submit" class="btn btn-primary">Sign in</button>
                 </form>

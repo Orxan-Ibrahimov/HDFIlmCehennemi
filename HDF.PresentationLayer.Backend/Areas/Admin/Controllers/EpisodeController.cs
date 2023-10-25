@@ -14,13 +14,13 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
     public class EpisodeController : Controller
     {
         private readonly IEpisodeService _episodeService;
-        private readonly IMovieService _movieService;
+        private readonly ISeasonService _seasonService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public EpisodeController(IEpisodeService episodeService, IMovieService movieService, IWebHostEnvironment webHostEnvironment)
+        public EpisodeController(IEpisodeService episodeService, ISeasonService seasonService, IWebHostEnvironment webHostEnvironment)
         {
             _episodeService = episodeService;
-            _movieService = movieService;
+            _seasonService = seasonService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -45,15 +45,15 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
         {
             EpisodeVM episodeVM = new EpisodeVM
             {
-                Movies = _movieService.GetList(),
-                MovieList = new List<SelectListItem>()
+                Seasons = _seasonService.GetList(),
+                SeasonList = new List<SelectListItem>()
             };
 
-            foreach (var movie in episodeVM.Movies)
+            foreach (var season in episodeVM.Seasons)
             {
-                episodeVM.MovieList.AddRange(new List<SelectListItem>()
+                episodeVM.SeasonList.AddRange(new List<SelectListItem>()
                 {
-                    new SelectListItem(){ Value = movie.Id.ToString(), Text = movie.Name }
+                    new SelectListItem(){ Value = season.Id.ToString(), Text = season.Name }
                 });
             }
             return View(episodeVM);
@@ -89,19 +89,19 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
         {
             EpisodeVM episodeVM = new EpisodeVM
             {
-                Movies = _movieService.GetList(),
-                MovieList = new List<SelectListItem>(),
+                Seasons = _seasonService.GetList(),
+                SeasonList = new List<SelectListItem>(),
                 Episode = _episodeService.GetById(id),
             };
 
             if (episodeVM.Episode == null) return NotFound();
 
             episodeVM.EpisodeImage = episodeVM.Episode.EpisodeImage;
-            foreach (var movie in episodeVM.Movies)
+            foreach (var season in episodeVM.Seasons)
             {
-                episodeVM.MovieList.AddRange(new List<SelectListItem>()
+                episodeVM.SeasonList.AddRange(new List<SelectListItem>()
                 {
-                    new SelectListItem(){ Value = movie.Id.ToString(), Text = movie.Name }
+                    new SelectListItem(){ Value = season.Id.ToString(), Text = season.Name }
                 });
             }
             return View(episodeVM);
@@ -131,7 +131,7 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
                    EpisodeImage = episodeVM.Episode.EpisodeImage,
                    EpisodeNumber = episodeVM.Episode.EpisodeNumber,
                    Name = episodeVM.Episode.Name,
-                   MovieId = episodeVM.Episode.MovieId,
+                   SeasonId = episodeVM.Episode.SeasonId,
                 };
                 _episodeService.Update(changedEpisode);
                 return RedirectToAction(nameof(Index));

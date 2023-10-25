@@ -31,7 +31,7 @@ namespace HDF.BusinessLayer.Concrete
 
         public List<Episode> GetList()
         {
-            return _episodeDAL.GetList().Include(e => e.Movie).ToList();
+            return _episodeDAL.GetList().Include(e => e.Season).ThenInclude(s => s.Movie).ToList();
         }
 
         public void Insert(Episode t)

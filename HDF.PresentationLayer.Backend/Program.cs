@@ -62,6 +62,15 @@ builder.Services.AddScoped<IMovieLanguageService, MovieLanguageManager>();
 builder.Services.AddScoped<IEpisodeDAL, EFEpisodeDAL>();
 builder.Services.AddScoped<IEpisodeService, EpisodeManager>();
 
+//Seasons
+builder.Services.AddScoped<ISeasonDAL, EFSeasonDAL>();
+builder.Services.AddScoped<ISeasonService, SeasonManager>();
+
+//Episodes
+builder.Services.AddScoped<IEpisodeDAL, EFEpisodeDAL>();
+builder.Services.AddScoped<IEpisodeService, EpisodeManager>();
+
+
 //Footer
 builder.Services.AddScoped<IFooterDAL, EFFooterDAL>();
 builder.Services.AddScoped<IFooterService, FooterManager>();
@@ -83,18 +92,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(
-//       name: "areaRoute",
-//       pattern: "{area:exists}/{controller=account}/{action=login}/{id?}\"");
-//});
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(
-//        name: "default",
-//        pattern: "{controller=Home}/{action=Index}/{id?}");
-//});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

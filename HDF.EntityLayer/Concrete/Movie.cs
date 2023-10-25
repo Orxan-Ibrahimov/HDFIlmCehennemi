@@ -35,7 +35,7 @@ namespace HDF.EntityLayer.Concrete
         public List<MovieLanguage>? MovieLanguages { get; set; }
         public List<MovieCast>? MovieCasts { get; set; }
         public List<MovieCategory>? MovieCategories { get; set; }
-        public List<Episode>? Episodes { get; set; }
+        public List<Season>? Seasons { get; set; }
 
         
     }
