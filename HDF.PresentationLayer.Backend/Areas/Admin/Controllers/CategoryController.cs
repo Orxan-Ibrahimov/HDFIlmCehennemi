@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HDF.PresentationLayer.Backend.Controllers
 {
+    [Area("admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

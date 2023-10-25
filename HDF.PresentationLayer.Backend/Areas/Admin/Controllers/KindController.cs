@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HDF.PresentationLayer.Backend.Controllers
 {
+    [Area("admin")]
     public class KindController : Controller
     {
         private readonly IKindService _kindService;

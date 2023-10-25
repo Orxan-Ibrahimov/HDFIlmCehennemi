@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HDF.PresentationLayer.Backend.Controllers
 {
-	public class AccountController : Controller
+    [Area("admin")]
+    public class AccountController : Controller
 	{
 		private readonly SignInManager<AppUser> _signInManager;
 		private readonly IAppRoleService _appRoleService;

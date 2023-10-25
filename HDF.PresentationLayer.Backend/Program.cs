@@ -84,7 +84,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=account}/{action=login}/{id?}");
+    name: "areaRoute",
+    pattern: "{area:exists}/{controller=account}/{action=login}/{id?}");
 
 app.Run();

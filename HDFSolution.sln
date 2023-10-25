@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.PresentationLayer.Backe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDF.Utilities", "HDF.Utilities\HDF.Utilities.csproj", "{C11BB03A-AA46-4590-9485-31E5D4079E02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDF.PresentationLayer.UI", "HDF.PresentationLayer.UI\HDF.PresentationLayer.UI.csproj", "{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C11BB03A-AA46-4590-9485-31E5D4079E02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48BD24EB-D0D1-4175-AD4B-87CB038AEC65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
