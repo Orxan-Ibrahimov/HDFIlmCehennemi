@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
 
-namespace HDF.PresentationLayer.Backend.Controllers
+namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
     [Area("admin")]
     public class CountryController : Controller

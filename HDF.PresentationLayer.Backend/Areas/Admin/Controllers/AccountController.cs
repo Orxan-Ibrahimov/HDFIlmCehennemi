@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace HDF.PresentationLayer.Backend.Controllers
+namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
     [Area("admin")]
     public class AccountController : Controller

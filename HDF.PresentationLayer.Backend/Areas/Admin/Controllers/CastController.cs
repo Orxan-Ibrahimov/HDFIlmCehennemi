@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
 
-namespace HDF.PresentationLayer.Backend.Controllers
+namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("admin")]    
     public class CastController : Controller
     {
         private readonly ICastService _castService;

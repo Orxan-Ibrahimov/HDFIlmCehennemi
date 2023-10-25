@@ -18,9 +18,4 @@
     <ProjectReference Include="..\HDF.Utilities\HDF.Utilities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 </Project>

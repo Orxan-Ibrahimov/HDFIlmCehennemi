@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 
-namespace HDF.PresentationLayer.Backend.Controllers
+namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
     [Area("admin")]
     public class EpisodeController : Controller

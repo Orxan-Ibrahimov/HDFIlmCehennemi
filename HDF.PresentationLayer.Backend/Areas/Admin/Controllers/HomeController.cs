@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace HDF.PresentationLayer.Backend.Controllers
+namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
     [Area("admin")]
     public class HomeController : Controller
