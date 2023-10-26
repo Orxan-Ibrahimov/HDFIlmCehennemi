@@ -18,6 +18,9 @@
                                 <h5 class="text-info text-center">Season Name</h5>
                             </th>
                             <th scope="col">
+                                <h5 class="text-info text-center">Season Number</h5>
+                            </th>
+                            <th scope="col">
                                 <h5 class="text-info text-center">Episode Count</h5>
                             </th>
                             <th scope="col">
@@ -40,7 +43,8 @@
                             <tr>
                                 <th scope="row">@season.Id</th>
                                 <td class="text-center">@((season.Name.Length > 20) ? (@season.Name.Substring(0, 20) + "...") : @season.Name)</td>
-                                <td class="text-center">season.Episodes?.Count()</td>
+                                <td class="text-center">@season.SeasonNumber</td>
+                                <td class="text-center">@season.Episodes?.Count()</td>
                                 <td class="text-center">@((season.Description.Length > 20) ? (@season.Description.Substring(0, 20) + "...") : @season.Description)</td>
                                 <td class="text-center">@((season.Movie.Name.Length > 20) ? (@season.Movie.Name.Substring(0, 20) + "...") : @season.Movie.Name)</td>
                                 <td class="text-center">

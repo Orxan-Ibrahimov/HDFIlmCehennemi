@@ -5,6 +5,7 @@ using HDF.PresentationLayer.Backend.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
@@ -82,16 +83,44 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
         // GET: SeasonController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            SeasonVM seasonVM = new SeasonVM
+            {
+                Season = _seasonService.GetById(id),
+                MovieList = new List<SelectListItem>(),
+                Movies = _movieService.GetList().Where(s => s.IsSeries && s.IsActive).ToList()
+            };
+            if (seasonVM.Season == null) return NotFound();
+
+            foreach (var movie in seasonVM.Movies)
+            {
+                seasonVM.MovieList.AddRange(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = movie.Name, Value = movie.Id.ToString() }
+                });
+            }
+            return View(seasonVM);
         }
 
         // POST: SeasonController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, SeasonVM seasonVM)
         {
             try
             {
+                seasonVM.MovieList = new List<SelectListItem>();
+                seasonVM.Movies = _movieService.GetList().Where(s => s.IsSeries && s.IsActive).ToList();
+                foreach (var movie in seasonVM.Movies)
+                {
+                    seasonVM.MovieList.AddRange(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = movie.Name, Value = movie.Id.ToString() }
+                });
+                }
+
+                if(!ModelState.IsValid) return View(seasonVM);
+                seasonVM.Season.Id = id;
+                _seasonService.Update(seasonVM.Season);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -103,22 +132,10 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
         // GET: SeasonController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: SeasonController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            Season season = _seasonService.GetById(id);
+            if (season == null) return NotFound();
+            _seasonService.Delete(season);
+            return RedirectToAction(nameof(Index));
+        }       
     }
 }
