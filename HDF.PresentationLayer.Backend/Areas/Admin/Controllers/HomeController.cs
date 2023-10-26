@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("Admin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

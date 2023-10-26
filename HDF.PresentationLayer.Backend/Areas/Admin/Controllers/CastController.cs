@@ -7,7 +7,7 @@ using System.Diagnostics.Metrics;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
-    [Area("admin")]    
+    [Area("Admin")]    
     public class CastController : Controller
     {
         private readonly ICastService _castService;

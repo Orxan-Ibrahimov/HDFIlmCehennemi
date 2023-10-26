@@ -1,0 +1,43 @@
+﻿@model SeasonVM
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6 offset-xl-3">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h1 class="mb-4 text-info" id="movie" data="@Model.Movie.Id">Season - <span class="text-white">@Model.Season.Name</span></h1>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-transparent">Id: <span class="text-white">@Model.Season.Id</span></li>
+                    <li class="list-group-item bg-transparent">Movie Point: <span class="text-white">@Model.Season.Description</span></li>
+                    <li class="list-group-item bg-transparent">Name: <span class="text-white">@Model.Season.Name</span></li>
+                    <li class="list-group-item bg-transparent">Season Count: <span class="text-white">@Model.Season.Episodes.Count()</span></li>
+                    <li class="list-group-item bg-transparent">Movie Point: <span class="text-white">@Model.Season.Movie.Name</span></li>
+                    <li class="list-group-item bg-transparent">Release Date: <span class="text-white">@Model.Movie.ReleaseDate.Year</span></li>
+                    <li class="list-group-item bg-transparent">Country: <span class="text-white">@Model.Movie?.Country?.Name</span></li>
+                    <li class="list-group-item bg-transparent"> 
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Episodes:
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </li>
+                </ul>
+                <a asp-action="Index" class="btn btn-info m-2"><i class="fa fa-arrow-left"></i></a>
+                <a asp-action="DeleteOrActive" asp-route-id="@Model.Movie.Id" class="btn btn-@(Model.Movie.IsActive?"danger":"success") m-2">
+                    @(Model.Movie.IsActive ? "Remove" : "Make Active")
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

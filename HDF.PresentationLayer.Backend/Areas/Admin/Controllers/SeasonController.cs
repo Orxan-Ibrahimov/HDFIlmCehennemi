@@ -1,10 +1,14 @@
 ﻿using HDF.BusinessLayer.Abstract;
 using HDF.EntityLayer.Concrete;
+using HDF.PresentationLayer.Backend.Areas.Admin.ViewModels;
+using HDF.PresentationLayer.Backend.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class SeasonController : Controller
     {
         private readonly ISeasonService _seasonService;
@@ -33,16 +37,40 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
         // GET: SeasonController/Create
         public ActionResult Create()
         {
-            return View();
+            SeasonVM seasonVM = new SeasonVM
+            {
+                Movies = _movieService.GetList().Where(s => s.IsSeries && s.IsActive).ToList(),
+                MovieList = new List<SelectListItem>()
+            };
+            foreach (var movie in seasonVM.Movies)
+            {
+                seasonVM.MovieList.AddRange(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = movie.Name, Value = movie.Id.ToString() }
+                });                
+            }
+            return View(seasonVM);
         }
-
         // POST: SeasonController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(SeasonVM seasonVM)
         {
             try
             {
+                seasonVM.Movies = _movieService.GetList().Where(s => s.IsSeries && s.IsActive).ToList();
+                seasonVM.MovieList = new List<SelectListItem>();
+                foreach (var movie in seasonVM.Movies)
+                {
+                    seasonVM.MovieList.AddRange(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = movie.Name, Value = movie.Id.ToString() }
+                });
+                }
+
+                if (!ModelState.IsValid) return View(seasonVM);
+
+                _seasonService.Insert(seasonVM.Season);
                 return RedirectToAction(nameof(Index));
             }
             catch

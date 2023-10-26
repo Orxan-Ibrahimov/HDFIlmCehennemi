@@ -1,0 +1,40 @@
+﻿@model SeasonVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6 offset-xl-3">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Create A Season</h6>
+                <form enctype="multipart/form-data" method="post">
+                    <div class="mb-3">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <label asp-for="Season.Name" class="form-label">Season Name</label>
+                        <input asp-for="Season.Name" class="form-control rounded-pill" required />
+                        <span asp-validation-for="Season.Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Season.Description" class="form-label"> Season Description</label>
+                        <input asp-for="Season.Description" class="form-control rounded-pill" required />
+                        <span asp-validation-for="Season.Description" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Season.SeasonNumber" class="form-label"> Season Number</label>
+                        <input asp-for="Season.SeasonNumber" class="form-control rounded-pill" required />
+                        <span asp-validation-for="Season.SeasonNumber" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Season.MovieId">Country</label>
+                        <select asp-for="Season.MovieId" asp-items="@Model.MovieList" class="form-control pan-form-style" required>
+                            <option selected>Choose</option>
+                        </select>
+                        <span asp-validation-for="Season.MovieId"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>    

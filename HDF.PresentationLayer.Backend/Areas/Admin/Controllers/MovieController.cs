@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("Admin")]
     public class MovieController : Controller
     {
         private readonly IMovieService _movieService;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("Admin")]
     public class LanguageController : Controller
     {
         private readonly ILanguageService _languageService;

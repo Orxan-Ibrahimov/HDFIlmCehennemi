@@ -10,7 +10,7 @@ using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("Admin")]
     public class EpisodeController : Controller
     {
         private readonly IEpisodeService _episodeService;

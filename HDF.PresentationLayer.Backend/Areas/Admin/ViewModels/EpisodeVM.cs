@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace HDF.PresentationLayer.Backend.ViewModels
 {
     public class EpisodeVM
-    {
-        public Episode Episode { get; set; }
+    {        
+        public Episode? Episode { get; set; }
         [ValidateNever]
-        public List<Season> Seasons { get; set; }
+        public List<Season>? Seasons { get; set; }
         [ValidateNever]
-        public List<SelectListItem> SeasonList { get; set; }
+        public List<SelectListItem>? SeasonList { get; set; }
         [ValidateNever]
-        public string EpisodeImage { get; set; }
+        public string? EpisodeImage { get; set; }
     }
 }

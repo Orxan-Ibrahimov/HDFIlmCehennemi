@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("Admin")]
     public class CountryController : Controller
     {
         private readonly ICountryService _countryService;
