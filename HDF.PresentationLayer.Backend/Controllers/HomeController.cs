@@ -1,4 +1,5 @@
 ﻿using HDF.BusinessLayer.Abstract;
+using HDF.EntityLayer.Concrete;
 using HDF.PresentationLayer.Backend.ViewModels;
 using HDF.Utilities.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -16,19 +17,26 @@ namespace HDF.PresentationLayer.Backend.Controllers
             _categoryService = categoryService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageIndex = 1, int pageSize = 2)
         {
             HomeVM homeVM = new HomeVM
             {
                 Movies = _movieService.GetList().Where(m => m.IsActive && !m.IsSeries).ToList(),
                 Series = _movieService.GetList().Where(s => s.IsActive && s.IsSeries).ToList(),
                 Categories = _categoryService.GetList().Where(c => c.Speciality == Speciality.Normal).ToList(),
-                SpecialCategories = _categoryService.GetList().Where(c => c.Speciality == Speciality.Special).ToList()
+                SpecialCategories = _categoryService.GetList().Where(c => c.Speciality == Speciality.Special).ToList(),                
             };
-
+            homeVM.Page = new PaginationViewModel<Movie>(homeVM.Movies,pageIndex,pageSize);
             if (homeVM.Movies == null || homeVM.Categories == null 
                 || homeVM.SpecialCategories == null || homeVM.Series == null) return NotFound();
             return View(homeVM);
+        }
+
+        public IActionResult Details(int id)
+        {
+            Movie movie = _movieService.GetById(id);
+            if (movie == null) return NotFound();
+            return View(movie);
         }
     }
 }

@@ -8,5 +8,6 @@ namespace HDF.PresentationLayer.Backend.ViewModels
         public List<Movie> Series { get; set; }
         public List<Category> Categories { get; set; }
         public List<Category> SpecialCategories { get; set; }
+        public PaginationViewModel<Movie> Page { get; set; }
     }
 }

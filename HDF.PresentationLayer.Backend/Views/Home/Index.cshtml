@@ -9,7 +9,7 @@
             @foreach (var movie in Model.Movies)
             {
                 <div class="col p-0 item">
-                    <a href="details.html" class="latest-movies">
+                    <a asp-action="Details" asp-route-id="@movie.Id" class="latest-movies">
                         <img src="~/assets/img/movies/@movie.FilmImage"
                              class="w-100"
                              alt="@movie.Name.Replace(" ", "-")" />
@@ -67,12 +67,12 @@
                         <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                             <div class="d-flex justify-content-center">
                                 <div class="upcoming-card">
-                                    <a href="#" class="upcoming-image">
+                                    <a asp-action="Details" asp-route-id="@movie.Id" class="upcoming-image">
                                         <img src="~/assets/img/movies/@movie.FilmImage"
                                              alt="@movie.Name.Replace(" ","-")" />
                                         <p class="upcoming-date rounded">@movie.ReleaseDate.ToString("dd MMMM") 20 Ekim</p>
                                     </a>
-                                    <a href="#" class="upcoming-link">@movie.Name</a>
+                                    <a asp-action="Details" asp-route-id="@movie.Id" class="upcoming-link">@movie.Name</a>
                                 </div>
                             </div>
                         </div>
@@ -109,144 +109,26 @@
                         </div>
                     </div>
                     <div class="col-12" id="newMovie">
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/movies/gran-turismo.jpeg"
-                                     alt="gran-turismo" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">Gran Turismo</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle">
-                                        <img src="assets/images/icons/tr.png" alt="tr" />
-                                        <i class="fa-solid fa-closed-captioning"></i>
-                                        Dublaj & Altyazılı
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 7.3</span>
+                        @foreach (var movie in Model.Movies)
+                        {
+                            <a asp-action="Details" asp-route-id="@movie.Id" class="newMovieCard">
+                                <div class="newMovieCard-image">
+                                    <img src="~/assets/img/movies/@movie.FilmImage"
+                                         alt="@movie.Name.Replace(" ", "-")" />
                                 </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/movies/bottoms.jpeg"
-                                     alt="bottoms" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">Bottoms</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle">
-                                        <i class="fa-solid fa-closed-captioning"></i> Türkçe
-                                        Altyazılı
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 7.1</span>
+                                <div class="newMovieCard-body">
+                                    <h5 class="newMovieCard-title">Gran Turismo</h5>
+                                    <div class="newMovieCard-caption">
+                                        <span class="subtitle">
+                                            <img src="~/assets/img/countries/@movie.Country?.Image" alt="@movie.Country?.ShortName" />
+                                            <i class="fa-solid fa-closed-captioning"></i>
+                                            Dublaj & Altyazılı
+                                        </span>
+                                        <span class="imdb"><i class="fa-solid fa-star"></i> @movie.IMDBPoint</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/movies/bro.jpeg" alt="bro" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">Bro</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle">
-                                        <i class="fa-solid fa-closed-captioning"></i> Türkçe
-                                        Altyazılı
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 7.4</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/movies/IAmRage.jpeg"
-                                     alt="IAmRage" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">I Am Rage</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle">
-                                        <img src="assets/images/icons/tr.png" alt="tr" />
-                                        <i class="fa-solid fa-closed-captioning"></i>
-                                        Dublaj & Altyazılı
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 5.2</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/movies/captain-america-civil-war.jpeg"
-                                     alt="captain-america-civil-war" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">Kaptan Amerika 3</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle">
-                                        <i class="fa-solid fa-closed-captioning"></i> Türkçe
-                                        Altyazılı
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 7.8</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/movies/barbie.jpeg"
-                                     alt="barbie" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">Barbie</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle">
-                                        <img src="assets/images/icons/tr.png" alt="tr" />
-                                        <i class="fa-solid fa-closed-captioning"></i>
-                                        Dublaj & Altyazılı
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 7.1</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/movies/deadpool-3.jpg"
-                                     alt="deadpool-3" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">Deadpool 3</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle">
-                                        <i class="fa-solid fa-closed-captioning"></i> Türkçe
-                                        Altyazılı
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 7.6</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/movies/spider-verse2.jpeg"
-                                     alt="spider-verse2" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">spider-verse 2</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle">
-                                        <img src="assets/images/icons/tr.png" alt="tr" />
-                                        <i class="fa-solid fa-closed-captioning"></i>
-                                        Dublaj & Altyazılı
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 8.7</span>
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                        }                        
                     </div>
                 </div>
 
@@ -288,48 +170,12 @@
                         </div>
                     </div>
 
-                    <a href="#" class="col-6 movies-for-category">
-                        Adult Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Aile Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Aksiyon Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Animasyon Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Belgesel Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Bilim-Kurgu Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Biyografi Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Dram Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Fantastik Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Gerilim Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Komedi Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Korku Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Macera Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Tarih Filmleri
-                    </a>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <a href="#" class="col-6 movies-for-category">
+                            @category.Name
+                        </a>
+                    }                    
                 </div>
 
                 <div class="row my-4">
@@ -344,26 +190,12 @@
                         </div>
                     </div>
 
-                    <a href="#" class="col-6 movies-for-category">
-                        Japonya Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Kore Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Hint Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Türk Filmleri
-                    </a>
-                    <a href="#" class="col-6 movies-for-category"> DC Yapımları </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Marvel Yapımları
-                    </a>
-                    <a href="#" class="col-6 movies-for-category">
-                        Amazon Yapımları
-                    </a>
-                    <a href="#" class="col-6 movies-for-category"> 1080p Film </a>
+                    @foreach (var specialCategory in Model.SpecialCategories)
+                    {
+                        <a href="#" class="col-6 movies-for-category">
+                            @specialCategory.Name
+                        </a>
+                    }                   
                 </div>
 
                 <div class="row my-4">
@@ -376,72 +208,24 @@
                         </div>
                     </div>
                     <div class="col-12" id="newMovie">
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/series/gen-v.jpg" alt="gen-v" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">Gen-v</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle subtitle-serie">
-                                        <i class="fa-solid fa-tv"></i>
-                                        Yabancı Dizi
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 7.3</span>
+                        @foreach (var serie in Model.Series)
+                        {
+                            <a asp-action="Details" asp-route-id="@serie.Id" class="newMovieCard">
+                                <div class="newMovieCard-image">
+                                    <img src="~/assets/img/movies/@serie.FilmImage" alt="@serie.Name.Replace(" ","-")" />
                                 </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/series/invasion.jpeg"
-                                     alt="invasion" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">Invasion</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle subtitle-serie">
-                                        <i class="fa-solid fa-tv"></i>
-                                        Yabancı Dizi
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 6.2</span>
+                                <div class="newMovieCard-body">
+                                    <h5 class="newMovieCard-title">@serie.Name</h5>
+                                    <div class="newMovieCard-caption">
+                                        <span class="subtitle subtitle-serie">
+                                            <i class="fa-solid fa-tv"></i>
+                                            Yabancı Dizi
+                                        </span>
+                                        <span class="imdb"><i class="fa-solid fa-star"></i> @serie.IMDBPoint</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/series/mask-girl.jpeg"
-                                     alt="mask-girl" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">Mask Girl</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle subtitle-serie">
-                                        <i class="fa-solid fa-tv"></i>
-                                        Yabancı Dizi
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 7.4</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="newMovieCard">
-                            <div class="newMovieCard-image">
-                                <img src="assets/images/series/the-walking-dead.jpeg"
-                                     alt="the-walking-dead" />
-                            </div>
-                            <div class="newMovieCard-body">
-                                <h5 class="newMovieCard-title">The Walking Dead</h5>
-                                <div class="newMovieCard-caption">
-                                    <span class="subtitle subtitle-serie">
-                                        <i class="fa-solid fa-tv"></i>
-                                        Yabancı Dizi
-                                    </span>
-                                    <span class="imdb"><i class="fa-solid fa-star"></i> 8.0</span>
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                        }                        
                     </div>
                 </div>
             </div>
@@ -491,10 +275,10 @@
                     <div class="row">
                         <div class="col-12" id="newMovie">
                             <div class="row">
-                                @foreach (var movie in Model.Movies)
+                                @foreach (var movie in Model.Page.Data)
                                 {
                                     <div class="col-6 col-lg-4 col-xl-3 my-3">
-                                        <a href="#" class="latest-movies">
+                                        <a asp-action="Details" asp-route-id="@movie.Id" class="latest-movies">
                                             <img src="~/assets/img/movies/@movie.FilmImage"
                                                  class="w-100"
                                                  alt="@movie.Name.Replace(" ", "-")" />
@@ -532,39 +316,20 @@
                                             </div>
                                         </a>
                                     </div>
-                                }                                
+                                }
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-12 px-0">
-                            <ul class="pagination-list bg-shadow">
-                                <li class="pagination-item active">
-                                    <a href="#" class="pagination-link pagination-circle">1</a>
-                                </li>
-                                <li class="pagination-item">
-                                    <a href="#" class="pagination-link pagination-circle">2</a>
-                                </li>
-                                <li class="pagination-item">
-                                    <a href="#" class="pagination-link pagination-circle">3</a>
-                                </li>
-                                <li class="pagination-item">
-                                    <a href="#" class="pagination-link pagination-circle">4</a>
-                                </li>
-                                <li class="pagination-item">
-                                    <a href="#" class="pagination-link pagination-circle">5</a>
-                                </li>
-                                <li class="pagination-item">
-                                    <a href="#" class="pagination-link">Sonraki Sayfa</a>
-                                </li>
-                                <li class="pagination-item">
-                                    <a href="#" class="pagination-link">Son ></a>
-                                </li>
-                            </ul>
+                            @Html.Raw(@Model.Page.Getpagination(Url, "Index"))
                         </div>
                     </div>
+
                 </div>
+
+                
                 <div class="row">
                     <div class="col-12 ps-0 pe-4">
                         <div class="hdf-heading">
@@ -579,7 +344,7 @@
                         @foreach (var serie in Model.Series)
                         {
                             <div class="col-12 col-lg-6 col-xl-4" id="newMovie">
-                                <a href="#" class="newMovieCard newMovieCard-pill">
+                                <a asp-action="Details" asp-route-id="@serie?.Id" class="newMovieCard newMovieCard-pill">
                                     <div class="newMovieCard-image">
                                         <img src="~/assets/img/movies/@serie.FilmImage"
                                              alt="@serie.Name.Replace(" ", "-")" />
@@ -587,7 +352,7 @@
                                     <div class="newMovieCard-body px-3">
                                         <h5 class="newMovieCard-title">@serie.Name</h5>
                                         <div class="newMovieCard-caption">
-                                            <span class="subtitle"> 1.sezon 1.bolum</span>
+                                            <span class="subtitle"> @(serie?.Seasons?.Last().SeasonNumber + ".sezon" + " " + serie?.Seasons?.Last()?.Episodes?.Last().EpisodeNumber + "1.bolum")</span>
                                             <span class="subtitle-icon">
                                                 <i class="fa-solid fa-closed-captioning"></i>
                                             </span>
@@ -624,7 +389,7 @@
                     <div class="col-12" id="newMovie">
                         @foreach (var movie in Model.Movies)
                         {
-                            <a href="#" class="newMovieCard">
+                            <a asp-action="Details" asp-route-id="@movie.Id" class="newMovieCard">
                                 <div class="newMovieCard-image">
                                     <img src="~/assets/img/movies/@movie.FilmImage"
                                          alt="@movie.Name.Replace(" ", "-")" />
@@ -723,7 +488,7 @@
                     <div class="col-12" id="newMovie">
                         @foreach (var serie in Model.Series)
                         {
-                            <a href="#" class="newMovieCard">
+                            <a asp-action="Details" asp-route-id="@serie.Id" class="newMovieCard">
                                 <div class="newMovieCard-image">
                                     <img src="~/assets/img/movies/@serie.FilmImage" alt="@serie.Name.Replace(" ", "-")" />
                                 </div>
