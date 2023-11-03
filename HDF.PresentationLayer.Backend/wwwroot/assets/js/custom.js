@@ -1,6 +1,26 @@
 $(document).ready(function () {
   let IsSended = false;
   let visible = false;
+  
+  $("#login-btn").click(function (e) { 
+    e.preventDefault();    
+    $(".authorization-box #login").slideDown(function(params) {
+      $(".authorization-box .make-blur").show();
+      $("body").css({
+        "overflow" : "hidden"
+      });
+    });
+  });
+
+  $("#register-btn").click(function (e) { 
+    e.preventDefault();    
+    $(".authorization-box #register").slideDown(function(params) {
+      $(".authorization-box .make-blur").show();
+      $("body").css({
+        "overflow" : "hidden"
+      });
+    });
+  });
 
   $(".user").click(function (e) { 
     e.preventDefault();
@@ -23,9 +43,21 @@ $(document).ready(function () {
   $(document).click(function (e) {
     e.stopPropagation();
     $(".robo-menu").hide();         
-    $(".user-actions").hide();   
+    $(".user-actions").hide(); 
+    
+  });
+  $(".make-blur").click(function(params) {
+    $("#login").hide();
+    $("#register").hide();
+    $(this).hide();
   });
 
+  $(".authorization-close").click(function(params) {
+    $("#login").hide();
+    $("#register").hide();
+    $(".make-blur").hide();
+  });
+  
   $(".robo-category").click(function (e) {
     e.preventDefault();
     e.stopPropagation();
