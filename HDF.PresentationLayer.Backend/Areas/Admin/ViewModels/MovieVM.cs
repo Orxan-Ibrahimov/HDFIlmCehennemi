@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace HDF.PresentationLayer.Backend.ViewModels
+namespace HDF.PresentationLayer.Backend.Areas.Admin.ViewModels
 {
     public class MovieVM
     {

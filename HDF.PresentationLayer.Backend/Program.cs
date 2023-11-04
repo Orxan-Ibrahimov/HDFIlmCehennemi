@@ -91,6 +91,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
+
 app.MapControllerRoute(
     name: "areaRoute",
     pattern: "{area:exists}/{controller=account}/{action=login}/{id?}");

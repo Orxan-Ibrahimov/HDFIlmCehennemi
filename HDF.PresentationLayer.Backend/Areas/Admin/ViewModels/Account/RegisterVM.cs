@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
-namespace HDF.PresentationLayer.Backend.ViewModels.Account
+namespace HDF.PresentationLayer.Backend.Areas.Admin.ViewModels.Account
 {
     public class RegisterVM
     {

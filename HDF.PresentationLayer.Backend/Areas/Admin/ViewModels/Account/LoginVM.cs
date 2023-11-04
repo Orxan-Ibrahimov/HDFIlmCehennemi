@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HDF.PresentationLayer.Backend.ViewModels.Account
+namespace HDF.PresentationLayer.Backend.Areas.Admin.ViewModels.Account
 {
     public class LoginVM
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HDF.PresentationLayer.Backend.ViewComponents
+namespace HDF.PresentationLayer.Backend.Areas.Admin.ViewComponents
 {
     public class HeaderviewComponent : ViewComponent
     {

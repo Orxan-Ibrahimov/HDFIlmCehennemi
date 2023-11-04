@@ -1,5 +1,6 @@
 ﻿using HDF.BusinessLayer.Abstract;
 using HDF.EntityLayer.Concrete;
+using HDF.PresentationLayer.Backend.Areas.Admin.ViewModels.Account;
 using HDF.PresentationLayer.Backend.ViewModels.Account;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using LoginVM = HDF.PresentationLayer.Backend.Areas.Admin.ViewModels.Account.LoginVM;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
