@@ -5,11 +5,7 @@ namespace HDF.PresentationLayer.Backend.ViewModels.Account
 {
     public class LoginVM
     {
-        [Required]
-        public string Username { get; set; }
-        [Required]
-        public string Password { get; set; }
+        public List<string>? Messages { get; set; }
         public AppUser? AppUser { get; set; }
-
     }
 }

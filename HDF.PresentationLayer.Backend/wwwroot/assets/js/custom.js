@@ -153,6 +153,34 @@ $(document).ready(function () {
     VoteHover(this);
   });
 
+    $("#login .signIn").click(function (e)
+    {
+        e.preventDefault();
+        let username = $("#login #nickname").val();
+        let password = $("#login #pass").val();
+        
+        $.ajax({
+            url: `/Account/Login?username=${username}&password=${password}`,
+            type: "Get",
+            success: function (response) {
+                $("#login .authorization-message").children().remove();
+                $("#login .authorization-message").append(response);
+                let check = response.includes("bg-success");
+                if (check)
+                {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    $("#login .authorization-message .close").click(function (e) {
+                        $(this).parent().remove();
+                    });
+
+                }       
+            }
+        })
+    });
+
   function Send(element) {
     let text = $(element).prev().val();
     $(element).prev().val("");

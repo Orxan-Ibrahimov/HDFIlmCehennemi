@@ -1,0 +1,12 @@
+﻿@model LoginVM
+@{
+    Layout = null;
+}
+<div class="error-message">
+    @foreach (var message in Model.Messages)
+    {
+        <p class="text-white">@message</p>
+    }
+
+    <span class="close">&times;</span>
+</div>

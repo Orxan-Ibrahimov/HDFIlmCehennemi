@@ -3,19 +3,20 @@
     Layout = null;
 }
 
-<form asp-controller="Account" asp-action="Login" id="login" class="authorization">
+<form id="login" class="authorization">
     <div class="authorization-header">
         <h4 class="text-white mb-0">Giris Yap</h4>
         <span class="authorization-close">&times;</span>
     </div>
-    <div class="authorization-body">
+    <div class="authorization-message"></div>
+    <div class="authorization-body">        
         <div class="authorization-input-group">
-            <label asp-for="Username">Kullanıcı Adı</label>
-            <input asp-for="Username" class="form-control" type="text" />
+            <label>Kullanıcı Adı</label>
+            <input id="nickname" class="form-control" type="text" />
         </div>
         <div class="authorization-input-group">
-            <label asp-for="Password" >Şifre</label>
-            <input asp-for="Password" class="form-control" type="password" />
+            <label >Şifre</label>
+            <input id="pass" class="form-control" type="password" />
         </div>
     </div>
     <div class="authorization-footer">
@@ -23,7 +24,7 @@
             <a class="d-inline-block text-white small" href="#">E-mail Aktivasyon</a>
             <a class="d-inline-block text-white small" href="#">Sifremi Unutdum</a>
         </div>
-        <button type="submit" class="signIn rounded">
+        <a href="#" class="signIn rounded">
             <i class="fa-solid fa-lock"></i>
             Giris Yap
         </a>

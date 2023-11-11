@@ -34,59 +34,59 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 		}
 
 		// GET: AccountController/Details/5
-		public ActionResult Register()
-		{
-			RegisterVM registerVM = new RegisterVM
-			{
-				RoleList = new List<SelectListItem>(),
-				Roles = _appRoleService.GetList()
-			};
+		//public ActionResult Register()
+		//{
+		//	RegisterVM registerVM = new RegisterVM
+		//	{
+		//		RoleList = new List<SelectListItem>(),
+		//		Roles = _appRoleService.GetList()
+		//	};
 
-			foreach (var role in registerVM.Roles)
-			{
-				registerVM.RoleList.AddRange(new List<SelectListItem> { 
-				new SelectListItem() { Text = role.Name, Value = role.Id.ToString()}
-				});
-			}
-			return View(registerVM);
-		}
+		//	foreach (var role in registerVM.Roles)
+		//	{
+		//		registerVM.RoleList.AddRange(new List<SelectListItem> { 
+		//		new SelectListItem() { Text = role.Name, Value = role.Id.ToString()}
+		//		});
+		//	}
+		//	return View(registerVM);
+		//}
         
         // POST: AccountController/Create
-        [HttpPost]
-		[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterVM registerVM)
-        {
-			registerVM.Roles = _appRoleService.GetList();
-			registerVM.RoleList = new List<SelectListItem>();
+  //      [HttpPost]
+		//[ValidateAntiForgeryToken]
+  //      public async Task<ActionResult> Register(RegisterVM registerVM)
+  //      {
+		//	registerVM.Roles = _appRoleService.GetList();
+		//	registerVM.RoleList = new List<SelectListItem>();
 
-			foreach (var role in registerVM.Roles)
-			{
-				registerVM.RoleList.AddRange(new List<SelectListItem>
-				{
-					new SelectListItem { Text = role.Name, Value = role.Id.ToString() }
-				});
-			}
+		//	foreach (var role in registerVM.Roles)
+		//	{
+		//		registerVM.RoleList.AddRange(new List<SelectListItem>
+		//		{
+		//			new SelectListItem { Text = role.Name, Value = role.Id.ToString() }
+		//		});
+		//	}
 
-			if(!ModelState.IsValid) return View(registerVM);
-            AppUser appuser = new AppUser
-            {
-                Name = registerVM.User.Name,
-                Email = registerVM.User.Email,
-                Surname = registerVM.User.Surname,
-                UserName = registerVM.User.UserName,
-				Avatar = "default.png"
-            };
-            var result = await _userManager.CreateAsync(appuser, registerVM.Password);
-            if (!result.Succeeded)
-            {
-				foreach (var identityError in result.Errors)
-				{
-					ModelState.AddModelError("", identityError.Description);
-					return View(registerVM);
-				}
-            }
-            return View(nameof(Login));
-        }
+		//	if(!ModelState.IsValid) return View(registerVM);
+  //          AppUser appuser = new AppUser
+  //          {
+  //              Name = registerVM.User.Name,
+  //              Email = registerVM.User.Email,
+  //              Surname = registerVM.User.Surname,
+  //              UserName = registerVM.User.UserName,
+		//		Avatar = "default.png"
+  //          };
+  //          var result = await _userManager.CreateAsync(appuser, registerVM.Password);
+  //          if (!result.Succeeded)
+  //          {
+		//		foreach (var identityError in result.Errors)
+		//		{
+		//			ModelState.AddModelError("", identityError.Description);
+		//			return View(registerVM);
+		//		}
+  //          }
+  //          return View(nameof(Login));
+  //      }
 
        
         // POST: AccountController/Edit/5

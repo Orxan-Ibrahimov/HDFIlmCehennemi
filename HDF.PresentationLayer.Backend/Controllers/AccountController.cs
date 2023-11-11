@@ -17,27 +17,68 @@ namespace HDF.PresentationLayer.Backend.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        //[HttpPost]
+        //[AutoValidateAntiforgeryToken]
+        //public async Task<IActionResult> Register(RegisterVM registerVM)
+        //{
+        //    if (!ModelState.IsValid) return View(registerVM);
 
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Login(LoginVM loginVM)
+        //    var dbUser = await _userManager.FindByNameAsync(registerVM.Username);
+        //    if (dbUser != null) return View(registerVM);
+
+        //    AppUser user = new()
+        //    {
+        //        UserName = registerVM.Username,
+        //        Email = registerVM.Email,
+        //        Avatar = "default.jpg"
+        //    };
+
+        //    var result = await _userManager.CreateAsync(user,registerVM.Password);
+        //    if (!result.Succeeded)
+        //    {
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError("", error.Description);
+        //        }
+        //        return View(registerVM);
+        //    }
+        //    _userManager.AddToRoleAsync(user,);
+
+        //}
+
+       
+        public async Task<IActionResult> Login(string username, string password)
         {
-            if (!ModelState.IsValid) return View(loginVM);
+            LoginVM login = new();
+            login.Messages = new();
 
-            var user = await _userManager.FindByNameAsync(loginVM.Username);
+            if (username == null || password == null)
+            {
+                if (username == null) login.Messages.Add("Username can't be null");
+                if (password == null) login.Messages.Add("Password can't be null");
+
+                return View("_LoginFailed", login);
+            }
+
+            var user = await _userManager.FindByNameAsync(username);
+
             if (user == null)
             {
-                ModelState.AddModelError("", "Username or Password is incorrect");
-                return View(loginVM);
+                login.Messages = new List<string> { ("Username or Password is incorrect") };
+                return View("_LoginFailed", login);
             }
+                var result = await _signInManager.PasswordSignInAsync(user,password,false,false);
 
-            var result = await _signInManager.PasswordSignInAsync(user,loginVM.Password,false,false);
-            if (!result.Succeeded)
-            {
-                ModelState.AddModelError("", "Username or Password is incorrect");
-                return View(loginVM);
-            }
-            return RedirectToAction(nameof(Index),"Home");
+            if (result.Succeeded) return View("_LoginSucceed", "Authentification was succeeded!");
+            else login.Messages = new List<string> { ("Username or Password is incorrect") };
+
+            return View("_LoginFailed", login);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
