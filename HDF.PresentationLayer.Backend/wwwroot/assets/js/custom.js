@@ -181,6 +181,33 @@ $(document).ready(function () {
         })
     });
 
+    $("#register .signIn").click(function (e) {
+        e.preventDefault();
+        let username = $("#register #username").val();
+        let password = $("#register #password").val();
+        let email = $("#register #email").val();
+        let confirmPassword = $("#register #password-again").val();
+
+        $.ajax({
+            url: `/Account/Register?username=${username}&email=${email}&password=${password}&confirmPassword=${confirmPassword}`,
+            type: "Get",
+            success: function (response) {
+                $("#register .authorization-message").children().remove();
+                $("#register .authorization-message").append(response);
+                let check = response.includes("bg-success");
+                if (check) {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    $("#register .authorization-message .close").click(function (e) {
+                        $(this).parent().remove();
+                    });
+
+                }
+            }
+        })
+    });
   function Send(element) {
     let text = $(element).prev().val();
     $(element).prev().val("");

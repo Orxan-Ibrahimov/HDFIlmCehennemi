@@ -2,6 +2,7 @@
 using HDF.EntityLayer.Concrete;
 using HDF.PresentationLayer.Backend.Areas.Admin.ViewModels.Account;
 using HDF.PresentationLayer.Backend.ViewModels.Account;
+using HDF.Utilities.Helpers;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LoginVM = HDF.PresentationLayer.Backend.Areas.Admin.ViewModels.Account.LoginVM;
+using RegisterVM = HDF.PresentationLayer.Backend.Areas.Admin.ViewModels.Account.RegisterVM;
 
 namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 {
@@ -16,15 +18,22 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
     public class AccountController : Controller
 	{
 		private readonly SignInManager<AppUser> _signInManager;
-		private readonly IAppRoleService _appRoleService;
 
         private readonly UserManager<AppUser> _userManager;
+		private readonly RoleManager<IdentityRole> _identityRole;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppRoleService appRoleService)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> identityRole)
         {
             _userManager = userManager;
-            _appRoleService = appRoleService;
-			_signInManager = signInManager;
+            _signInManager = signInManager;
+            _identityRole = identityRole;
+        }
+
+        public async Task CreateAsync()
+        {
+            await _identityRole.CreateAsync(new IdentityRole(Role.SuperAdmin.ToString()));
+            await _identityRole.CreateAsync(new IdentityRole(Role.Admin.ToString()));
+            await _identityRole.CreateAsync(new IdentityRole(Role.User.ToString()));
         }
 
         // GET: AccountController
@@ -33,63 +42,66 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
 			return View();
 		}
 
-		// GET: AccountController/Details/5
-		//public ActionResult Register()
-		//{
-		//	RegisterVM registerVM = new RegisterVM
-		//	{
-		//		RoleList = new List<SelectListItem>(),
-		//		Roles = _appRoleService.GetList()
-		//	};
+		//GET: AccountController/Details/5
+		public async Task<ActionResult> RegisterAsync()
+		{
+            await CreateAsync();
+            RegisterVM admin = new();
+            admin.Roles = new List<RoleVM>();
 
-		//	foreach (var role in registerVM.Roles)
-		//	{
-		//		registerVM.RoleList.AddRange(new List<SelectListItem> { 
-		//		new SelectListItem() { Text = role.Name, Value = role.Id.ToString()}
-		//		});
-		//	}
-		//	return View(registerVM);
-		//}
-        
-        // POST: AccountController/Create
-  //      [HttpPost]
-		//[ValidateAntiForgeryToken]
-  //      public async Task<ActionResult> Register(RegisterVM registerVM)
-  //      {
-		//	registerVM.Roles = _appRoleService.GetList();
-		//	registerVM.RoleList = new List<SelectListItem>();
+            foreach (var role in Enum.GetNames(typeof(Role)))
+            {
+                admin.Roles.Add(new RoleVM { Name = role });
+            };
 
-		//	foreach (var role in registerVM.Roles)
-		//	{
-		//		registerVM.RoleList.AddRange(new List<SelectListItem>
-		//		{
-		//			new SelectListItem { Text = role.Name, Value = role.Id.ToString() }
-		//		});
-		//	}
+            return View(admin);           
+		}
 
-		//	if(!ModelState.IsValid) return View(registerVM);
-  //          AppUser appuser = new AppUser
-  //          {
-  //              Name = registerVM.User.Name,
-  //              Email = registerVM.User.Email,
-  //              Surname = registerVM.User.Surname,
-  //              UserName = registerVM.User.UserName,
-		//		Avatar = "default.png"
-  //          };
-  //          var result = await _userManager.CreateAsync(appuser, registerVM.Password);
-  //          if (!result.Succeeded)
-  //          {
-		//		foreach (var identityError in result.Errors)
-		//		{
-		//			ModelState.AddModelError("", identityError.Description);
-		//			return View(registerVM);
-		//		}
-  //          }
-  //          return View(nameof(Login));
-  //      }
+		//POST: AccountController/Create
+	   [HttpPost]
+	   [ValidateAntiForgeryToken]
+		public async Task<ActionResult> Register(RegisterVM registerVM)
+		{
+           
+            registerVM.Roles = new List<RoleVM>();
 
-       
-        // POST: AccountController/Edit/5
+            foreach (var role in Enum.GetNames(typeof(Role)))
+            {
+                registerVM.Roles.Add(new RoleVM { Name = role });
+            };           
+
+			if (!ModelState.IsValid) return View(registerVM);
+			AppUser appuser = new AppUser
+			{
+				Email = registerVM.User.Email,
+				UserName = registerVM.User.UserName,
+				Avatar = "default.png"
+			};
+
+			var result = await _userManager.CreateAsync(appuser, registerVM.Password);
+			if (!result.Succeeded)
+			{
+				foreach (var identityError in result.Errors)
+				{
+					ModelState.AddModelError(identityError.Code, identityError.Description);
+					return View(registerVM);
+				}
+			}
+			var roleResult = await _userManager.AddToRoleAsync(appuser,registerVM.Role.ToString());
+			if (!roleResult.Succeeded)
+			{
+                foreach (var identityError in roleResult.Errors)
+                {
+                    ModelState.AddModelError(identityError.Code, identityError.Description);
+                    return View(registerVM);
+                }
+            }
+			
+			return View(nameof(Login));
+		}
+
+
+		//POST: AccountController/Edit/5
         [HttpPost]
 		[ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginVM loginVM)

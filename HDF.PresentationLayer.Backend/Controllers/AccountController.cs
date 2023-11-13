@@ -2,6 +2,7 @@
 using HDF.EntityLayer.Concrete;
 using HDF.PresentationLayer.Backend.ViewModels;
 using HDF.PresentationLayer.Backend.ViewModels.Account;
+using HDF.Utilities.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,36 +18,59 @@ namespace HDF.PresentationLayer.Backend.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        //[HttpPost]
-        //[AutoValidateAntiforgeryToken]
-        //public async Task<IActionResult> Register(RegisterVM registerVM)
-        //{
-        //    if (!ModelState.IsValid) return View(registerVM);
 
-        //    var dbUser = await _userManager.FindByNameAsync(registerVM.Username);
-        //    if (dbUser != null) return View(registerVM);
+        public async Task<IActionResult> Register(string username, string email, string password, string confirmPassword)
+        {
+            LoginVM login = new LoginVM();
+            login.Messages = new();
 
-        //    AppUser user = new()
-        //    {
-        //        UserName = registerVM.Username,
-        //        Email = registerVM.Email,
-        //        Avatar = "default.jpg"
-        //    };
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
+            {
+                if (username == null) login.Messages.Add("Username can't be null");
+                if (email == null) login.Messages.Add("Email can't be null");
+                if (password == null) login.Messages.Add("Password can't be null");
+                if (confirmPassword == null) login.Messages.Add("Confirm Password can't be null");
 
-        //    var result = await _userManager.CreateAsync(user,registerVM.Password);
-        //    if (!result.Succeeded)
-        //    {
-        //        foreach (var error in result.Errors)
-        //        {
-        //            ModelState.AddModelError("", error.Description);
-        //        }
-        //        return View(registerVM);
-        //    }
-        //    _userManager.AddToRoleAsync(user,);
+                return View("_LoginFailed",login);
+            }
+            if (confirmPassword != password) login.Messages.Add("Confirm Password must be same with password");
 
-        //}
+            var dbUser = await _userManager.FindByNameAsync(username);
+            if (dbUser != null) login.Messages.Add("This user is already exist");
 
-       
+            AppUser user = new()
+            {
+                UserName = username,
+                Email = email,
+                Avatar = "default.png"
+            };
+
+            var result = await _userManager.CreateAsync(user, password);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    login.Messages.Add(error.Description);
+                }
+                return View("_loginFailed", login);
+            }
+            
+            var roleResult = await _userManager.AddToRoleAsync(user, Role.User.ToString());
+            if (!roleResult.Succeeded)
+            {
+                foreach (var error in roleResult.Errors)
+                {
+                    login.Messages.Add(error.Description);
+                }
+                return View("_loginFailed", login);
+            }
+            else login.Messages.Add("You was signed up");
+
+            return View("_LoginSucceed", login);
+
+        }
+
+
         public async Task<IActionResult> Login(string username, string password)
         {
             LoginVM login = new();
@@ -69,7 +93,11 @@ namespace HDF.PresentationLayer.Backend.Controllers
             }
                 var result = await _signInManager.PasswordSignInAsync(user,password,false,false);
 
-            if (result.Succeeded) return View("_LoginSucceed", "Authentification was succeeded!");
+            if (result.Succeeded)
+            {
+                login.Messages.Add("Authentification was succeeded!");
+                return View("_LoginSucceed", login);
+            }
             else login.Messages = new List<string> { ("Username or Password is incorrect") };
 
             return View("_LoginFailed", login);

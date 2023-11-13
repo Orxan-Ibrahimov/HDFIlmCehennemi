@@ -11,11 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HDFContext>();
-builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<HDFContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<HDFContext>().AddDefaultTokenProviders();
 
-// Role 
-builder.Services.AddScoped<IAppRoleDAL, EFAppRoleDAL>();
-builder.Services.AddScoped<IAppRoleService, AppRoleManager>();
 
 // Cast 
 builder.Services.AddScoped<ICastDAL, EFCastDAL>();

@@ -9,12 +9,8 @@ using System.Threading.Tasks;
 
 namespace HDF.EntityLayer.Concrete
 {
-    public class AppUser : IdentityUser<int>
+    public class AppUser : IdentityUser
     {
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Surname { get; set; }
         public string? Avatar { get; set; }
         public List<Movie>? Followings { get; set; }
         public List<Movie>? Watchings { get; set; }

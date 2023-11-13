@@ -1,7 +1,10 @@
-﻿@model string
+﻿@model LoginVM
 @{
     Layout = null;
 }
 <div class="p-4 bg-success">
-    <p class="text-white">@Model</p>
+    @foreach (string message in Model.Messages)
+    {
+        <p class="text-white">@message</p>
+    }
 </div>

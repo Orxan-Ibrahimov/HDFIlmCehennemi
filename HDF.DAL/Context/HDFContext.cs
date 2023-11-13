@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace HDF.DAL.Context
 {
-    public class HDFContext : IdentityDbContext<AppUser,AppRole,int>
+    public class HDFContext : IdentityDbContext<AppUser,IdentityRole,string>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -130,30 +130,7 @@ namespace HDF.DAL.Context
              .HasForeignKey(m => m.MovieId)
              .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.Entity<AppRole>()
-                .HasData(
-                new AppRole
-                {
-                    Id = 1,
-                    Name = "Admin",
-                    
-                },
-                new AppRole
-                {
-                    Id = 2,
-                    Name = "Supervisor",
-                },
-                new AppRole
-                {
-                    Id = 3,
-                    Name = "Project Manager",
-                },
-                new AppRole
-                {
-                    Id = 4,
-                    Name = "Worker",
-                }
-                );
+        
         }
     }
 }

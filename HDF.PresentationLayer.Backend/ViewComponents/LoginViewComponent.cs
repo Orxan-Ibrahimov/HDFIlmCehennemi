@@ -9,6 +9,7 @@ namespace HDF.PresentationLayer.Backend.ViewComponents
         {
             LoginVM loginVM = new LoginVM();
             return View(await Task.FromResult(loginVM));
+            //return View();
         }
     }
 }

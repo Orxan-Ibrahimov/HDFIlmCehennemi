@@ -11,7 +11,7 @@ namespace HDF.EntityLayer.Concrete
     public class Comment: BaseEntity
     {
         public string Message { get; set; }
-        public int? UserId { get; set; }
+        public string? UserId { get; set; }
         [ForeignKey("UserId")]
         public AppUser User { get; set; }
         public int? MovieId { get; set; }
