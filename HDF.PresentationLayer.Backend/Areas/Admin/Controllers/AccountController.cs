@@ -57,26 +57,42 @@ namespace HDF.PresentationLayer.Backend.Areas.Admin.Controllers
             return View(admin);           
 		}
 
-		//POST: AccountController/Create
-	   [HttpPost]
-	   [ValidateAntiForgeryToken]
-		public async Task<ActionResult> Register(RegisterVM registerVM)
-		{
-           
+        //POST: AccountController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterVM registerVM)
+        {
+
             registerVM.Roles = new List<RoleVM>();
 
             foreach (var role in Enum.GetNames(typeof(Role)))
             {
                 registerVM.Roles.Add(new RoleVM { Name = role });
-            };           
+            };
 
-			if (!ModelState.IsValid) return View(registerVM);
-			AppUser appuser = new AppUser
+            if (!ModelState.IsValid) return View(registerVM);
+
+            var dbUserForUsername = await _userManager.FindByNameAsync(registerVM.User.UserName);
+            if (dbUserForUsername != null)
+            {
+                ModelState.AddModelError("", "UserName is already Exist!");
+                return View(registerVM);
+            }
+
+            var dbUserForEmail = await _userManager.FindByNameAsync(registerVM.User.Email);
+            if (dbUserForEmail != null)
+            {
+                ModelState.AddModelError("", "Email is already Exist!");
+                return View(registerVM);
+            }
+            AppUser appuser = new AppUser
 			{
 				Email = registerVM.User.Email,
 				UserName = registerVM.User.UserName,
 				Avatar = "default.png"
 			};
+
+
 
 			var result = await _userManager.CreateAsync(appuser, registerVM.Password);
 			if (!result.Succeeded)

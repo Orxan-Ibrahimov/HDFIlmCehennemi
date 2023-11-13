@@ -35,8 +35,11 @@ namespace HDF.PresentationLayer.Backend.Controllers
             }
             if (confirmPassword != password) login.Messages.Add("Confirm Password must be same with password");
 
-            var dbUser = await _userManager.FindByNameAsync(username);
-            if (dbUser != null) login.Messages.Add("This user is already exist");
+            var dbUserForUsername = await _userManager.FindByNameAsync(username);
+            if (dbUserForUsername != null) login.Messages.Add("This username is already exist");
+
+            var dbUserForEmail = await _userManager.FindByNameAsync(username);
+            if (dbUserForEmail != null) login.Messages.Add("This email is already exist");
 
             AppUser user = new()
             {
